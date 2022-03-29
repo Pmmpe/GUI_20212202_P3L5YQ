@@ -4,9 +4,10 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:King_of_the_Hill"
+        xmlns:renderer="clr-namespace:King_of_the_Hill.Renderer.Display"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="900" Width="1600">
     <Grid>
-
+        <renderer:Display x:Name="display"/>
     </Grid>
 </Window>

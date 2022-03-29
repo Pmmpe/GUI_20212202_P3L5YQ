@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace King_of_the_Hill.Model
 {
-    public class Charachter
+    public class Character
     {
         public string Name { get; set; }
 
@@ -16,7 +16,7 @@ namespace King_of_the_Hill.Model
         public double Armour { get; set; }
         public double Speed { get; private set; }
 
-        public Charachter(double Health, double Armour, double Speed, Size gameArea, int itemRadius)
+        public Character(double Health, double Armour, double Speed, Size gameArea, int itemRadius)
         {
             this.Health = Health;
             this.Armour = Armour;
