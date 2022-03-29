@@ -4,9 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace King_of_the_Hill.Display
+namespace King_of_the_Hill.Logic.Controller
 {
-    internal class Display
+    public interface ICharachterModel
     {
+        event EventHandler Changed;
     }
 }
