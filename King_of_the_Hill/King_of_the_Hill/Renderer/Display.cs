@@ -33,7 +33,7 @@ namespace King_of_the_Hill.Renderer.Display
 
         public void SetupModel(ICharachterModel charachterModel)
         {
-            //this.charachterController = charachterController;
+            this.charachterModel = charachterModel;
             //this.charachterController.Changed +=
             //    (sender, args) => this.InvalidateVisual();
         }
@@ -67,7 +67,7 @@ namespace King_of_the_Hill.Renderer.Display
                 //drawingContext.DrawRectangle(shipBrush, null,
                 //    new Rect(r.X, r.Y, r.Width, r.Height));
                 //drawingContext.Pop();
-                this.InvalidateVisual();
+                //this.InvalidateVisual();
             }
         }
     }
