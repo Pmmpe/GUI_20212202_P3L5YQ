@@ -9,6 +9,11 @@ namespace King_of_the_Hill.Logic
 {
     public class CharachterController : ICharachterController
     {
+        ICharachterController charachterController;
+        public CharachterController(ICharachterController charachterController)
+        {
+            this.charachterController = charachterController;
+        }
         public void Attack()
         {
             throw new NotImplementedException();
@@ -19,7 +24,7 @@ namespace King_of_the_Hill.Logic
             throw new NotImplementedException();
         }
 
-        public void Rotate(double angle)
+        public void MoveGameitem()
         {
             throw new NotImplementedException();
         }

@@ -1,0 +1,23 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v5.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v5.0": {
+      "King_of_the_Hill/1.0.0": {
+        "runtime": {
+          "King_of_the_Hill.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "King_of_the_Hill/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

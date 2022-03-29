@@ -1,4 +1,5 @@
 ﻿using King_of_the_Hill.Logic.Controller;
+using King_of_the_Hill.Logic.LogicModelInterface;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -13,7 +14,7 @@ namespace King_of_the_Hill.Renderer.Display
 {
     public class Display : FrameworkElement
     {
-        ICharachterModel charachterModel;
+        IPlayerModel playerModel;
         Size area;
         Brush playerBrush;
         Brush npcBrush;
@@ -31,9 +32,9 @@ namespace King_of_the_Hill.Renderer.Display
             arrowBrush = Brushes.Red;
         }
 
-        public void SetupModel(ICharachterModel charachterModel)
+        public void SetupModel(IPlayerModel playerModel)
         {
-            this.charachterModel = charachterModel;
+            this.playerModel = playerModel;
             //this.charachterController.Changed +=
             //    (sender, args) => this.InvalidateVisual();
         }
@@ -41,8 +42,10 @@ namespace King_of_the_Hill.Renderer.Display
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            if (/*charachterController != null &&*/ ActualWidth > 0 && ActualHeight > 0)
+            if (playerModel != null && ActualWidth > 0 && ActualHeight > 0)
             {
+                drawingContext.PushTransform(
+                    new TranslateTransform(playerModel.player.PosX, playerModel.player.PosY));
                 //(háttér)
                 drawingContext.DrawRectangle(backgroundBrush, null,
                     new Rect(0, 0, ActualWidth, area.Height));
@@ -59,10 +62,7 @@ namespace King_of_the_Hill.Renderer.Display
                 //        new Point(item.Center.X, item.Center.Y),
                 //        item.ItemRadius, item.ItemRadius);
                 //}
-                ////űrhajó
-                //drawingContext.PushTransform(
-                //    new RotateTransform(charachterController.Ship.Angle,
-                //    charachterController.Ship.Center.X, charachterController.Ship.Center.Y));
+                
                 //var r = charachterController.Ship.Rectangle;
                 //drawingContext.DrawRectangle(shipBrush, null,
                 //    new Rect(r.X, r.Y, r.Width, r.Height));

@@ -7,12 +7,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Drawing;
 
 namespace King_of_the_Hill.Logic
 {
     public class PlayerLogic : ICharachterController, IPlayerModel
     {
         public Player player { get; set; }
+        System.Drawing.Size gameArea;
 
         public enum Controls
         {
@@ -59,15 +61,20 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        public void Rotate(double angle)
+        public void SetupSize(int width, int height)
         {
-            //player.Angle += angle;
-            //Changed?.Invoke(this, null);
+            gameArea = new System.Drawing.Size(width, height);
+            player = new Player(100,100,10,gameArea, 30);
         }
 
         public void Shoot()
         {
             MessageBox.Show("Shooted");
+        }
+
+        public void MoveGameitem()
+        {
+            MessageBox.Show("Moved");
         }
     }
 }

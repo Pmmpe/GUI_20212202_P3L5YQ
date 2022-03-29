@@ -1,4 +1,5 @@
 ﻿using King_of_the_Hill.Logic;
+using King_of_the_Hill.Logic.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace King_of_the_Hill
 {
@@ -22,11 +24,14 @@ namespace King_of_the_Hill
     public partial class MainWindow : Window
     {
         PlayerLogic playerLogic;
+        ICharachterController charachterController;
         public MainWindow()
         {
             InitializeComponent();
             PlayerLogic playerLogic = new PlayerLogic();
+            display.SetupModel(playerLogic);
         }
+
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
@@ -75,6 +80,25 @@ namespace King_of_the_Hill
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     break;
             }
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            playerLogic = new PlayerLogic();
+            playerLogic.SetupSize((int)display.ActualWidth,
+                (int)display.ActualHeight);
+            charachterController = new CharachterController(playerLogic);
+            display.SetupModel(playerLogic); //de itt nem null b+;
+
+            DispatcherTimer dt = new DispatcherTimer();
+            dt.Interval = TimeSpan.FromMilliseconds(100);
+            dt.Tick += Dt_Tick;
+            dt.Start();
+        }
+
+        private void Dt_Tick(object sender, EventArgs e)
+        {
+            //playerLogic.MoveGameItems();
         }
     }
 }
