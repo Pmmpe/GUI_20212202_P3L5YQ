@@ -25,9 +25,7 @@ namespace King_of_the_Hill.Renderer.Display
         Brush arrowBrush;
 
         MapLogic mapLogic;
-        int maxMapNumber;
-        int actualMapNumber;
-        string difficulty;
+        
 
         public Display()
         {
@@ -36,7 +34,6 @@ namespace King_of_the_Hill.Renderer.Display
             backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
             arrowBrush = Brushes.Red;
-            actualMapNumber = 1;
         }
 
         public void SetupModel(IPlayerModel playerModel)
@@ -49,24 +46,6 @@ namespace King_of_the_Hill.Renderer.Display
         public void SetupMapLogic(MapLogic mapLogic)
         {
             this.mapLogic = mapLogic;
-        }
-
-        public void SetDifficulty(string difficulty)
-        {
-            this.difficulty = difficulty;
-            if (difficulty == "Easy")
-            {
-                maxMapNumber = 2;
-            }
-            else if (difficulty == "Medium")
-            {
-                maxMapNumber = 4;
-            }
-            else
-            {
-                maxMapNumber = 5;
-            }
-            InvalidateVisual();
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -99,46 +78,20 @@ namespace King_of_the_Hill.Renderer.Display
                 //    new Rect(r.X, r.Y, r.Width, r.Height));
                 //drawingContext.Pop();
 
-                switch (actualMapNumber)
+                foreach (var item in mapLogic.Grounds)
                 {
-                    case 1:
-                        mapLogic.Grounds.Add(new Ground(0, (int)ActualHeight - 100, 400, 100));
-                        mapLogic.Grounds.Add(new Ground(600, (int)ActualHeight - 100, 800, 100));
-                        mapLogic.Grounds.Add(new Lava(400, (int)ActualHeight - 100, 200, 100));
-                        mapLogic.Grounds.Add(new Lava(1400, (int)ActualHeight - 100, (int)ActualWidth, 100));
-                        mapLogic.Grounds.Add(new Platform(1000, 250, 500, 25));
-                        mapLogic.Grounds.Add(new Platform(100, 155, 100, 25));
-                        
-                        //ha jól be lesznek állítva a player adatai akkor jó lesz ez a platform. Addig csak be van rakva alá egy.
-                        //mapLogic.Grounds.Add(new Platform((int)playerModel.player.PosX, (int)playerModel.player.PosY + 60, 100, 25));
-                        
-
-                        foreach (var item in mapLogic.Grounds)
-                        {
-                            if (item is Ground)
-                            {
-                                drawingContext.DrawRectangle(Brushes.Green, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
-                            }
-                            else if (item is Lava)
-                            {
-                                drawingContext.DrawRectangle(Brushes.Red, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
-                            }
-                            else if (item is Platform)
-                            {
-                                drawingContext.DrawRectangle(Brushes.LightBlue, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
-                            }
-                            
-                        }
-
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    case 4:
-                        break;
-                    case 5:
-                        break;
+                    if (item is Ground)
+                    {
+                        drawingContext.DrawRectangle(Brushes.Green, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
+                    }
+                    else if (item is Lava)
+                    {
+                        drawingContext.DrawRectangle(Brushes.Red, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
+                    }
+                    else if (item is Platform)
+                    {
+                        drawingContext.DrawRectangle(Brushes.LightBlue, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
+                    }
                 }
 
             }

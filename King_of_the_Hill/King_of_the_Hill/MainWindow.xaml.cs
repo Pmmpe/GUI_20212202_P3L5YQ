@@ -25,6 +25,7 @@ namespace King_of_the_Hill
     public partial class MainWindow : Window
     {
         PlayerLogic playerLogic;
+        MapLogic mapLogic;
         ICharachterController charachterController;
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
@@ -88,8 +89,9 @@ namespace King_of_the_Hill
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            MapLogic mapLogic = new MapLogic();
-            mapLogic.SetupSizes();
+            mapLogic = new MapLogic();
+            mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
+            mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             display.SetupMapLogic(mapLogic);
 
             for (int i = 0; i < inv.Length; i++)
@@ -213,6 +215,7 @@ namespace King_of_the_Hill
         {
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
+            mapLogic.NextMap(); //következő pálya indítása, jelent esetben az első pálya indul.
             display.InvalidateVisual();
         }
 
@@ -225,19 +228,19 @@ namespace King_of_the_Hill
         private void Easy_Click(object sender, RoutedEventArgs e)
         {
             label_difficulty.Content = "Current Difficulty: Easy";
-            display.SetDifficulty("Easy");
+            mapLogic.SetDifficulty("Easy");
         }
 
         private void Medium_Click(object sender, RoutedEventArgs e)
         {
             label_difficulty.Content = "Current Difficulty: Medium";
-            display.SetDifficulty("Medium");
+            mapLogic.SetDifficulty("Medium");
         }
 
         private void Hard_Click(object sender, RoutedEventArgs e)
         {
             label_difficulty.Content = "Current Difficulty: Hard";
-            display.SetDifficulty("Hard");
+            mapLogic.SetDifficulty("Hard");
         }
 
         private void BackToMenu_Click(object sender, RoutedEventArgs e)
