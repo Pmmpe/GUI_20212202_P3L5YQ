@@ -1,9 +1,0 @@
-{
-  "runtimeOptions": {
-    "additionalProbingPaths": [
-      "C:\\Users\\Pmmpe\\.dotnet\\store\\|arch|\\|tfm|",
-      "C:\\Users\\Pmmpe\\.nuget\\packages",
-      "C:\\Programok\\Visual Studio 2019 Shared Components\\NuGetPackages"
-    ]
-  }
-}
