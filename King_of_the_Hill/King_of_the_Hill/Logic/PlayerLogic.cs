@@ -13,8 +13,11 @@ namespace King_of_the_Hill.Logic
 {
     public class PlayerLogic : ICharachterController, IPlayerModel
     {
+        
+
         public Player player { get; set; }
         System.Drawing.Size gameArea;
+        InventorySlot[] inv;
 
         public enum Controls
         {
@@ -65,6 +68,11 @@ namespace King_of_the_Hill.Logic
         {
             gameArea = new System.Drawing.Size(width, height);
             player = new Player(100,100,10,gameArea, 30);
+        }
+
+        public void InventorySetup(ref InventorySlot[] inv)
+        {
+            this.inv = inv;
         }
 
         public void Shoot()

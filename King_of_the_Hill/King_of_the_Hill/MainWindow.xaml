@@ -8,6 +8,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600" KeyDown="Window_KeyDown" Loaded="Window_Loaded">
     <Grid>
-        <renderer:Display x:Name="display"/>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="1*"/>
+            <RowDefinition Height="9*"/>
+        </Grid.RowDefinitions>
+        <StackPanel x:Name="stackpanel" Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
+            
+        </StackPanel>
+        <renderer:Display x:Name="display" Grid.Row="1"/>
     </Grid>
 </Window>

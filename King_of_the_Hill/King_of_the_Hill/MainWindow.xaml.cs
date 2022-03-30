@@ -1,5 +1,6 @@
 ﻿using King_of_the_Hill.Logic;
 using King_of_the_Hill.Logic.Controller;
+using King_of_the_Hill.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,6 +26,9 @@ namespace King_of_the_Hill
     {
         PlayerLogic playerLogic;
         ICharachterController charachterController;
+        InventorySlot[] inv = new InventorySlot[5];
+        Brush defaultInventoryBackground = Brushes.Aqua;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -72,11 +76,11 @@ namespace King_of_the_Hill
                     playerLogic.Control(PlayerLogic.Controls.S);
                     break;
 
-                case (Key.W):
+                case Key.W:
                     playerLogic.Control(PlayerLogic.Controls.W);
                     break;
 
-                case (Key.Space):
+                case Key.Space:
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     break;
             }
@@ -84,6 +88,22 @@ namespace King_of_the_Hill
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            for (int i = 0; i < inv.Length; i++)
+            {
+                inv[i] = new InventorySlot();
+                Label label = new Label();
+                label.Content = 0;
+                label.Background = defaultInventoryBackground;
+                label.Padding = new Thickness(0, 30, 40, 0);
+                label.Margin = new Thickness(15, 0, 0, 0);
+                label.FontSize = 50;
+                label.Tag = i;
+                stackpanel.Children.Add(label);
+                inv[i].Count = 0;
+                inv[i].Label = label;
+            }
+
+
             playerLogic = new PlayerLogic();
             playerLogic.SetupSize((int)display.ActualWidth,
                 (int)display.ActualHeight);
@@ -99,6 +119,66 @@ namespace King_of_the_Hill
         private void Dt_Tick(object sender, EventArgs e)
         {
             //playerLogic.MoveGameItems();
+        }
+
+        private void InventoryItemAdd(int number, int amount)
+        {
+            bool done = false;
+            for (int i = 0; i < inv.Length; i++)
+            {
+                if (!done && (int)((Label)inv[i].Label).Tag == number)
+                {
+                    inv[i].Count = amount;
+                    ((Label)inv[i].Label).Content = inv[i].Count;
+                    done = true;
+                }
+            }
+            if (!done)
+            {
+                for (int i = 0; i < inv.Length; i++)
+                {
+                    if (!done && (int)((Label)inv[i].Label).Tag == number)
+                    {
+                        inv[i].Count = amount;
+                        ((Label)inv[i].Label).Content = inv[i].Count;
+                        done = true;
+                    }
+                }
+            }
+        }
+
+        private void InventoryItemDelete(int number)
+        {
+            for (int i = 0; i < inv.Length; i++)
+            {
+                if ((int)((Label)inv[i].Label).Tag == number)
+                {
+                    if (inv[i].Count > 1)
+                    {
+                        inv[i].Count--;
+                        ((Label)inv[i].Label).Content = inv[i].Count;
+                    }
+                    else
+                    {
+                        inv[i].Count = 0;
+                        ((Label)inv[i].Label).Content = 0;
+                        ((Label)inv[i].Label).Background = defaultInventoryBackground;
+                    }
+                }
+            }
+        }
+
+        private void InventoryAllItemDelete(int number)
+        {
+            for (int i = 0; i < inv.Length; i++)
+            {
+                if ((int)((Label)inv[i].Label).Tag == number)
+                {
+                    inv[i].Count = 0;
+                    ((Label)inv[i].Label).Content = 0;
+                    ((Label)inv[i].Label).Background = defaultInventoryBackground;
+                }
+            }
         }
     }
 }
