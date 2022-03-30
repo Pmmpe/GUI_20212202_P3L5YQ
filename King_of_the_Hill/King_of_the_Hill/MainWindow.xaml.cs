@@ -34,7 +34,6 @@ namespace King_of_the_Hill
             InitializeComponent();
             PlayerLogic playerLogic = new PlayerLogic();
             display.SetupModel(playerLogic);
-            display.MapNumber = 1;
         }
 
 
@@ -89,6 +88,10 @@ namespace King_of_the_Hill
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            MapLogic mapLogic = new MapLogic();
+            mapLogic.SetupSizes();
+            display.SetupMapLogic(mapLogic);
+
             for (int i = 0; i < inv.Length; i++)
             {
                 inv[i] = new InventorySlot();
@@ -186,6 +189,7 @@ namespace King_of_the_Hill
         {
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
+            display.InvalidateVisual();
         }
 
         private void Settings_Click(object sender, RoutedEventArgs e)
@@ -197,16 +201,19 @@ namespace King_of_the_Hill
         private void Easy_Click(object sender, RoutedEventArgs e)
         {
             label_difficulty.Content = "Current Difficulty: Easy";
+            display.SetDifficulty("Easy");
         }
 
         private void Medium_Click(object sender, RoutedEventArgs e)
         {
             label_difficulty.Content = "Current Difficulty: Medium";
+            display.SetDifficulty("Medium");
         }
 
         private void Hard_Click(object sender, RoutedEventArgs e)
         {
             label_difficulty.Content = "Current Difficulty: Hard";
+            display.SetDifficulty("Hard");
         }
 
         private void BackToMenu_Click(object sender, RoutedEventArgs e)
