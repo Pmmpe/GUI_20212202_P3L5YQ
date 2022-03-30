@@ -1,5 +1,4 @@
 ﻿using King_of_the_Hill.Logic;
-using King_of_the_Hill.Logic.Controller;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,81 +23,41 @@ namespace King_of_the_Hill
     public partial class MainWindow : Window
     {
         PlayerLogic playerLogic;
-        ICharachterController charachterController;
         public MainWindow()
         {
             InitializeComponent();
-            PlayerLogic playerLogic = new PlayerLogic();
+            playerLogic = new PlayerLogic();
             display.SetupModel(playerLogic);
-        }
-
-
-        private void Window_KeyDown(object sender, KeyEventArgs e)
-        {
-            switch (e.Key)
-            {
-                case Key.Left:
-                    playerLogic.Control(PlayerLogic.Controls.A);
-                    break;
-                case Key.Up:
-                    playerLogic.Control(PlayerLogic.Controls.W);
-                    break;
-
-                case Key.Right:
-                    playerLogic.Control(PlayerLogic.Controls.D);
-                    break;
-
-                case Key.Down:
-                    playerLogic.Control(PlayerLogic.Controls.S);
-                    break;       
-                    
-                case Key.A:
-                    playerLogic.Control(PlayerLogic.Controls.A);
-                    break;
-               
-                case Key.D:
-                    playerLogic.Control(PlayerLogic.Controls.D);
-                    break;
-
-                case Key.E:
-                    playerLogic.Control(PlayerLogic.Controls.E);
-                    break;
-                
-                case Key.Q:
-                    playerLogic.Control(PlayerLogic.Controls.Q);
-                    break;
-
-                case Key.S:
-                    playerLogic.Control(PlayerLogic.Controls.S);
-                    break;
-
-                case (Key.W):
-                    playerLogic.Control(PlayerLogic.Controls.W);
-                    break;
-
-                case (Key.Space):
-                    playerLogic.Control(PlayerLogic.Controls.Space);
-                    break;
-            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            playerLogic = new PlayerLogic();
-            playerLogic.SetupSize((int)display.ActualWidth,
-                (int)display.ActualHeight);
-            charachterController = new CharachterController(playerLogic);
-            display.SetupModel(playerLogic); //de itt nem null b+;
-
-            DispatcherTimer dt = new DispatcherTimer();
-            dt.Interval = TimeSpan.FromMilliseconds(100);
-            dt.Tick += Dt_Tick;
-            dt.Start();
+            display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
         }
 
-        private void Dt_Tick(object sender, EventArgs e)
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            //playerLogic.MoveGameItems();
+            display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
+        }
+
+        private void Window_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.A)
+            {
+                playerLogic.Control(PlayerLogic.Controls.A);
+            }
+            else if (e.Key == Key.D)
+            {
+                playerLogic.Control(PlayerLogic.Controls.D);
+            }
+            else if (e.Key == Key.W)
+            {
+                playerLogic.Control(PlayerLogic.Controls.W);
+            }
+            else if (e.Key == Key.S)
+            {
+                playerLogic.Control(PlayerLogic.Controls.S);
+            }
         }
     }
 }
