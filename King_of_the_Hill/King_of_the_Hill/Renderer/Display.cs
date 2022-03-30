@@ -44,8 +44,9 @@ namespace King_of_the_Hill.Renderer.Display
             base.OnRender(drawingContext);
             if (playerModel != null && ActualWidth > 0 && ActualHeight > 0)
             {
-                drawingContext.PushTransform(
-                    new TranslateTransform(playerModel.player.PosX, playerModel.player.PosY));
+                //null reference
+                //drawingContext.PushTransform(
+                //    new TranslateTransform(playerModel.player.PosX, playerModel.player.PosY));
                 //(háttér)
                 drawingContext.DrawRectangle(backgroundBrush, null,
                     new Rect(0, 0, ActualWidth, area.Height));
