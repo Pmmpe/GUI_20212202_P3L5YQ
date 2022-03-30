@@ -106,6 +106,30 @@ namespace King_of_the_Hill
                 inv[i].Count = 0;
                 inv[i].Label = label;
             }
+            ProgressBar ShieldprogressBar = new ProgressBar();
+            ShieldprogressBar.Maximum = 100;
+            ShieldprogressBar.Value = 50;
+            ShieldprogressBar.Width = 300;
+            ShieldprogressBar.Margin = new Thickness(300, 10, 0, 10);
+            stackpanel.Children.Add(ShieldprogressBar);
+            Label ShieldLabel = new Label();
+            ShieldLabel.Content = "Shield";
+            ShieldLabel.FontSize = 50;
+            ShieldLabel.Padding = new Thickness(0, 10, 0, 0);
+            ShieldLabel.Margin = new Thickness(15, 0, 0, 0);
+            stackpanel.Children.Add(ShieldLabel);
+            ProgressBar HPprogressBar = new ProgressBar();
+            HPprogressBar.Maximum = 100;
+            HPprogressBar.Value = 50;
+            HPprogressBar.Width = 300;
+            HPprogressBar.Margin = new Thickness(15, 10, 0, 10);
+            stackpanel.Children.Add(HPprogressBar);
+            Label HPLabel = new Label();
+            HPLabel.Content = "HP";
+            HPLabel.FontSize = 50;
+            HPLabel.Padding = new Thickness(0, 10, 0, 0);
+            HPLabel.Margin = new Thickness(15, 0, 0, 0);
+            stackpanel.Children.Add(HPLabel);
 
 
             playerLogic = new PlayerLogic();
