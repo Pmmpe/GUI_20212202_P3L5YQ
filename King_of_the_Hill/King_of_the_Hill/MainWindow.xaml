@@ -8,13 +8,27 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600" KeyDown="Window_KeyDown" Loaded="Window_Loaded">
     <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="1*"/>
-            <RowDefinition Height="9*"/>
-        </Grid.RowDefinitions>
-        <StackPanel x:Name="stackpanel" Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft">
-            
+        <Grid x:Name="gamegrid" Visibility="Hidden">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="1*"/>
+                <RowDefinition Height="9*"/>
+            </Grid.RowDefinitions>
+            <StackPanel x:Name="stackpanel" Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft"/>
+            <renderer:Display x:Name="display" Grid.Row="1"/>
+        </Grid>
+        <StackPanel x:Name="menu">
+            <Label Content="King of The Hill" FontSize="75" FontWeight="Bold" HorizontalContentAlignment="Center" Margin="0,50,0,0"/>
+            <Button Content="Play" FontSize="55" HorizontalContentAlignment="Center" Margin="600,50,600,0" Padding="15" Click="Play_Click"/>
+            <Button Content="Settings" FontSize="55" HorizontalContentAlignment="Center" Margin="600,50,600,0" Padding="15" Click="Settings_Click"/>
         </StackPanel>
-        <renderer:Display x:Name="display" Grid.Row="1"/>
+        <StackPanel x:Name="difficulty_select" Visibility="Hidden">
+            <Label Content="Choose Difficulty" FontSize="75" FontWeight="Bold" HorizontalContentAlignment="Center" Margin="0,50,0,0"/>
+            <Label x:Name="label_difficulty" Content="Current Difficulty: Easy" FontSize="55" FontWeight="Bold" HorizontalContentAlignment="Center"/>
+            
+            <Button Content="Easy" FontSize="55" HorizontalContentAlignment="Center" Margin="600,50,600,0" Padding="5" Click="Easy_Click"/>
+            <Button Content="Medium" FontSize="55" HorizontalContentAlignment="Center" Margin="600,50,600,0" Padding="5" Click="Medium_Click"/>
+            <Button Content="Hard" FontSize="55" HorizontalContentAlignment="Center" Margin="600,50,600,0" Padding="5" Click="Hard_Click"/>
+            <Button Content="Back to menu" FontSize="55" HorizontalContentAlignment="Center" Margin="600,50,600,0" Padding="5" Click="BackToMenu_Click"/>
+        </StackPanel>
     </Grid>
 </Window>
