@@ -200,7 +200,7 @@
 
         private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
         {
-            display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
+            display.SetupSizes(new Size(gamegrid.ActualWidth, gamegrid.ActualHeight));
         }
     }
 }
