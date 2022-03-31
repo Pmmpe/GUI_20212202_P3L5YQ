@@ -1,94 +1,58 @@
-﻿using King_of_the_Hill.Logic;
-using King_of_the_Hill.Logic.Controller;
-using King_of_the_Hill.Model;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
-using System.Windows.Threading;
-
-namespace King_of_the_Hill
+﻿namespace King_of_the_Hill
 {
+    using King_of_the_Hill.Logic;
+    using King_of_the_Hill.Model;
+    using System.Windows;
+    using System.Windows.Controls;
+    using System.Windows.Input;
+    using System.Windows.Media;
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
     public partial class MainWindow : Window
     {
+        #region Initialization
         PlayerLogic playerLogic;
         MapLogic mapLogic;
-        ICharachterController charachterController;
+
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
+        #endregion
 
         public MainWindow()
         {
             InitializeComponent();
-            PlayerLogic playerLogic = new PlayerLogic();
+            playerLogic = new PlayerLogic();
             display.SetupModel(playerLogic);
         }
 
-
+        #region CharMoving
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            switch (e.Key)
+            if (e.Key == Key.A)
             {
-                case Key.Left:
-                    playerLogic.Control(PlayerLogic.Controls.A);
-                    break;
-                case Key.Up:
-                    playerLogic.Control(PlayerLogic.Controls.W);
-                    break;
-
-                case Key.Right:
-                    playerLogic.Control(PlayerLogic.Controls.D);
-                    break;
-
-                case Key.Down:
-                    playerLogic.Control(PlayerLogic.Controls.S);
-                    break;       
-                    
-                case Key.A:
-                    playerLogic.Control(PlayerLogic.Controls.A);
-                    break;
-               
-                case Key.D:
-                    playerLogic.Control(PlayerLogic.Controls.D);
-                    break;
-
-                case Key.E:
-                    playerLogic.Control(PlayerLogic.Controls.E);
-                    break;
-                
-                case Key.Q:
-                    playerLogic.Control(PlayerLogic.Controls.Q);
-                    break;
-
-                case Key.S:
-                    playerLogic.Control(PlayerLogic.Controls.S);
-                    break;
-
-                case Key.W:
-                    playerLogic.Control(PlayerLogic.Controls.W);
-                    break;
-
-                case Key.Space:
-                    playerLogic.Control(PlayerLogic.Controls.Space);
-                    break;
+                playerLogic.Control(PlayerLogic.Controls.A);
+            }
+            else if (e.Key == Key.D)
+            {
+                playerLogic.Control(PlayerLogic.Controls.D);
+            }
+            else if (e.Key == Key.W)
+            {
+                playerLogic.Control(PlayerLogic.Controls.W);
+            }
+            else if (e.Key == Key.S)
+            {
+                playerLogic.Control(PlayerLogic.Controls.S);
             }
         }
 
+        #endregion
+
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
+            display.SetupSizes(new Size(gamegrid.ActualWidth, gamegrid.ActualHeight));
+
             mapLogic = new MapLogic();
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
@@ -132,25 +96,9 @@ namespace King_of_the_Hill
             HPLabel.Padding = new Thickness(0, 10, 0, 0);
             HPLabel.Margin = new Thickness(15, 0, 0, 0);
             stackpanel.Children.Add(HPLabel);
-
-
-            playerLogic = new PlayerLogic();
-            playerLogic.SetupSize((int)display.ActualWidth,
-                (int)display.ActualHeight);
-            charachterController = new CharachterController(playerLogic);
-            display.SetupModel(playerLogic); //de itt nem null b+;
-
-            DispatcherTimer dt = new DispatcherTimer();
-            dt.Interval = TimeSpan.FromMilliseconds(100);
-            dt.Tick += Dt_Tick;
-            dt.Start();
         }
 
-        private void Dt_Tick(object sender, EventArgs e)
-        {
-            //playerLogic.MoveGameItems();
-        }
-
+        #region InventoryAndMenu
         private void InventoryItemAdd(int number, int amount)
         {
             bool done = false;
@@ -247,6 +195,12 @@ namespace King_of_the_Hill
         {
             difficulty_select.Visibility = Visibility.Hidden;
             menu.Visibility = Visibility.Visible;
+        }
+        #endregion
+
+        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            display.SetupSizes(new Size(grid.ActualWidth, grid.ActualHeight));
         }
     }
 }

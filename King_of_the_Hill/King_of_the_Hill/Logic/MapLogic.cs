@@ -1,12 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using System.Collections.Generic;
+    using System.Drawing;
     public class MapLogic
     {
         public List<IMapItem> Grounds { get; set; }

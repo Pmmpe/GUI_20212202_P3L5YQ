@@ -1,28 +1,21 @@
-﻿using King_of_the_Hill.Logic;
-using King_of_the_Hill.Logic.Controller;
-using King_of_the_Hill.Logic.LogicModelInterface;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-
-namespace King_of_the_Hill.Renderer.Display
+﻿namespace King_of_the_Hill.Renderer.Display
 {
+    using King_of_the_Hill.Logic;
+    using System;
+    using System.IO;
+    using System.Windows;
+    using System.Windows.Media;
+    using System.Windows.Media.Imaging;
     public class Display : FrameworkElement
     {
-        IPlayerModel playerModel;
         Size area;
-        Brush playerBrush;
-        Brush npcBrush;
-        Brush backgroundBrush;
-        Brush backgroundTileset1Brush;
-        Brush backgroundTileset2Brush;
-        Brush arrowBrush;
+        IGameModel model;
+        public Brush playerBrush;
+        public Brush npcBrush;
+        public Brush backgroundBrush;
+        public Brush backgroundTileset1Brush;
+        public Brush backgroundTileset2Brush;
+        public Brush arrowBrush;
 
         MapLogic mapLogic;
         
@@ -36,11 +29,17 @@ namespace King_of_the_Hill.Renderer.Display
             arrowBrush = Brushes.Red;
         }
 
-        public void SetupModel(IPlayerModel playerModel)
+        public void SetupModel(IGameModel model)
         {
-            this.playerModel = playerModel;
-            //this.charachterController.Changed +=
-            //    (sender, args) => this.InvalidateVisual();
+            this.model = model;
+            this.model.Changed
+                += (sender, eventargs) => this.InvalidateVisual();
+        }
+
+        public void SetupSizes(Size Area)
+        {
+            this.area = Area;
+            this.InvalidateVisual();
         }
 
         public void SetupMapLogic(MapLogic mapLogic)
@@ -51,32 +50,21 @@ namespace King_of_the_Hill.Renderer.Display
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            if (playerModel != null && mapLogic != null && ActualWidth > 0 && ActualHeight > 0)
+            if (model != null && mapLogic != null && ActualWidth > 0 && ActualHeight > 0)
             {
-                //null reference
-                //drawingContext.PushTransform(
-                //    new TranslateTransform(playerModel.player.PosX, playerModel.player.PosY));
-                //(háttér)
+
                 drawingContext.DrawRectangle(backgroundBrush, null,
                     new Rect(0, 0, ActualWidth, area.Height));
                 drawingContext.DrawRectangle(backgroundTileset1Brush, null,
                     new Rect(0, 0, ActualWidth, ActualHeight));
                 drawingContext.DrawRectangle(backgroundTileset2Brush, null,
                     new Rect(0, 0, ActualWidth, ActualHeight));
+
+
+                drawingContext.PushTransform(new TranslateTransform(model.PosX, model.PosY));
                 drawingContext.DrawRectangle(playerBrush, null,
                     new Rect(0, 0, ActualWidth / 5, ActualHeight / 5));
-                ////Nyíl
-                //foreach (var item in charachterController.Lasers)
-                //{
-                //    drawingContext.DrawEllipse(laserBrush, null,
-                //        new Point(item.Center.X, item.Center.Y),
-                //        item.ItemRadius, item.ItemRadius);
-                //}
-
-                //var r = charachterController.Ship.Rectangle;
-                //drawingContext.DrawRectangle(shipBrush, null,
-                //    new Rect(r.X, r.Y, r.Width, r.Height));
-                //drawingContext.Pop();
+                drawingContext.Pop();
 
                 foreach (var item in mapLogic.Grounds)
                 {

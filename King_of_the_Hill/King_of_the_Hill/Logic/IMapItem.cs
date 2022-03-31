@@ -1,12 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using System.Drawing;
     public interface IMapItem
     {
         public Point Center { get; set; }
