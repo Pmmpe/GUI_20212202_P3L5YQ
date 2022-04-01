@@ -5,6 +5,8 @@
     {
         public Point Center { get; set; }
 
+        Rectangle Rectangle { get; set; }
+
         public int Width { get; set; }
 
         public int Height { get; set; }

@@ -24,29 +24,53 @@
             InitializeComponent();
             playerLogic = new PlayerLogic();
             display.SetupModel(playerLogic);
+            playerLogic.gameArea = new Size(gamegrid.ActualWidth, gamegrid.ActualHeight);
         }
 
         #region CharMoving
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private static bool isItemIntersect(PlayerLogic playerLogic, MapLogic mapLogic)
         {
-            if (e.Key == Key.A)
+            foreach (var ground in mapLogic.Grounds)
             {
-                playerLogic.Control(PlayerLogic.Controls.A);
+                if (playerLogic.playerRect.IntersectsWith(ground.Rectangle))
+                {
+                    return true;
+                }
             }
-            else if (e.Key == Key.D)
-            {
-                playerLogic.Control(PlayerLogic.Controls.D);
-            }
-            else if (e.Key == Key.W)
+            return false;
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e) //If we find a solution that the player could move on after impacting an object, uncomment the Intersect checks.
+        {
+            if (Keyboard.IsKeyDown(Key.W)/* && isItemIntersect(playerLogic, mapLogic)*/)
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
             }
-            else if (e.Key == Key.S)
+            if (Keyboard.IsKeyDown(Key.S)/* && isItemIntersect(playerLogic, mapLogic)*/)
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
             }
+            if (Keyboard.IsKeyDown(Key.A)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.A);
+            }
+            if (Keyboard.IsKeyDown(Key.D)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.D);
+            }
+            if (Keyboard.IsKeyDown(Key.E)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.E);
+            }
+            if (Keyboard.IsKeyDown(Key.Q)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.Q);
+            }
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                playerLogic.Weight = 0.5;
+                playerLogic.Control(PlayerLogic.Controls.Space);
+            }       
         }
-
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -57,6 +81,7 @@
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             display.SetupMapLogic(mapLogic);
+            display.SetupPlayerLogic(playerLogic);
 
             for (int i = 0; i < inv.Length; i++)
             {
