@@ -30,6 +30,10 @@
             {
                 PosY = PosY + 20;
             }
+            else if (control == Controls.Q)
+            {
+                   
+            }
             Changed?.Invoke(this, null);
         }
     }
