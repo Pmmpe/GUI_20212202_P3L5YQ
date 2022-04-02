@@ -11,7 +11,8 @@ namespace King_of_the_Hill.Logic
     public class SoundLogic
     {
 
-        public enum PlayerSounds { sword_hit, bow_hit, scream, armor_hit }
+        public enum PlayerSounds { sword_cut, bow_hit, scream, armor_hit }
+        public enum Action { start, stop}
         MediaPlayer backgroundsoundplayer;
         MediaPlayer foregroundsoundplayer;
         public void BackgroundMusicMenu(string action)
@@ -47,15 +48,17 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        public void PlayerSound(string action, PlayerSounds sound)
+        public void PlayActionSound( PlayerSounds sound)
         {
             string asset = "";
             backgroundsoundplayer = new MediaPlayer();
             switch (sound)
             {
-                case PlayerSounds.sword_hit:
+                case PlayerSounds.sword_cut:
+                    asset = "sword-cutting-flesh.wav";
                     break;
                 case PlayerSounds.bow_hit:
+                    asset = "braqoon_arrow-damage.wav";
                     break;
                 case PlayerSounds.scream:
                     asset = "effort-man-voice.wav";
@@ -68,6 +71,7 @@ namespace King_of_the_Hill.Logic
             }
             backgroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
             backgroundsoundplayer.Play();
+
         }
     }
 }
