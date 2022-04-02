@@ -2,6 +2,9 @@
 {
     using King_of_the_Hill.Logic;
     using King_of_the_Hill.Model;
+    using System;
+    using System.IO;
+    using System.Media;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -14,6 +17,7 @@
         #region Initialization
         PlayerLogic playerLogic;
         MapLogic mapLogic;
+        MediaPlayer soundplayer;
 
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
@@ -23,6 +27,7 @@
         {
             InitializeComponent();
             playerLogic = new PlayerLogic();
+            soundplayer = new MediaPlayer();
             display.SetupModel(playerLogic);
         }
 
@@ -57,6 +62,10 @@
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             display.SetupMapLogic(mapLogic);
+            //menu zene
+            soundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", "hatterzene_lol.mp3"), UriKind.RelativeOrAbsolute));
+            soundplayer.Play();
+            //menu zene
 
             for (int i = 0; i < inv.Length; i++)
             {
@@ -164,6 +173,14 @@
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
             mapLogic.NextMap(); //következő pálya indítása, jelent esetben az első pálya indul.
+
+            //menu zene
+            soundplayer.Stop();
+            soundplayer.Close();
+            soundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", "game_bcg_music.mp3"), UriKind.RelativeOrAbsolute));
+            soundplayer.Play();
+            //menu zene
+
             display.InvalidateVisual();
         }
 
