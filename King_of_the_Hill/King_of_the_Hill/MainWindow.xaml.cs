@@ -17,7 +17,7 @@
         #region Initialization
         PlayerLogic playerLogic;
         MapLogic mapLogic;
-        SoundLogic soundplayer;
+        SoundLogic soundplayer; //sound
 
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
@@ -27,7 +27,7 @@
         {
             InitializeComponent();
             playerLogic = new PlayerLogic();
-            soundplayer = new SoundLogic();
+            soundplayer = new SoundLogic(); //sound
             display.SetupModel(playerLogic);
         }
 
@@ -173,6 +173,7 @@
             gamegrid.Visibility = Visibility.Visible;
             mapLogic.NextMap(); //következő pálya indítása, jelent esetben az első pálya indul.
 
+            soundplayer.PlayActionSound(SoundLogic.MenusSounds.game_start);
             //game zene
             soundplayer.BackgroundMusicMenu("stop");
             soundplayer.BackgroundMusicGame("start");
@@ -183,24 +184,28 @@
 
         private void Settings_Click(object sender, RoutedEventArgs e)
         {
+            soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             menu.Visibility = Visibility.Hidden;
             difficulty_select.Visibility = Visibility.Visible;
         }
 
         private void Easy_Click(object sender, RoutedEventArgs e)
         {
+            soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             label_difficulty.Content = "Current Difficulty: Easy";
             mapLogic.SetDifficulty("Easy");
         }
 
         private void Medium_Click(object sender, RoutedEventArgs e)
         {
+            soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             label_difficulty.Content = "Current Difficulty: Medium";
             mapLogic.SetDifficulty("Medium");
         }
 
         private void Hard_Click(object sender, RoutedEventArgs e)
         {
+            soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             label_difficulty.Content = "Current Difficulty: Hard";
             mapLogic.SetDifficulty("Hard");
         }

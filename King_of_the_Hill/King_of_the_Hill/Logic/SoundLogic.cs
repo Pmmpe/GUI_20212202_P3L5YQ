@@ -10,8 +10,16 @@ namespace King_of_the_Hill.Logic
 {
     public class SoundLogic
     {
-
+        //two kinds of sound
+        // - backgroundmusic (stoppable)
+        //      - in menu
+        //      - in game
+        // - foreground sounds (not stoppable)
+        //      - in menu (buttons, etc)
+        //      - in game (players, objects, events)
+        
         public enum PlayerSounds { sword_cut, bow_hit, scream, armor_hit }
+        public enum MenusSounds { button_click, game_start}
         public enum Action { start, stop}
         MediaPlayer backgroundsoundplayer;
         MediaPlayer foregroundsoundplayer;
@@ -51,7 +59,7 @@ namespace King_of_the_Hill.Logic
         public void PlayActionSound( PlayerSounds sound)
         {
             string asset = "";
-            backgroundsoundplayer = new MediaPlayer();
+            foregroundsoundplayer = new MediaPlayer(); //minden sound-hoz kulön soundplayer kell
             switch (sound)
             {
                 case PlayerSounds.sword_cut:
@@ -64,13 +72,33 @@ namespace King_of_the_Hill.Logic
                     asset = "effort-man-voice.wav";
                     break;
                 case PlayerSounds.armor_hit:
-                    asset = "sword-strikes-armor";
+                    asset = "sword-strikes-armor.wav";
                     break;
                 default:
                     break;
             }
-            backgroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
-            backgroundsoundplayer.Play();
+            foregroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
+            foregroundsoundplayer.Play();
+
+        }
+
+        public void PlayActionSound(MenusSounds sound)
+        {
+            string asset = "";
+            foregroundsoundplayer = new MediaPlayer(); //minden sound-hoz kulön soundplayer kell
+            switch (sound)
+            {
+                case MenusSounds.button_click:
+                    asset = "select-click.wav";
+                    break;
+                case MenusSounds.game_start:
+                    asset = "quick-win-video-game-notification.wav";
+                    break;
+                default:
+                    break;
+            }
+            foregroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
+            foregroundsoundplayer.Play();
 
         }
     }
