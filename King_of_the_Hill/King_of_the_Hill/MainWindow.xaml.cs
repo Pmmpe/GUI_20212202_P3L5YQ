@@ -2,6 +2,8 @@
 {
     using King_of_the_Hill.Logic;
     using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.GameItems;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
@@ -14,6 +16,7 @@
         #region Initialization
         PlayerLogic playerLogic;
         MapLogic mapLogic;
+        List<Weapon> Weapons; //For random generating weapons on the ground / round. 
 
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
@@ -25,6 +28,14 @@
             playerLogic = new PlayerLogic();
             display.SetupModel(playerLogic);
             playerLogic.gameArea = new Size(gamegrid.ActualWidth, gamegrid.ActualHeight);
+            Weapons = new List<Weapon>();
+            #region Weapons
+            Weapons.Add(new Weapon(50, "Axe", 1.0, 1.0, 0,0));
+                Weapons.Add(new Weapon(24, "Sword", 1.0, 1.0, 0, 0));
+                Weapons.Add(new Weapon(35, "LongSword", 1.0, 1.0, 0, 0));
+                Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
+            #endregion
+            //Last 0,0s are the X : Y cordinates of the weapons needed for later use.
         }
 
         #region CharMoving
@@ -41,11 +52,11 @@
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) //If we find a solution that the player could move on after impacting an object, uncomment the Intersect checks.
         {
-            if (Keyboard.IsKeyDown(Key.W)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            if (Keyboard.IsKeyDown(Key.W) && !isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
             }
-            if (Keyboard.IsKeyDown(Key.S)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            if (Keyboard.IsKeyDown(Key.S) && !isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
             }
