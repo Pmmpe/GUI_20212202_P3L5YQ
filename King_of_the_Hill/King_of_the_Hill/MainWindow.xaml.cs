@@ -2,6 +2,8 @@
 {
     using King_of_the_Hill.Logic;
     using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.GameItems;
+    using System.Collections.Generic;
     using System;
     using System.IO;
     using System.Media;
@@ -18,6 +20,7 @@
         PlayerLogic playerLogic;
         MapLogic mapLogic;
         SoundLogic soundplayer; //sound
+        List<Weapon> Weapons; //For random generating weapons on the ground / round. 
 
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
@@ -29,29 +32,61 @@
             playerLogic = new PlayerLogic();
             soundplayer = new SoundLogic(); //sound
             display.SetupModel(playerLogic);
+            playerLogic.gameArea = new Size(gamegrid.ActualWidth, gamegrid.ActualHeight);
+            Weapons = new List<Weapon>();
+            #region Weapons
+            Weapons.Add(new Weapon(50, "Axe", 1.0, 1.0, 0,0));
+                Weapons.Add(new Weapon(24, "Sword", 1.0, 1.0, 0, 0));
+                Weapons.Add(new Weapon(35, "LongSword", 1.0, 1.0, 0, 0));
+                Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
+            #endregion
+            //Last 0,0s are the X : Y cordinates of the weapons needed for later use.
         }
 
         #region CharMoving
-        private void Window_KeyDown(object sender, KeyEventArgs e)
+        private static bool isItemIntersect(PlayerLogic playerLogic, MapLogic mapLogic)
         {
-            if (e.Key == Key.A)
+            foreach (var ground in mapLogic.Grounds)
             {
-                playerLogic.Control(PlayerLogic.Controls.A);
+                if (playerLogic.playerRect.IntersectsWith(ground.Rectangle))
+                {
+                    return true;
+                }
             }
-            else if (e.Key == Key.D)
-            {
-                playerLogic.Control(PlayerLogic.Controls.D);
-            }
-            else if (e.Key == Key.W)
+            return false;
+        }
+        private void Window_KeyDown(object sender, KeyEventArgs e) //If we find a solution that the player could move on after impacting an object, uncomment the Intersect checks.
+        {
+            if (Keyboard.IsKeyDown(Key.W) && !isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
             }
-            else if (e.Key == Key.S)
+            if (Keyboard.IsKeyDown(Key.S) && !isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
             }
+            if (Keyboard.IsKeyDown(Key.A)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.A);
+            }
+            if (Keyboard.IsKeyDown(Key.D)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.D);
+            }
+            if (Keyboard.IsKeyDown(Key.E)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.E);
+            }
+            if (Keyboard.IsKeyDown(Key.Q)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            {
+                playerLogic.Control(PlayerLogic.Controls.Q);
+            }
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                playerLogic.Weight = 0.5;
+                playerLogic.Control(PlayerLogic.Controls.Space);
+            }       
         }
-
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -62,6 +97,7 @@
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             display.SetupMapLogic(mapLogic);
+            display.SetupPlayerLogic(playerLogic);
             //menu zene
             soundplayer.BackgroundMusicMenu("start");
             //menu zene

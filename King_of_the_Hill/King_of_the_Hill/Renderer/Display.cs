@@ -18,6 +18,7 @@
         public Brush arrowBrush;
 
         MapLogic mapLogic;
+        PlayerLogic playerLogic;
         
 
         public Display()
@@ -47,6 +48,11 @@
             this.mapLogic = mapLogic;
         }
 
+        public void SetupPlayerLogic(PlayerLogic PlayerLogic)
+        {
+            this.playerLogic = PlayerLogic;
+        }
+
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
@@ -64,6 +70,9 @@
                 drawingContext.PushTransform(new TranslateTransform(model.PosX, model.PosY));
                 drawingContext.DrawRectangle(playerBrush, null,
                     new Rect(0, 0, ActualWidth / 5, ActualHeight / 5));
+
+                playerLogic.Gravity(0.2);  //Fix ASAP.        
+
                 drawingContext.Pop();
 
                 foreach (var item in mapLogic.Grounds)
@@ -82,7 +91,7 @@
                     }
                 }
 
-            }
+            }         
         }
     }
 }
