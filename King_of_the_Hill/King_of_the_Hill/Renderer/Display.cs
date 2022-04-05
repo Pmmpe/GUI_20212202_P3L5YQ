@@ -9,7 +9,9 @@
     public class Display : FrameworkElement
     {
         Size area;
+
         IGameModel model;
+
         public Brush playerBrush;
         public Brush npcBrush;
         public Brush backgroundBrush;
@@ -66,15 +68,11 @@
                 drawingContext.DrawRectangle(backgroundTileset2Brush, null,
                     new Rect(0, 0, ActualWidth, ActualHeight));
 
+                //drawingContext.DrawRectangle(playerBrush, null,
+                //new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, 250,250));       
 
-                drawingContext.PushTransform(new TranslateTransform(model.PosX, model.PosY));
-                drawingContext.DrawRectangle(playerBrush, null,
-                    new Rect(0, 0, ActualWidth / 5, ActualHeight / 5));
-
-                playerLogic.Gravity(0.2);  //Fix ASAP.        
-
-                drawingContext.Pop();
-
+                drawingContext.DrawRectangle(Brushes.Black, null,
+                new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, 250,250));      
                 foreach (var item in mapLogic.Grounds)
                 {
                     if (item is Ground)

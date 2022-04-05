@@ -3,14 +3,14 @@
     using King_of_the_Hill.Logic;
     using King_of_the_Hill.Model;
     using King_of_the_Hill.Model.GameItems;
-    using System.Collections.Generic;
     using System;
-    using System.IO;
-    using System.Media;
+    using System.Collections.Generic;
     using System.Windows;
     using System.Windows.Controls;
     using System.Windows.Input;
     using System.Windows.Media;
+    using System.Windows.Threading;
+
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
@@ -24,6 +24,11 @@
 
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
+
+        DispatcherTimer timer;
+
+
+
         #endregion
 
         public MainWindow()
@@ -41,9 +46,21 @@
                 Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
             #endregion
             //Last 0,0s are the X : Y cordinates of the weapons needed for later use.
+            timer = new DispatcherTimer();
+            timer.Interval = TimeSpan.FromMilliseconds(1);
+            timer.Tick += Timer_Tick;
+            timer.Start();
+        }
+
+        private void Timer_Tick(object? sender, EventArgs e)
+        {
+            display.InvalidateVisual();
+            isItemIntersect(playerLogic, mapLogic);
         }
 
         #region CharMoving
+
+
         private static bool isItemIntersect(PlayerLogic playerLogic, MapLogic mapLogic)
         {
             foreach (var ground in mapLogic.Grounds)
@@ -51,33 +68,34 @@
                 if (playerLogic.playerRect.IntersectsWith(ground.Rectangle))
                 {
                     return true;
-                }
+                }           
             }
+            playerLogic.Gravity(2);
             return false;
         }
         private void Window_KeyDown(object sender, KeyEventArgs e) //If we find a solution that the player could move on after impacting an object, uncomment the Intersect checks.
         {
-            if (Keyboard.IsKeyDown(Key.W) && !isItemIntersect(playerLogic, mapLogic))
+            if (Keyboard.IsKeyDown(Key.W) && isItemIntersect(playerLogic, mapLogic))
             {
-                playerLogic.Control(PlayerLogic.Controls.W);
+                playerLogic.Control(PlayerLogic.Controls.W);               
             }
-            if (Keyboard.IsKeyDown(Key.S) && !isItemIntersect(playerLogic, mapLogic))
+            if (Keyboard.IsKeyDown(Key.S) && isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
             }
-            if (Keyboard.IsKeyDown(Key.A)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            if (Keyboard.IsKeyDown(Key.A))
             {
                 playerLogic.Control(PlayerLogic.Controls.A);
             }
-            if (Keyboard.IsKeyDown(Key.D)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            if (Keyboard.IsKeyDown(Key.D))
             {
                 playerLogic.Control(PlayerLogic.Controls.D);
             }
-            if (Keyboard.IsKeyDown(Key.E)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            if (Keyboard.IsKeyDown(Key.E) && isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.E);
             }
-            if (Keyboard.IsKeyDown(Key.Q)/* && isItemIntersect(playerLogic, mapLogic)*/)
+            if (Keyboard.IsKeyDown(Key.Q) && isItemIntersect(playerLogic, mapLogic))
             {
                 playerLogic.Control(PlayerLogic.Controls.Q);
             }

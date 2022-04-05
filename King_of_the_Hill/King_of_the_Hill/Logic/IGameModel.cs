@@ -5,10 +5,7 @@
 
     public interface IGameModel
     {
-        double PosX { get; set; }
-        double PosY { get; set; }
-
-        Rectangle playerRect { get; set; }
+        Rectangle playerRect { get; }
 
         event EventHandler Changed;
     }

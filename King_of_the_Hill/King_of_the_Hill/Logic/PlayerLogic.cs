@@ -1,5 +1,6 @@
 ﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model;
     using System;
     using System.Drawing;
     using System.Windows;
@@ -12,36 +13,45 @@
         }
 
         public event EventHandler Changed;
-        public double PosX { get; set; }
-        public double PosY { get; set; }
+
+        public Player plyr;
+        public PlayerLogic()
+        {
+            plyr = new Player(100,100,0,0,50,50);
+        }
 
         public double Weight { get; set; }
 
-        public Rectangle playerRect { get; set; }
-
+        public Rectangle playerRect
+        {
+            get
+            {
+                return new Rectangle((int)plyr.PosX, (int)plyr.PosY, (int)plyr.Width, (int)plyr.Height);
+            }
+        }
         public System.Windows.Size gameArea { get; set; }
 
         public void Control(Controls control)
         {
             if (control == Controls.A /*&& (gameArea.Width < PosX - 20)*/)
             {
-                PosX = PosX - 20;
+                plyr.PosX = plyr.PosX - 20;
             }
             if (control == Controls.D /*&& (PosX + 20) < gameArea.Width*/)
             {
-                PosX = PosX + 20;
+                plyr.PosX = plyr.PosX + 20;
             }
             if (control == Controls.W /*&& gameArea.Height > (PosY) - 20*/)
             {
-                PosY = PosY - 20;
+                plyr.PosY = plyr.PosY - 20;
             }
             if (control == Controls.S /*&& (PosY + 20) < gameArea.Height*/)
             {
-                PosY = PosY + 20;
+                plyr.PosY = plyr.PosY + 20;
             }
             if (control == Controls.Space)
             {
-                PosY = PosY - (PosY * Weight);
+                plyr.PosY = plyr.PosY - (plyr.PosY * Weight);
             }
             if (control == Controls.E)
             {
@@ -56,10 +66,7 @@
 
         public void Gravity(double Weight)
         {
-            if (gameArea.Height > 100 && 0 <= gameArea.Height)//Could be determined later when we could get an optimal exact value;
-            {
-                PosY = PosY + (PosY * Weight);
-            }
+           plyr.PosY = plyr.PosY + Weight;
         }
     }
 }

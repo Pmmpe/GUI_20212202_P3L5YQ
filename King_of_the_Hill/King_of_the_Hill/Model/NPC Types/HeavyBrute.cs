@@ -3,7 +3,7 @@
     using System.Drawing;
     public class Heavy_Brute : Npc
     {
-        public Heavy_Brute(double Health, double Armour, double Speed, Size gameArea, int itemRadius) : base(Health, Armour, Speed, gameArea, itemRadius)
+        public Heavy_Brute(double Health, double Armour) : base(Health, Armour)
         {
         }
     }
