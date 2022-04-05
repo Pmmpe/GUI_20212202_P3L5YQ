@@ -4,7 +4,7 @@
 
     public class Brute : Npc
     {
-        public Brute(double Health, double Armour) : base(Health, Armour)
+        public Brute(double Health, double Armour, double PosX, double PosY, double Width, double Height) : base(Health, Armour, PosX, PosY, Width, Height)
         {
         }
     }
