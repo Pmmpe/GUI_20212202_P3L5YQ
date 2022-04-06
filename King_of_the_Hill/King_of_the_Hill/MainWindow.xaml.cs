@@ -54,37 +54,26 @@
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += Timer_Tick;
-            timer.Start();
         }
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
             display.InvalidateVisual();
-            isItemIntersect(playerLogic, mapLogic);
+            intersectLogic.IsPlayerAndMapIntersect();
+            intersectLogic.SetPlayerInTheMap();
         }
 
         #region CharMoving
 
 
-        private static bool isItemIntersect(PlayerLogic playerLogic, MapLogic mapLogic)
-        {
-            foreach (var ground in mapLogic.Grounds)
-            {
-                if (playerLogic.playerRect.IntersectsWith(ground.Rectangle))
-                {
-                    return true;
-                }
-            }
-            playerLogic.Gravity(2);
-            return false;
-        }
+        
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.W) && isItemIntersect(playerLogic, mapLogic))
+            if (Keyboard.IsKeyDown(Key.W) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
             }
-            if (Keyboard.IsKeyDown(Key.S) && isItemIntersect(playerLogic, mapLogic))
+            if (Keyboard.IsKeyDown(Key.S) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
             }
@@ -96,11 +85,11 @@
             {
                 playerLogic.Control(PlayerLogic.Controls.D);
             }
-            if (Keyboard.IsKeyDown(Key.E) && isItemIntersect(playerLogic, mapLogic))
+            if (Keyboard.IsKeyDown(Key.E))
             {
                 playerLogic.Control(PlayerLogic.Controls.E);
             }
-            if (Keyboard.IsKeyDown(Key.Q) && isItemIntersect(playerLogic, mapLogic))
+            if (Keyboard.IsKeyDown(Key.Q))
             {
                 playerLogic.Control(PlayerLogic.Controls.Q);
             }
@@ -115,6 +104,7 @@
         {
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
+            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight);
             display.SetupMapLogic(mapLogic);
             display.SetupPlayerLogic(playerLogic);
             //menu zene
@@ -227,6 +217,7 @@
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
             mapLogic.NextMap(); //következő pálya indítása, jelent esetben az első pálya indul.
+            timer.Start();
 
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.game_start);
             //game zene

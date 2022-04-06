@@ -40,8 +40,8 @@
                 case 1:
                     Grounds.Add(new Ground(0, area.Height - 100, 400, 100));
                     Grounds.Add(new Ground(600, area.Height - 100, 800, 100));
-                    Grounds.Add(new Lava(400, area.Height - 100, 200, 100));
-                    Grounds.Add(new Lava(1400, area.Height - 100, area.Width, 100));
+                    Grounds.Add(new Lava(400, area.Height - 101, 200, 101));
+                    Grounds.Add(new Lava(1400, area.Height - 101, area.Width, 101));
                     Grounds.Add(new Platform(1000, 250, 500, 25));
                     Grounds.Add(new Platform(100, 155, 100, 25));
 
