@@ -2,8 +2,6 @@
 {
     public class Character
     {
-        public string Name { get; set; }
-
         public double Health { get; set; }
 
         public double Armour { get; set; }

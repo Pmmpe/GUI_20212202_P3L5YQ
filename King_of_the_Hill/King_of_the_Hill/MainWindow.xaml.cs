@@ -45,7 +45,7 @@
             Weapons = new List<Weapon>();
 
             #region Weapons
-            Weapons.Add(new Weapon(50, "Axe", 1.0, 1.0, 0,0));
+            Weapons.Add(new Weapon(50, "Axe", 1.0, 1.0, 0, 0));
             Weapons.Add(new Weapon(24, "Sword", 1.0, 1.0, 0, 0));
             Weapons.Add(new Weapon(35, "LongSword", 1.0, 1.0, 0, 0));
             Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
@@ -115,7 +115,6 @@
         {
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
-            playerLogic.Weight = 1;
             display.SetupMapLogic(mapLogic);
             display.SetupPlayerLogic(playerLogic);
             //menu zene

@@ -15,10 +15,8 @@
         public Player plyr;
         public PlayerLogic()
         {
-            plyr = new Player(100, 100, 0, 0, 50, 50);
+            plyr = new Player(100, 100, 0, 0, 75, 75, 1);
         }
-
-        public double Weight { get; set; }
 
         public Rectangle playerRect
         {
@@ -45,7 +43,7 @@
                     plyr.PosY += 5;
                     break;
                 case Controls.Space:
-                    plyr.PosY = plyr.PosY - 25 + Weight;
+                    plyr.PosY = plyr.PosY - 25 + plyr.Weight;
                     break;
                 case Controls.Q:
                     MessageBox.Show("Armour Restored");

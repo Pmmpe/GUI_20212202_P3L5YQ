@@ -68,10 +68,7 @@
                         drawingContext.DrawRectangle(Brushes.LightBlue, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
                     }
                 }
-                drawingContext.DrawRectangle(Brushes.Black, null,
-                    new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, 50, 50));
-                //drawingContext.DrawRectangle(playerBrush, null,
-                    //new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, 250,250));     
+                drawingContext.DrawRectangle(Brushes.Black, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
             }
         }
     }
