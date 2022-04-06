@@ -42,6 +42,7 @@
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic);
 
             soundplayer = new SoundLogic(); //sound
+            //erre a fegyveres cucra ma nem vo
             Weapons = new List<Weapon>();
 
             #region Weapons
@@ -59,8 +60,10 @@
         private void Timer_Tick(object? sender, EventArgs e)
         {
             display.InvalidateVisual();
-            intersectLogic.IsPlayerAndMapIntersect();
-            intersectLogic.SetPlayerInTheMap();
+            intersectLogic.IsPlayerAndMapIntersect(); //megvalósításnál részletezve
+            intersectLogic.SetPlayerInTheMap(); //megvalósításnál részletezve
+            intersectLogic.SetEnemyDirection(); //megvalósításnál részletezve
+            enemyLogic.Move(); //mozgatja az ellenséget
         }
 
         #region CharMoving
@@ -97,12 +100,12 @@
             {
                 playerLogic.Control(PlayerLogic.Controls.Space);
             }
-            if (Keyboard.IsKeyDown(Key.Enter))
+            if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
                 if (enemyLogic.enemies.Count == 0)
                 {
                     enemyLogic.NextWave();
-                    intersectLogic.GenerateEnemiesPositons();
+                    intersectLogic.GenerateEnemiesPositons(); //ellenségek legenerálása véletlenszerű helyekre
                     display.InvalidateVisual();
                 }
             }
@@ -112,10 +115,10 @@
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
-            enemyLogic.SetDifficulty("Easy");
+            enemyLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
-            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight);
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic);
+            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //méret átadása
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic); //Logicok átadása
             //menu zene
             soundplayer.BackgroundMusicMenu("start");
             //menu zene

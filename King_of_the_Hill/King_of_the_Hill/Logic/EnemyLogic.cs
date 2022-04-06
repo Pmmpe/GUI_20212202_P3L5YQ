@@ -12,7 +12,7 @@ namespace King_of_the_Hill.Logic
         int actualWaveNumber;
         int maxWaveNumber;
         string difficulty;
-        public List<Npc> enemies;
+        public List<Npc> enemies; //ellenségek listája
 
         public EnemyLogic()
         {
@@ -30,6 +30,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
+        //Hullámonként ide tudod beírni, hogy hány ellenség spawnoljon
         private void CreateEnemies()
         {
             switch (actualWaveNumber)
@@ -74,6 +75,22 @@ namespace King_of_the_Hill.Logic
             }
         }
 
+        public void Move()
+        {
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Direction)
+                {
+                    enemy.PosX--;
+                }
+                else
+                {
+                    enemy.PosX++;
+                }
+            }
+        }
+
+        //beállítja hány hullám legyen
         public void SetDifficulty(string difficulty)
         {
             this.difficulty = difficulty;

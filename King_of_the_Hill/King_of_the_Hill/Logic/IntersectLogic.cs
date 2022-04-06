@@ -31,6 +31,7 @@ namespace King_of_the_Hill.Logic
             this.height = height;
         }
 
+        //már megírt gravitációs leesés
         public bool IsPlayerAndMapIntersect()
         {
             foreach (var ground in mapLogic.Grounds)
@@ -44,6 +45,7 @@ namespace King_of_the_Hill.Logic
             return false;
         }
 
+        //játékos nem tud kimenni a pályáról
         public void SetPlayerInTheMap()
         {
             if (playerLogic.plyr.PosX < 0)
@@ -64,6 +66,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
+        //ellenség random generálása
         public void GenerateEnemiesPositons()
         {
             bool ok;
@@ -119,6 +122,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
+        //játékos kezdő platformra helyezése
         public void PutPlayerOnTheStartPlatform()
         {
             foreach (var platform in mapLogic.Grounds)
@@ -130,6 +134,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
+        //Bármilyen character, legyen az játékos vagy ellenség a megadott platformra helyezése
         private void PutTopOfAPlatform(IMapItem platform, Character character)
         {
             if (character.PosX < platform.X)
@@ -141,6 +146,49 @@ namespace King_of_the_Hill.Logic
                 character.PosX = platform.X + platform.Width - character.Width;
             }
             character.PosY = platform.Y - character.Height;
+        }
+
+        //beállítja, hogy merre menjen az ellenség
+        public void SetEnemyDirection()
+        {
+            foreach (var enemy in enemyLogic.enemies)
+            {
+                if (enemy is Archer)
+                {
+                    foreach (var platform in mapLogic.Grounds)
+                    {
+                        if (platform is Platform)
+                        {
+                            if (enemy.PosX < platform.X)
+                            {
+                                enemy.Direction = false;
+                            }
+                            else if (enemy.PosX > platform.X + platform.Width - enemy.Width)
+                            {
+                                enemy.Direction = true;
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    if (enemy.PosX <= 0)
+                    {
+                        enemy.Direction = false;
+                    }
+                    else if (enemy.PosX >= width)
+                    {
+                        enemy.Direction = true;
+                    }
+                    foreach (var lava in mapLogic.Grounds)
+                    {
+                        if (lava is Lava && enemy.enemyRect.IntersectsWith(lava.Rectangle))
+                        {
+                            enemy.Direction = !enemy.Direction;
+                        }
+                    }
+                }
+            }
         }
     }
 }
