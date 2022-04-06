@@ -43,7 +43,7 @@
                     Grounds.Add(new Lava(400, area.Height - 101, 200, 101));
                     Grounds.Add(new Lava(1400, area.Height - 101, area.Width, 101));
                     Grounds.Add(new Platform(1000, 250, 500, 25));
-                    Grounds.Add(new Platform(100, 155, 100, 25));
+                    Grounds.Add(new StartPlatform(100, 155, 100, 25));
 
                     //ha jól be lesznek állítva a player adatai akkor jó lesz ez a platform. Addig csak be van rakva alá egy.
                     //mapLogic.Grounds.Add(new Platform((int)playerModel.player.PosX, (int)playerModel.player.PosY + 60, 100, 25));

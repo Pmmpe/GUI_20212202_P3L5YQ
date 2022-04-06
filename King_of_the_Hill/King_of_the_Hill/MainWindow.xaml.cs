@@ -40,7 +40,7 @@
             enemyLogic = new EnemyLogic();
             mapLogic = new MapLogic();
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic);
-            
+
             soundplayer = new SoundLogic(); //sound
             Weapons = new List<Weapon>();
 
@@ -97,16 +97,25 @@
             {
                 playerLogic.Control(PlayerLogic.Controls.Space);
             }
+            if (Keyboard.IsKeyDown(Key.Enter))
+            {
+                if (enemyLogic.enemies.Count == 0)
+                {
+                    enemyLogic.NextWave();
+                    intersectLogic.GenerateEnemiesPositons();
+                    display.InvalidateVisual();
+                }
+            }
         }
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
+            enemyLogic.SetDifficulty("Easy");
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight);
-            display.SetupMapLogic(mapLogic);
-            display.SetupPlayerLogic(playerLogic);
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic);
             //menu zene
             soundplayer.BackgroundMusicMenu("start");
             //menu zene
@@ -217,6 +226,7 @@
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
             mapLogic.NextMap(); //következő pálya indítása, jelent esetben az első pálya indul.
+            intersectLogic.PutPlayerOnTheStartPlatform();
             timer.Start();
 
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.game_start);
@@ -240,6 +250,7 @@
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             label_difficulty.Content = "Current Difficulty: Easy";
             mapLogic.SetDifficulty("Easy");
+            enemyLogic.SetDifficulty("Easy");
         }
 
         private void Medium_Click(object sender, RoutedEventArgs e)
@@ -247,6 +258,7 @@
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             label_difficulty.Content = "Current Difficulty: Medium";
             mapLogic.SetDifficulty("Medium");
+            enemyLogic.SetDifficulty("Medium");
         }
 
         private void Hard_Click(object sender, RoutedEventArgs e)
@@ -254,6 +266,7 @@
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.button_click); //sound
             label_difficulty.Content = "Current Difficulty: Hard";
             mapLogic.SetDifficulty("Hard");
+            enemyLogic.SetDifficulty("Hard");
         }
 
         private void BackToMenu_Click(object sender, RoutedEventArgs e)

@@ -9,7 +9,9 @@ namespace King_of_the_Hill.Model.MapItem
 {
     public interface IMapItem
     {
-        public Point Center { get; set; }
+        public int X { get; set; }
+
+        public int Y { get; set; }
 
         Rectangle Rectangle { get; set; }
 

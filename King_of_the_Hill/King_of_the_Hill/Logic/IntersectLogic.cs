@@ -1,4 +1,6 @@
-﻿using King_of_the_Hill.Model.MapItem;
+﻿using King_of_the_Hill.Model;
+using King_of_the_Hill.Model.MapItem;
+using King_of_the_Hill.Model.NPC_Types;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,7 @@ namespace King_of_the_Hill.Logic
         EnemyLogic enemyLogic;
         int width;
         int height;
+        static Random random = new Random();
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic)
         {
@@ -59,6 +62,85 @@ namespace King_of_the_Hill.Logic
             {
                 playerLogic.plyr.PosY = height - playerLogic.plyr.Height;
             }
+        }
+
+        public void GenerateEnemiesPositons()
+        {
+            bool ok;
+            foreach (var enemy in enemyLogic.enemies)
+            {
+                ok = false;
+                if (enemy is Archer)
+                {
+                    while (!ok)
+                    {
+                        enemy.PosX = random.Next(0, (int)(width - enemy.Width));
+                        enemy.PosY = random.Next(0, height - 500);
+                        foreach (var platform in mapLogic.Grounds)
+                        {
+                            if (!ok && platform is Platform && enemy.enemyRect.IntersectsWith(platform.Rectangle))
+                            {
+                                ok = true;
+                                PutTopOfAPlatform(platform, enemy);
+                            }
+                        }
+                    }
+                }
+                else
+                {
+                    while (!ok)
+                    {
+                        enemy.PosX = random.Next(0, (int)(width - enemy.Width));
+                        enemy.PosY = random.Next(height - 200, (int)(height - enemy.Height));
+                        foreach (var ground in mapLogic.Grounds)
+                        {
+                            if (!ok && ground is Ground && enemy.enemyRect.IntersectsWith(ground.Rectangle))
+                            {
+                                ok = true;
+                                foreach (var lava in mapLogic.Grounds)
+                                {
+                                    if (lava is Lava && enemy.enemyRect.IntersectsWith(lava.Rectangle))
+                                    {
+                                        ok = false;
+                                    }
+                                }
+                                foreach (var otherEnemies in enemyLogic.enemies)
+                                {
+                                    if (!enemy.Equals(otherEnemies) && enemy.enemyRect.IntersectsWith(otherEnemies.enemyRect))
+                                    {
+                                        ok = false;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                
+            }
+        }
+
+        public void PutPlayerOnTheStartPlatform()
+        {
+            foreach (var platform in mapLogic.Grounds)
+            {
+                if (platform is StartPlatform)
+                {
+                    PutTopOfAPlatform(platform, playerLogic.plyr);
+                }
+            }
+        }
+
+        private void PutTopOfAPlatform(IMapItem platform, Character character)
+        {
+            if (character.PosX < platform.X)
+            {
+                character.PosX = platform.X;
+            }
+            if (character.PosX > platform.X + platform.Width)
+            {
+                character.PosX = platform.X + platform.Width - character.Width;
+            }
+            character.PosY = platform.Y - character.Height;
         }
     }
 }

@@ -1,19 +1,21 @@
-﻿namespace King_of_the_Hill.Model
+﻿namespace King_of_the_Hill.Model.NPC_Types
 {
     using System.Drawing;
     public class Npc : Character
     {
-        public Npc(double Health, double Armour, double PosX, double PosY, double Width, double Height) : base(Health, Armour)
+        public Npc(double Health, double Armour, double PosX, double PosY, double Width, double Height) : base(PosX, PosY, Width, Height, Health, Armour)
         {
-            this.PosX = PosX;
-            this.PosY = PosY;
-            this.Width = Width;
-            this.Height = Height;
+            
         }
-        public double PosX { get; set; }
-        public double PosY { get; set; }
-        public double Width { get; set; }
-        public double Height { get; set; }
+        
         public double Weight { get; set; }
+
+        public Rectangle enemyRect
+        {
+            get
+            {
+                return new Rectangle((int)PosX, (int)PosY, (int)Width, (int)Height);
+            }
+        }
     }
 }

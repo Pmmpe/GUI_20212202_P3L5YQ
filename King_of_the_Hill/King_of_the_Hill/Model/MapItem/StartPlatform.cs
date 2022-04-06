@@ -7,9 +7,11 @@ using System.Threading.Tasks;
 
 namespace King_of_the_Hill.Model.MapItem
 {
-    public class MapBorder : IMapItem
+    public class StartPlatform : IMapItem
     {
-        public Point Center { get; set; }
+        public int X { get; set; }
+
+        public int Y { get; set; }
 
         public int Width { get; set; }
 
@@ -17,9 +19,10 @@ namespace King_of_the_Hill.Model.MapItem
 
         public Rectangle Rectangle { get; set; }
 
-        public MapBorder(int x, int y, int Width, int Height)
+        public StartPlatform(int x, int y, int Width, int Height)
         {
-            Center = new Point(x, y);
+            X = x;
+            Y = y;
             this.Width = Width;
             this.Height = Height;
             Rectangle = new Rectangle(x, y, Width, Height);

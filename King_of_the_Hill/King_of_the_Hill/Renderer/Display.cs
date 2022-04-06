@@ -2,6 +2,7 @@
 {
     using King_of_the_Hill.Logic;
     using King_of_the_Hill.Model.MapItem;
+    using King_of_the_Hill.Model.NPC_Types;
     using System;
     using System.IO;
     using System.Windows;
@@ -20,6 +21,7 @@
 
         MapLogic mapLogic;
         PlayerLogic playerLogic;
+        EnemyLogic enemyLogic;
 
 
         public Display()
@@ -31,14 +33,11 @@
             arrowBrush = Brushes.Red;
         }
 
-        public void SetupMapLogic(MapLogic mapLogic)
+        public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic)
         {
             this.mapLogic = mapLogic;
-        }
-
-        public void SetupPlayerLogic(PlayerLogic playerLogic)
-        {
             this.playerLogic = playerLogic;
+            this.enemyLogic = enemyLogic;
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -58,17 +57,38 @@
                 {
                     if (item is Ground)
                     {
-                        drawingContext.DrawRectangle(Brushes.Green, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
+                        drawingContext.DrawRectangle(Brushes.Green, null, new Rect(item.X, item.Y, item.Width, item.Height));
                     }
                     else if (item is Lava)
                     {
-                        drawingContext.DrawRectangle(Brushes.Red, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
+                        drawingContext.DrawRectangle(Brushes.Red, null, new Rect(item.X, item.Y, item.Width, item.Height));
                     }
-                    else if (item is Platform)
+                    else if (item is Platform || item is StartPlatform)
                     {
-                        drawingContext.DrawRectangle(Brushes.LightBlue, null, new Rect(item.Center.X, item.Center.Y, item.Width, item.Height));
+                        drawingContext.DrawRectangle(Brushes.LightBlue, null, new Rect(item.X, item.Y, item.Width, item.Height));
                     }
                 }
+
+                foreach (var item in enemyLogic.enemies)
+                {
+                    if (item is Grunt)
+                    {
+                        drawingContext.DrawRectangle(Brushes.White, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                    }
+                    if (item is Brute)
+                    {
+                        drawingContext.DrawRectangle(Brushes.Crimson, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                    }
+                    if (item is Archer)
+                    {
+                        drawingContext.DrawRectangle(Brushes.Aqua, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                    }
+                    if (item is Heavy_Brute)
+                    {
+                        drawingContext.DrawRectangle(Brushes.Yellow, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                    }
+                }
+
                 drawingContext.DrawRectangle(Brushes.Black, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
             }
         }

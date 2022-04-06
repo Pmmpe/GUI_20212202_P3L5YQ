@@ -15,7 +15,7 @@
         public Player plyr;
         public PlayerLogic()
         {
-            plyr = new Player(100, 100, 0, 0, 75, 75, 1);
+            plyr = new Player(0, 0, 0, 0, 75, 75, 1);
         }
 
         public Rectangle playerRect
