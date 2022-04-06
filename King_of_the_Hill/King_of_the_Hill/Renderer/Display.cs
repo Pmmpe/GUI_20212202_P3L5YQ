@@ -1,6 +1,7 @@
 ﻿namespace King_of_the_Hill.Renderer.Display
 {
     using King_of_the_Hill.Logic;
+    using King_of_the_Hill.Model.MapItem;
     using System;
     using System.IO;
     using System.Windows;

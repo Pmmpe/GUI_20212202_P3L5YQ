@@ -1,5 +1,6 @@
 ﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model.MapItem;
     using System.Collections.Generic;
     using System.Drawing;
     public class MapLogic
