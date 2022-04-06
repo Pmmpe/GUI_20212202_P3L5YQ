@@ -18,7 +18,9 @@
     {
         #region Initialization
         PlayerLogic playerLogic;
+        EnemyLogic enemyLogic;
         MapLogic mapLogic;
+        IntersectLogic intersectLogic;
         SoundLogic soundplayer; //sound
         List<Weapon> Weapons; //For random generating weapons on the ground / round. 
 
@@ -35,15 +37,18 @@
         {
             InitializeComponent();
             playerLogic = new PlayerLogic();
+            enemyLogic = new EnemyLogic();
+            mapLogic = new MapLogic();
+            intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic);
+            
             soundplayer = new SoundLogic(); //sound
-            display.SetupModel(playerLogic);
-            playerLogic.gameArea = new Size(gamegrid.ActualWidth, gamegrid.ActualHeight);
             Weapons = new List<Weapon>();
+
             #region Weapons
             Weapons.Add(new Weapon(50, "Axe", 1.0, 1.0, 0,0));
-                Weapons.Add(new Weapon(24, "Sword", 1.0, 1.0, 0, 0));
-                Weapons.Add(new Weapon(35, "LongSword", 1.0, 1.0, 0, 0));
-                Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
+            Weapons.Add(new Weapon(24, "Sword", 1.0, 1.0, 0, 0));
+            Weapons.Add(new Weapon(35, "LongSword", 1.0, 1.0, 0, 0));
+            Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
             #endregion
             //Last 0,0s are the X : Y cordinates of the weapons needed for later use.
             timer = new DispatcherTimer();
@@ -68,16 +73,16 @@
                 if (playerLogic.playerRect.IntersectsWith(ground.Rectangle))
                 {
                     return true;
-                }           
+                }
             }
             playerLogic.Gravity(2);
             return false;
         }
-        private void Window_KeyDown(object sender, KeyEventArgs e) //If we find a solution that the player could move on after impacting an object, uncomment the Intersect checks.
+        private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.W) && isItemIntersect(playerLogic, mapLogic))
             {
-                playerLogic.Control(PlayerLogic.Controls.W);               
+                playerLogic.Control(PlayerLogic.Controls.W);
             }
             if (Keyboard.IsKeyDown(Key.S) && isItemIntersect(playerLogic, mapLogic))
             {
@@ -101,19 +106,16 @@
             }
             if (Keyboard.IsKeyDown(Key.Space))
             {
-                playerLogic.Weight = 0.5;
                 playerLogic.Control(PlayerLogic.Controls.Space);
-            }       
+            }
         }
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            display.SetupSizes(new Size(gamegrid.ActualWidth, gamegrid.ActualHeight));
-
-            mapLogic = new MapLogic();
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
+            playerLogic.Weight = 1;
             display.SetupMapLogic(mapLogic);
             display.SetupPlayerLogic(playerLogic);
             //menu zene
@@ -270,10 +272,5 @@
             menu.Visibility = Visibility.Visible;
         }
         #endregion
-
-        private void Window_SizeChanged(object sender, SizeChangedEventArgs e)
-        {
-            display.SetupSizes(new Size(gamegrid.ActualWidth, gamegrid.ActualHeight));
-        }
     }
 }

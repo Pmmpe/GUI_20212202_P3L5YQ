@@ -10,8 +10,6 @@
     {
         Size area;
 
-        IGameModel model;
-
         public Brush playerBrush;
         public Brush npcBrush;
         public Brush backgroundBrush;
@@ -21,7 +19,7 @@
 
         MapLogic mapLogic;
         PlayerLogic playerLogic;
-        
+
 
         public Display()
         {
@@ -32,40 +30,27 @@
             arrowBrush = Brushes.Red;
         }
 
-        public void SetupModel(IGameModel model)
-        {
-            this.model = model;
-            this.model.Changed
-                += (sender, eventargs) => this.InvalidateVisual();
-        }
-
-        public void SetupSizes(Size Area)
-        {
-            this.area = Area;
-            this.InvalidateVisual();
-        }
-
         public void SetupMapLogic(MapLogic mapLogic)
         {
             this.mapLogic = mapLogic;
         }
 
-        public void SetupPlayerLogic(PlayerLogic PlayerLogic)
+        public void SetupPlayerLogic(PlayerLogic playerLogic)
         {
-            this.playerLogic = PlayerLogic;
+            this.playerLogic = playerLogic;
         }
 
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
-            if (model != null && mapLogic != null && ActualWidth > 0 && ActualHeight > 0)
+            if (playerLogic != null && mapLogic != null)
             {
                 drawingContext.DrawRectangle(backgroundBrush, null,
-                    new Rect(0, 0, ActualWidth, area.Height));
+                    new Rect(0, 0, ActualWidth, ActualHeight));
                 drawingContext.DrawRectangle(backgroundTileset1Brush, null,
                     new Rect(0, 0, ActualWidth, ActualHeight));
                 drawingContext.DrawRectangle(backgroundTileset2Brush, null,
-                    new Rect(0, 0, ActualWidth, ActualHeight));  
+                    new Rect(0, 0, ActualWidth, ActualHeight));
 
 
                 foreach (var item in mapLogic.Grounds)
