@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace King_of_the_Hill.Model.GameItems
 {
-    class Armor
+    public class Armor : GameItem
     {
+        public Armor(string name, double posX, double posY) : base(name, posX, posY)
+        {
+
+        }
     }
 }
