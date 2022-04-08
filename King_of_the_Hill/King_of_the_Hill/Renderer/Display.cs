@@ -22,6 +22,7 @@
         MapLogic mapLogic;
         PlayerLogic playerLogic;
         EnemyLogic enemyLogic;
+        ItemLogic itemLogic;
 
 
         public Display()
@@ -33,11 +34,12 @@
             arrowBrush = Brushes.Red;
         }
 
-        public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
             this.mapLogic = mapLogic;
             this.playerLogic = playerLogic;
             this.enemyLogic = enemyLogic;
+            this.itemLogic = itemLogic;
         }
 
         protected override void OnRender(DrawingContext drawingContext)

@@ -19,6 +19,7 @@
         #region Initialization
         PlayerLogic playerLogic;
         EnemyLogic enemyLogic;
+        ItemLogic itemLogic;
         MapLogic mapLogic;
         IntersectLogic intersectLogic;
         SoundLogic soundplayer; //sound
@@ -38,8 +39,9 @@
             InitializeComponent();
             playerLogic = new PlayerLogic();
             enemyLogic = new EnemyLogic();
+            itemLogic = new ItemLogic();
             mapLogic = new MapLogic();
-            intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic);
+            intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
 
             soundplayer = new SoundLogic(); //sound
             //erre a fegyveres cucra ma nem vo
@@ -116,9 +118,10 @@
         {
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             enemyLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
+            itemLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //méret átadása
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic); //Logicok átadása
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //Logicok átadása
             //menu zene
             soundplayer.BackgroundMusicMenu("start");
             //menu zene
@@ -228,7 +231,8 @@
         {
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
-            mapLogic.NextMap(); //következő pálya indítása, jelent esetben az első pálya indul.
+            mapLogic.NextMap(); //következő pálya indítása, jelen esetben az első pálya indul.
+            itemLogic.NextWave(); //következő hullám indítása, jelen esetben az első hullám indul.
             intersectLogic.PutPlayerOnTheStartPlatform();
             timer.Start();
 

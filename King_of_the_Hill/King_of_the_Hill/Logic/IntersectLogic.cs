@@ -14,15 +14,17 @@ namespace King_of_the_Hill.Logic
         PlayerLogic playerLogic;
         MapLogic mapLogic;
         EnemyLogic enemyLogic;
+        ItemLogic itemLogic;
         int width;
         int height;
         static Random random = new Random();
 
-        public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic)
+        public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
             this.playerLogic = playerLogic;
             this.mapLogic = mapLogic;
             this.enemyLogic = enemyLogic;
+            this.itemLogic = itemLogic;
         }
 
         public void SetSizes(int width, int height)
@@ -190,5 +192,45 @@ namespace King_of_the_Hill.Logic
                 }
             }
         }
+
+        #region Items
+
+        public void GenerateItemsPositions()
+        {
+            bool ok;
+            foreach (var item in itemLogic.items)
+            {
+                ok = false;
+                while (!ok)
+                {
+                    item.PosX = random.Next(0, width - item.Width);
+                    item.PosY = random.Next(height - 200, height - item.Height);
+                    foreach (var ground in mapLogic.Grounds)
+                    {
+                        if (!ok && ground is Ground && item.Rectangle.IntersectsWith(ground.Rectangle))
+                        {
+                            ok = true;
+                            foreach (var lava in mapLogic.Grounds)
+                            {
+                                if (lava is Lava && item.Rectangle.IntersectsWith(lava.Rectangle))
+                                {
+                                    ok = false;
+                                }
+                            }
+                            foreach (var otherItem in itemLogic.items)
+                            {
+                                if (!item.Equals(otherItem) && item.Rectangle.IntersectsWith(otherItem.Rectangle))
+                                {
+                                    ok = false;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+        }
+
+        #endregion
     }
 }
