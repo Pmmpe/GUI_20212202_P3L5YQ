@@ -23,14 +23,15 @@
         MapLogic mapLogic;
         IntersectLogic intersectLogic;
         SoundLogic soundplayer; //sound
-        List<Weapon> Weapons; //For random generating weapons on the ground / round. 
+        
 
         InventorySlot[] inv = new InventorySlot[5];
         Brush defaultInventoryBackground = Brushes.Aqua;
 
         DispatcherTimer timer;
 
-
+        ProgressBar HPprogressBar;
+        ProgressBar ShieldprogressBar;
 
         #endregion
 
@@ -44,16 +45,8 @@
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
 
             soundplayer = new SoundLogic(); //sound
-            //erre a fegyveres cucra ma nem vo
-            Weapons = new List<Weapon>();
-
-            #region Weapons
-            Weapons.Add(new Weapon(50, "Axe", 1.0, 1.0, 0, 0));
-            Weapons.Add(new Weapon(24, "Sword", 1.0, 1.0, 0, 0));
-            Weapons.Add(new Weapon(35, "LongSword", 1.0, 1.0, 0, 0));
-            Weapons.Add(new Weapon(15, "Bow", 10.0, 1.0, 0, 0));
-            #endregion
-            //Last 0,0s are the X : Y cordinates of the weapons needed for later use.
+            
+            
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += Timer_Tick;
@@ -66,6 +59,7 @@
             intersectLogic.SetPlayerInTheMap(); //megvalósításnál részletezve
             intersectLogic.SetEnemyDirection(); //megvalósításnál részletezve
             enemyLogic.Move(); //mozgatja az ellenséget
+            intersectLogic.PlayerIntersectWithItem(); //item felvétele
         }
 
         #region CharMoving
@@ -102,6 +96,86 @@
             {
                 playerLogic.Control(PlayerLogic.Controls.Space);
             }
+            if (Keyboard.IsKeyDown(Key.NumPad1))
+            {
+                if (playerLogic.plyr.Jetpack != null)
+                {
+                    playerLogic.plyr.Jetpack.Fuel = 0;
+                    InventoryAllItemDelete(4);
+                }
+            }
+            if (Keyboard.IsKeyDown(Key.NumPad2))
+            {
+                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
+                bool needRemove = false;
+                foreach (var item in playerLogic.plyr.Weapons)
+                {
+                    if (item.Name == "Bow")
+                    {
+                        weaponToRemove = item;
+                        needRemove = true;
+                    }
+                }
+                if (needRemove)
+                {
+                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
+                }
+                InventoryAllItemDelete(3);
+            }
+            if (Keyboard.IsKeyDown(Key.NumPad3))
+            {
+                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
+                bool needRemove = false;
+                foreach (var item in playerLogic.plyr.Weapons)
+                {
+                    if (item.Name == "LongSword")
+                    {
+                        weaponToRemove = item;
+                        needRemove = true;
+                    }
+                }
+                if (needRemove)
+                {
+                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
+                }
+                InventoryAllItemDelete(2);
+            }
+            if (Keyboard.IsKeyDown(Key.NumPad4))
+            {
+                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
+                bool needRemove = false;
+                foreach (var item in playerLogic.plyr.Weapons)
+                {
+                    if (item.Name == "Sword")
+                    {
+                        weaponToRemove = item;
+                        needRemove = true;
+                    }
+                }
+                if (needRemove)
+                {
+                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
+                }
+                InventoryAllItemDelete(1);
+            }
+            if (Keyboard.IsKeyDown(Key.NumPad5))
+            {
+                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
+                bool needRemove = false;
+                foreach (var item in playerLogic.plyr.Weapons)
+                {
+                    if (item.Name == "Axe")
+                    {
+                        weaponToRemove = item;
+                        needRemove = true;
+                    }
+                }
+                if (needRemove)
+                {
+                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
+                }
+                InventoryAllItemDelete(0);
+            }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
                 if (enemyLogic.enemies.Count == 0)
@@ -126,6 +200,9 @@
             soundplayer.BackgroundMusicMenu("start");
             //menu zene
 
+            //esemény feliratkoztatása
+            intersectLogic.ItemAddToInventory += InventoryItemAdd;
+
             for (int i = 0; i < inv.Length; i++)
             {
                 inv[i] = new InventorySlot();
@@ -140,7 +217,7 @@
                 inv[i].Count = 0;
                 inv[i].Label = label;
             }
-            ProgressBar ShieldprogressBar = new ProgressBar();
+            ShieldprogressBar = new ProgressBar();
             ShieldprogressBar.Maximum = 100;
             ShieldprogressBar.Value = 50;
             ShieldprogressBar.Width = 300;
@@ -152,7 +229,7 @@
             ShieldLabel.Padding = new Thickness(0, 10, 0, 0);
             ShieldLabel.Margin = new Thickness(15, 0, 0, 0);
             stackpanel.Children.Add(ShieldLabel);
-            ProgressBar HPprogressBar = new ProgressBar();
+            HPprogressBar = new ProgressBar();
             HPprogressBar.Maximum = 100;
             HPprogressBar.Value = 50;
             HPprogressBar.Width = 300;
@@ -167,14 +244,43 @@
         }
 
         #region InventoryAndMenu
-        private void InventoryItemAdd(int number, int amount)
+        private void InventoryItemAdd(string name, int amount)
         {
+            int number = -1;
+            if (name == "Axe")
+            {
+                number = 0;
+            }
+            else if (name == "Sword")
+            {
+                number = 1;
+            }
+            else if (name == "LongSword")
+            {
+                number = 2;
+            }
+            else if (name == "Bow")
+            {
+                number = 3;
+            }
+            else if (name == "Jetpack")
+            {
+                number = 4;
+            }
+            else if (name == "HP")
+            {
+                HPprogressBar.Value = 100;
+            }
+            else if (name == "Shield")
+            {
+                ShieldprogressBar.Value = 100;
+            }
             bool done = false;
             for (int i = 0; i < inv.Length; i++)
             {
                 if (!done && (int)((Label)inv[i].Label).Tag == number)
                 {
-                    inv[i].Count = amount;
+                    inv[i].Count += amount;
                     ((Label)inv[i].Label).Content = inv[i].Count;
                     done = true;
                 }
@@ -185,7 +291,7 @@
                 {
                     if (!done && (int)((Label)inv[i].Label).Tag == number)
                     {
-                        inv[i].Count = amount;
+                        inv[i].Count += amount;
                         ((Label)inv[i].Label).Content = inv[i].Count;
                         done = true;
                     }
@@ -233,7 +339,9 @@
             gamegrid.Visibility = Visibility.Visible;
             mapLogic.NextMap(); //következő pálya indítása, jelen esetben az első pálya indul.
             itemLogic.NextWave(); //következő hullám indítása, jelen esetben az első hullám indul.
+            intersectLogic.GenerateItemsPositions(); //itemek legenerálása random helyekre
             intersectLogic.PutPlayerOnTheStartPlatform();
+            
             timer.Start();
 
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.game_start);

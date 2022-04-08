@@ -42,7 +42,7 @@ namespace King_of_the_Hill.Logic
                     enemies.Add(new Brute(100, 0, 0, 0, 50, 50));
                     enemies.Add(new Brute(100, 0, 0, 0, 50, 50));
                     enemies.Add(new Archer(30, 0, 0, 0, 50, 50));
-                    enemies.Add(new Heavy_Brute(250, 0, 0, 0, 75, 75));
+                    enemies.Add(new HeavyBrute(250, 0, 0, 0, 75, 75));
                     break;
                 case 2:
                     break;

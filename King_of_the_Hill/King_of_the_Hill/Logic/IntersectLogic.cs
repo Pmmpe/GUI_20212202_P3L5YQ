@@ -1,4 +1,5 @@
 ﻿using King_of_the_Hill.Model;
+using King_of_the_Hill.Model.GameItems;
 using King_of_the_Hill.Model.MapItem;
 using King_of_the_Hill.Model.NPC_Types;
 using System;
@@ -18,6 +19,8 @@ namespace King_of_the_Hill.Logic
         int width;
         int height;
         static Random random = new Random();
+
+        public Action<string, int> ItemAddToInventory;
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
@@ -228,6 +231,34 @@ namespace King_of_the_Hill.Logic
                     }
                 }
 
+            }
+        }
+
+        public void PlayerIntersectWithItem()
+        {
+            GameItem itemToRemove = new Axe(0, "temp", 0, 0, 0, 0);
+            bool needRemove = false;
+            foreach (var item in itemLogic.items)
+            {
+                if (item.Rectangle.IntersectsWith(playerLogic.playerRect))
+                {
+                    itemToRemove = item;
+                    needRemove = true;
+                    ItemAddToInventory?.Invoke(item.Name, 1);//mindenből 100 egységet kap
+                    if (item is Weapon weapon)
+                    {
+                        playerLogic.plyr.Weapons.Add(weapon); //megkapja a player a fegyvert
+                    }
+                    if (item is Jetpack jetpack)
+                    {
+                        playerLogic.plyr.Jetpack = jetpack;
+                        playerLogic.plyr.Jetpack.Fuel = 1000; //megkapja a jetpacket 1000 fuel-el.
+                    }
+                }
+            }
+            if (needRemove)
+            {
+                itemLogic.items.Remove(itemToRemove);
             }
         }
 

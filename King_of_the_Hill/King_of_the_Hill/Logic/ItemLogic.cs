@@ -195,7 +195,7 @@ namespace King_of_the_Hill.Logic
                     items.Add(new Sword(25, "Sword", 100, 1, 0, 0));
                     break;
                 case 1:
-                    items.Add(new LongSword(25, "Sword", 100, 1, 0, 0));
+                    items.Add(new LongSword(25, "LongSword", 100, 1, 0, 0));
                     break;
                 case 2:
                     items.Add(new Axe(25, "Axe", 100, 1, 0, 0));
