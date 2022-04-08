@@ -79,7 +79,7 @@ namespace King_of_the_Hill.Logic
         {
             foreach (var enemy in enemies)
             {
-                if (enemy.Direction)
+                if (enemy.DirectionIsLeft)
                 {
                     enemy.PosX--;
                 }

@@ -161,11 +161,11 @@ namespace King_of_the_Hill.Logic
                         {
                             if (enemy.PosX < platform.X)
                             {
-                                enemy.Direction = false;
+                                enemy.DirectionIsLeft = false;
                             }
                             else if (enemy.PosX > platform.X + platform.Width - enemy.Width)
                             {
-                                enemy.Direction = true;
+                                enemy.DirectionIsLeft = true;
                             }
                         }
                     }
@@ -174,17 +174,17 @@ namespace King_of_the_Hill.Logic
                 {
                     if (enemy.PosX <= 0)
                     {
-                        enemy.Direction = false;
+                        enemy.DirectionIsLeft = false;
                     }
                     else if (enemy.PosX >= width)
                     {
-                        enemy.Direction = true;
+                        enemy.DirectionIsLeft = true;
                     }
                     foreach (var lava in mapLogic.Grounds)
                     {
                         if (lava is Lava && enemy.enemyRect.IntersectsWith(lava.Rectangle))
                         {
-                            enemy.Direction = !enemy.Direction;
+                            enemy.DirectionIsLeft = !enemy.DirectionIsLeft;
                         }
                     }
                 }

@@ -3,11 +3,11 @@
     using System.Drawing;
     public class Npc : Character
     {
-        public bool Direction { get; set; } // true - bal, false - jobb
+        public bool DirectionIsLeft { get; set; } // true - bal, false - jobb
 
         public Npc(double Health, double Armour, double PosX, double PosY, double Width, double Height) : base(PosX, PosY, Width, Height, Health, Armour)
         {
-            Direction = true;
+            DirectionIsLeft = true;
         }
         
         public double Weight { get; set; }
