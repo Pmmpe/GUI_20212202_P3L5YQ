@@ -26,7 +26,8 @@
                 backgroundsoundplayer = new MediaPlayer();
                 backgroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", "hatterzene_lol.mp3"), UriKind.RelativeOrAbsolute));
                 backgroundsoundplayer.MediaEnded += Soundplayer_MediaEnded;
-                backgroundsoundplayer.Play();
+                backgroundsoundplayer.Volume = 0.01;
+                backgroundsoundplayer.Play();         
             }
             else if (action == "stop")
             {
@@ -37,7 +38,8 @@
         private void Soundplayer_MediaEnded(object? sender, EventArgs e) //looping sound
         {
             backgroundsoundplayer.Position = TimeSpan.Zero;
-            backgroundsoundplayer.Play();
+            backgroundsoundplayer.Volume = 0.01;
+            backgroundsoundplayer.Play();        
         }
 
         public void BackgroundMusicGame(string action)
@@ -47,7 +49,8 @@
                 backgroundsoundplayer = new MediaPlayer();
                 backgroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", "game_bcg_music.mp3"), UriKind.RelativeOrAbsolute));
                 backgroundsoundplayer.MediaEnded += Soundplayer_MediaEnded;
-                backgroundsoundplayer.Play();
+                backgroundsoundplayer.Volume = 0.01;
+                backgroundsoundplayer.Play(); 
             }
         }
 
@@ -73,8 +76,8 @@
                     break;
             }
             foregroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
+            foregroundsoundplayer.Volume = 0.01;
             foregroundsoundplayer.Play();
-
         }
 
         public void PlayActionSound(MenusSounds sound)
@@ -93,8 +96,8 @@
                     break;
             }
             foregroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
+            foregroundsoundplayer.Volume = 0.01;
             foregroundsoundplayer.Play();
-
         }
     }
 }
