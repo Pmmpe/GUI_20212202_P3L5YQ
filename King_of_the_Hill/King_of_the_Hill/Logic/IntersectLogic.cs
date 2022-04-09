@@ -20,7 +20,9 @@ namespace King_of_the_Hill.Logic
         int height;
         static Random random = new Random();
 
-        public Action<string, int> ItemAddToInventory;
+        public Action<string> InventoryAddWeaponFromLogic; //amit megkap string azt kiírja a xaml.cs az inventory-ba.
+        public Action<int> InventoryAddArrowsFromLogic; //megadod hány db nyilat kapjon
+        public Action<int> InventoryAddCharonFromLogic; // charon érmét adhatsz illetve elvehetsz
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
@@ -242,18 +244,20 @@ namespace King_of_the_Hill.Logic
             {
                 if (item.Rectangle.IntersectsWith(playerLogic.playerRect))
                 {
-                    itemToRemove = item;
-                    needRemove = true;
-                    ItemAddToInventory?.Invoke(item.Name, 1);//mindenből 100 egységet kap
-                    if (item is Weapon weapon)
+                    if (item is Weapon && playerLogic.plyr.PrimaryWeapon.Name == "DELETED")
                     {
-                        playerLogic.plyr.Weapons.Add(weapon); //megkapja a player a fegyvert
+                        playerLogic.plyr.PrimaryWeapon = (Weapon)item;
+                        itemToRemove = item;
+                        needRemove = true;
+                        InventoryAddWeaponFromLogic(item.Name); //megkapja a xaml.cs a fegyver nevét amit kiír
                     }
-                    if (item is Jetpack jetpack)
+                    else if (item is Bow)
                     {
-                        playerLogic.plyr.Jetpack = jetpack;
-                        playerLogic.plyr.Jetpack.Fuel = 1000; //megkapja a jetpacket 1000 fuel-el.
+                        itemToRemove = item;
+                        needRemove = true;
+                        InventoryAddArrowsFromLogic(((Bow)item).NumberOfArrows); //megkapja a xaml.cs a nyílvesszők számát.
                     }
+                    
                 }
             }
             if (needRemove)

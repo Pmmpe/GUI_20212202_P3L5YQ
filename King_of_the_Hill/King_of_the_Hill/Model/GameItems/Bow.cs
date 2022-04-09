@@ -1,11 +1,15 @@
 ﻿
 namespace King_of_the_Hill.Model.GameItems
 {
-    public class Bow : Weapon
+    public class Bow : GameItem
     {
-        public Bow(double weaponDamage, string weaponName, double durability, double attackSpeed, double PosX, double PosY) : base(weaponDamage, weaponName, durability, attackSpeed, PosX, PosY)
-        {
+        public int NumberOfArrows { get; set; }
+        public int WeaponDamage { get; set; }
 
+        public Bow(int weaponDamage, string weaponName, int numberOfArrows, double PosX, double PosY) : base(weaponName, PosX, PosY)
+        {
+            WeaponDamage = weaponDamage;
+            NumberOfArrows = numberOfArrows;
         }
     }
 }

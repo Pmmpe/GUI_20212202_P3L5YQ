@@ -201,18 +201,18 @@ namespace King_of_the_Hill.Logic
                     items.Add(new Axe(25, "Axe", 100, 1, 0, 0));
                     break;
                 case 3:
-                    //Az íjnál kell durability beállítás is nehézségi szinttől függően ezért kell az if
+                    //Az íjnál kell nyíl darabszám beállítás is nehézségi szinttől függően ezért kell az if
                     if (difficulty == "Easy")
                     {
-                        items.Add(new Bow(25, "Bow", 15, 1, 0, 0));
+                        items.Add(new Bow(25, "Bow", 15, 0, 0));
                     }
                     else if (difficulty == "Medium")
                     {
-                        items.Add(new Bow(25, "Bow", 10, 1, 0, 0));
+                        items.Add(new Bow(25, "Bow", 10, 0, 0));
                     }
                     else //Hard
                     {
-                        items.Add(new Bow(25, "Bow", 5, 1, 0, 0));
+                        items.Add(new Bow(25, "Bow", 5, 0, 0));
                     }
                     break;
             }

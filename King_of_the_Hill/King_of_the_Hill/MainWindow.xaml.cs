@@ -96,6 +96,16 @@
             {
                 playerLogic.Control(PlayerLogic.Controls.Space);
             }
+            if (Keyboard.IsKeyDown(Key.NumPad1))
+            {
+                playerLogic.plyr.PrimaryWeapon.Name = "DELETED"; //nem tudom ki null-ozni szóval ha nincs a playernek fegyverek akkor átírjuk a fegyverének a nevét DELETED-re
+                InventoryAddWeapon("N/A");
+            }
+            if (Keyboard.IsKeyDown(Key.NumPad2))
+            {
+                playerLogic.plyr.Bow.NumberOfArrows--;
+                InventoryAddArrow(playerLogic.plyr.Bow.NumberOfArrows);
+            }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
                 if (enemyLogic.enemies.Count == 0)
@@ -121,7 +131,9 @@
             //menu zene
 
             //esemény feliratkoztatása
-            
+            intersectLogic.InventoryAddWeaponFromLogic = InventoryAddWeapon;
+            intersectLogic.InventoryAddArrowsFromLogic = InventoryAddArrow;
+            intersectLogic.InventoryAddCharonFromLogic = InventoryAddCharon;
 
             
             
@@ -136,7 +148,7 @@
 
         public void InventoryAddArrow(int numberOfArrows)
         {
-            label_slotTwo.Content = numberOfArrows;
+            label_slotTwo.Content = numberOfArrows + int.Parse(label_slotTwo.Content+"");
         }
 
         public void InventoryAddCharon(int number)
