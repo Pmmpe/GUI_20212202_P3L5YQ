@@ -280,7 +280,7 @@ namespace King_of_the_Hill.Logic
                     {
                         itemToRemove = item;
                         needRemove = true;
-                        playerLogic.plyr.Jetpack.Fuel += 1000; //kap 1000 üzemanyagot
+                        playerLogic.plyr.Jetpack.Fuel += 250; //kap 250 üzemanyagot
                         InventoryAddJetpackFuelFromLogic(playerLogic.plyr.Jetpack.Fuel);
                     }
                     

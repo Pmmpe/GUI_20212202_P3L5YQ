@@ -94,7 +94,13 @@
             }
             if (Keyboard.IsKeyDown(Key.Space))
             {
-                playerLogic.Control(PlayerLogic.Controls.Space);
+                if (playerLogic.plyr.Jetpack.Fuel > 0)
+                {
+                    playerLogic.plyr.Jetpack.Fuel--;
+                    InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
+                    playerLogic.Control(PlayerLogic.Controls.Space);
+                }
+                
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
@@ -103,8 +109,11 @@
             }
             if (Keyboard.IsKeyDown(Key.NumPad2))
             {
-                playerLogic.plyr.Bow.NumberOfArrows--;
-                InventorySetArrowNumber(playerLogic.plyr.Bow.NumberOfArrows);
+                if (playerLogic.plyr.Bow.NumberOfArrows > 0)
+                {
+                    playerLogic.plyr.Bow.NumberOfArrows--;
+                    InventorySetArrowNumber(playerLogic.plyr.Bow.NumberOfArrows);
+                }
             }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
