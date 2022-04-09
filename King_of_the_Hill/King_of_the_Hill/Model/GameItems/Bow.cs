@@ -1,5 +1,4 @@
-﻿
-namespace King_of_the_Hill.Model.GameItems
+﻿namespace King_of_the_Hill.Model.GameItems
 {
     public class Bow : Weapon
     {
