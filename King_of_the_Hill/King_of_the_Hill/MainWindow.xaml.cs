@@ -96,86 +96,6 @@
             {
                 playerLogic.Control(PlayerLogic.Controls.Space);
             }
-            if (Keyboard.IsKeyDown(Key.NumPad1))
-            {
-                if (playerLogic.plyr.Jetpack != null)
-                {
-                    playerLogic.plyr.Jetpack.Fuel = 0;
-                    InventoryAllItemDelete(4);
-                }
-            }
-            if (Keyboard.IsKeyDown(Key.NumPad2))
-            {
-                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
-                bool needRemove = false;
-                foreach (var item in playerLogic.plyr.Weapons)
-                {
-                    if (item.Name == "Bow")
-                    {
-                        weaponToRemove = item;
-                        needRemove = true;
-                    }
-                }
-                if (needRemove)
-                {
-                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
-                }
-                InventoryAllItemDelete(3);
-            }
-            if (Keyboard.IsKeyDown(Key.NumPad3))
-            {
-                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
-                bool needRemove = false;
-                foreach (var item in playerLogic.plyr.Weapons)
-                {
-                    if (item.Name == "LongSword")
-                    {
-                        weaponToRemove = item;
-                        needRemove = true;
-                    }
-                }
-                if (needRemove)
-                {
-                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
-                }
-                InventoryAllItemDelete(2);
-            }
-            if (Keyboard.IsKeyDown(Key.NumPad4))
-            {
-                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
-                bool needRemove = false;
-                foreach (var item in playerLogic.plyr.Weapons)
-                {
-                    if (item.Name == "Sword")
-                    {
-                        weaponToRemove = item;
-                        needRemove = true;
-                    }
-                }
-                if (needRemove)
-                {
-                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
-                }
-                InventoryAllItemDelete(1);
-            }
-            if (Keyboard.IsKeyDown(Key.NumPad5))
-            {
-                Weapon weaponToRemove = new Weapon(0, "temp", 0, 0, 0, 0);
-                bool needRemove = false;
-                foreach (var item in playerLogic.plyr.Weapons)
-                {
-                    if (item.Name == "Axe")
-                    {
-                        weaponToRemove = item;
-                        needRemove = true;
-                    }
-                }
-                if (needRemove)
-                {
-                    playerLogic.plyr.Weapons.Remove(weaponToRemove);
-                }
-                InventoryAllItemDelete(0);
-            }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
                 if (enemyLogic.enemies.Count == 0)
@@ -201,136 +121,27 @@
             //menu zene
 
             //esemény feliratkoztatása
-            intersectLogic.ItemAddToInventory += InventoryItemAdd;
+            
 
-            for (int i = 0; i < inv.Length; i++)
-            {
-                inv[i] = new InventorySlot();
-                Label label = new Label();
-                label.Content = 0;
-                label.Background = defaultInventoryBackground;
-                label.Padding = new Thickness(0, 30, 40, 0);
-                label.Margin = new Thickness(15, 0, 0, 0);
-                label.FontSize = 50;
-                label.Tag = i;
-                stackpanel.Children.Add(label);
-                inv[i].Count = 0;
-                inv[i].Label = label;
-            }
-            ShieldprogressBar = new ProgressBar();
-            ShieldprogressBar.Maximum = 100;
-            ShieldprogressBar.Value = 50;
-            ShieldprogressBar.Width = 300;
-            ShieldprogressBar.Margin = new Thickness(300, 10, 0, 10);
-            stackpanel.Children.Add(ShieldprogressBar);
-            Label ShieldLabel = new Label();
-            ShieldLabel.Content = "Shield";
-            ShieldLabel.FontSize = 50;
-            ShieldLabel.Padding = new Thickness(0, 10, 0, 0);
-            ShieldLabel.Margin = new Thickness(15, 0, 0, 0);
-            stackpanel.Children.Add(ShieldLabel);
-            HPprogressBar = new ProgressBar();
-            HPprogressBar.Maximum = 100;
-            HPprogressBar.Value = 50;
-            HPprogressBar.Width = 300;
-            HPprogressBar.Margin = new Thickness(15, 10, 0, 10);
-            stackpanel.Children.Add(HPprogressBar);
-            Label HPLabel = new Label();
-            HPLabel.Content = "HP";
-            HPLabel.FontSize = 50;
-            HPLabel.Padding = new Thickness(0, 10, 0, 0);
-            HPLabel.Margin = new Thickness(15, 0, 0, 0);
-            stackpanel.Children.Add(HPLabel);
+            
+            
         }
 
         #region InventoryAndMenu
-        private void InventoryItemAdd(string name, int amount)
+        
+        public void InventoryAddWeapon(string weaponName)
         {
-            int number = -1;
-            if (name == "Axe")
-            {
-                number = 0;
-            }
-            else if (name == "Sword")
-            {
-                number = 1;
-            }
-            else if (name == "LongSword")
-            {
-                number = 2;
-            }
-            else if (name == "Bow")
-            {
-                number = 3;
-            }
-            else if (name == "Jetpack")
-            {
-                number = 4;
-            }
-            else if (name == "HP")
-            {
-                HPprogressBar.Value = 100;
-            }
-            else if (name == "Shield")
-            {
-                ShieldprogressBar.Value = 100;
-            }
-            bool done = false;
-            for (int i = 0; i < inv.Length; i++)
-            {
-                if (!done && (int)((Label)inv[i].Label).Tag == number)
-                {
-                    inv[i].Count += amount;
-                    ((Label)inv[i].Label).Content = inv[i].Count;
-                    done = true;
-                }
-            }
-            if (!done)
-            {
-                for (int i = 0; i < inv.Length; i++)
-                {
-                    if (!done && (int)((Label)inv[i].Label).Tag == number)
-                    {
-                        inv[i].Count += amount;
-                        ((Label)inv[i].Label).Content = inv[i].Count;
-                        done = true;
-                    }
-                }
-            }
+            label_slotOne.Content = weaponName;
         }
 
-        private void InventoryItemDelete(int number)
+        public void InventoryAddArrow(int numberOfArrows)
         {
-            for (int i = 0; i < inv.Length; i++)
-            {
-                if ((int)((Label)inv[i].Label).Tag == number)
-                {
-                    if (inv[i].Count > 1)
-                    {
-                        inv[i].Count--;
-                        ((Label)inv[i].Label).Content = inv[i].Count;
-                    }
-                    else
-                    {
-                        inv[i].Count = 0;
-                        ((Label)inv[i].Label).Content = 0;
-                        ((Label)inv[i].Label).Background = defaultInventoryBackground;
-                    }
-                }
-            }
+            label_slotTwo.Content = numberOfArrows;
         }
 
-        private void InventoryAllItemDelete(int number)
+        public void InventoryAddCharon(int number)
         {
-            for (int i = 0; i < inv.Length; i++)
-            {
-                if ((int)((Label)inv[i].Label).Tag == number)
-                {
-                    inv[i].Count = 0;
-                    ((Label)inv[i].Label).Content = 0;
-                    ((Label)inv[i].Label).Background = defaultInventoryBackground;
-                }
-            }
+            label_slotThree.Content = number;
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)

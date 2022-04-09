@@ -13,7 +13,38 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
-            <StackPanel x:Name="stackpanel" Grid.Row="0" Orientation="Horizontal" FlowDirection="RightToLeft"/>
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="1*"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal">
+                    <Label Content="HP" FontSize="50" Margin="0,0,25,0"/>
+                    <ProgressBar Value="50" Maximum="100" Width="250" Margin="15"/>
+                    <Label Content="| Armor" FontSize="50" Margin="0,0,25,0"/>
+                    <ProgressBar Value="50" Maximum="100" Width="250" Margin="15"/>
+                </StackPanel>
+                <Grid Grid.Column="1">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"/>
+                        <RowDefinition Height="1*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                    </Grid.ColumnDefinitions>
+                    <Label x:Name="label_slotOne" Content="0" Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotTwo" Content="0" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotThree" Content="0" Grid.Row="1" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotFour" Content="0" Grid.Row="1" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Kard" Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Nyíl" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Charon" Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Fentartott" Grid.Row="0" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                </Grid>
+            </Grid>
             <renderer:Display x:Name="display" Grid.Row="1"/>
         </Grid>
         <StackPanel x:Name="menu">
