@@ -12,7 +12,8 @@
     using System.Windows.Threading;
 
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main logical part of the project it checks every component and it does every single move
+    /// or calculation from frame by frame according to the DispatcherTimers tickrate.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -45,7 +46,7 @@
 
             soundplayer = new SoundLogic(); //sound
 
-            //erre a fegyveres cucra ma nem vo
+            //TODO - had no time
             Weapons = new List<Weapon>();
 
             #region Weapons
@@ -89,11 +90,12 @@
         private void Timer_Tick(object? sender, EventArgs e)
         {
             display.InvalidateVisual();
-            intersectLogic.IsPlayerAndMapIntersect(); //megvalósításnál részletezve
-            intersectLogic.SetPlayerInTheMap(); //megvalósításnál részletezve
-            intersectLogic.SetEnemyDirection(); //megvalósításnál részletezve
-            enemyLogic.Move(); //mozgatja az ellenséget
+            intersectLogic.IsPlayerAndMapIntersect();   // Summarized at implementation! 
+            intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
+             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
+             enemyLogic.Move();                         //NPC moving function!
             
+
             //Chain functions: The player is attacking if the first checker function returns true for NPC intersecting and the "K" has been pressed down,
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
             //his or her Weight * (Weapon) weapons.WeaponDamage;
@@ -148,15 +150,16 @@
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
-            enemyLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
+            mapLogic.SetDifficulty("Easy"); //Easy as the default value!
+            enemyLogic.SetDifficulty("Easy"); //Easy as the default value!
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
-            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //méret átadása
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic); //Logicok átadása
-            //menu zene
+            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //It gives the current sizes!
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic); //It passes through the logics!
+            
+            //Main Menu theme song!
             soundplayer.BackgroundMusicMenu("start");
-            //menu zene
-
+            
+            //Menu theme song!
             for (int i = 0; i < inv.Length; i++)
             {
                 inv[i] = new InventorySlot();

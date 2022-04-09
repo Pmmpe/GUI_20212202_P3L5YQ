@@ -8,7 +8,7 @@
         int actualWaveNumber;
         int maxWaveNumber;
         string difficulty;
-        public List<Npc> enemies; //ellenségek listája
+        public List<Npc> enemies; //List of every used current enemy npc unit in the current play session!
 
         public EnemyLogic()
         {
@@ -26,7 +26,9 @@
             }
         }
 
-        //Hullámonként ide tudod beírni, hogy hány ellenség spawnoljon
+        //It spawns every single different enemy wave in the game.
+        //You could determinate what kind of enemies and how many of
+        //them to come in every single round, per wave by wave!
         private void CreateEnemies()
         {
             switch (actualWaveNumber)
@@ -86,7 +88,8 @@
             }
         }
 
-        //beállítja hány hullám legyen
+        //It sets in the actual number of waves int the current
+        //game session according to the given difficulity!
         public void SetDifficulty(string difficulty)
         {
             this.difficulty = difficulty;

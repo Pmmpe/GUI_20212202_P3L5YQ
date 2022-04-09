@@ -1,7 +1,6 @@
 ﻿namespace King_of_the_Hill.Model
 {
     using King_of_the_Hill.Model.GameItems;
-    using System.Drawing;
     public class Player : Character
     {
         public int Weight { get; set; }

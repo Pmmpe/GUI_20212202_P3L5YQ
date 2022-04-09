@@ -26,6 +26,7 @@
             this.width = width;
             this.height = height;
         }
+
         //Returns true if the player is in intersect with any of the given NPCs in the current EnemyLogic
         public bool isPlayerIntersectWithAnyNPC(PlayerLogic playerLogic, EnemyLogic enemyLogic)
         {
@@ -39,7 +40,9 @@
             }
             return intersect;
         }
-        //Returns the current npc that is intersecting with the player object. BEAWARE if you call it in none intersect situation, it could and will return null. (Handled in PlayerLogic)
+
+        //Returns the current npc that is intersecting with the player object.
+        //BEAWARE if you call it in none intersect situation, it could and will return null. (Handled in PlayerLogic)
         public Npc PlayerIntersectWithThat(PlayerLogic playerLogic, EnemyLogic enemyLogic)
         {
             foreach (var npc in enemyLogic.enemies)
@@ -52,7 +55,7 @@
             return null; 
         }
 
-        //már megírt gravitációs leesés
+        //The already stated player gravity function for further description see in the xaml.cs!
         public bool IsPlayerAndMapIntersect()
         {
             foreach (var ground in mapLogic.Grounds)
@@ -66,7 +69,7 @@
             return false;
         }
 
-        //játékos nem tud kimenni a pályáról
+        //Prevents the player to leave the playable area aka the game map!
         public void SetPlayerInTheMap()
         {
             if (playerLogic.plyr.PosX < 0)
@@ -87,7 +90,7 @@
             }
         }
 
-        //ellenség random generálása
+        //Random enemy generating function!
         public void GenerateEnemiesPositons()
         {
             bool ok;
@@ -143,7 +146,7 @@
             }
         }
 
-        //játékos kezdő platformra helyezése
+        //Localising the player at the starter platform or area!
         public void PutPlayerOnTheStartPlatform()
         {
             foreach (var platform in mapLogic.Grounds)
@@ -155,7 +158,7 @@
             }
         }
 
-        //Bármilyen character, legyen az játékos vagy ellenség a megadott platformra helyezése
+        //It places every single character (could be player or npc aswell) to a platform!
         private void PutTopOfAPlatform(IMapItem platform, Character character)
         {
             if (character.PosX < platform.X)
@@ -169,7 +172,7 @@
             character.PosY = platform.Y - character.Height;
         }
 
-        //beállítja, hogy merre menjen az ellenség
+        //It sets the enemies moving direction / facing direction!
         public void SetEnemyDirection()
         {
             foreach (var enemy in enemyLogic.enemies)

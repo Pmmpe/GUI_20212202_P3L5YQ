@@ -54,7 +54,7 @@
         public void PlayActionSound( PlayerSounds sound)
         {
             string asset = "";
-            foregroundsoundplayer = new MediaPlayer(); //minden sound-hoz kulön soundplayer kell
+            foregroundsoundplayer = new MediaPlayer(); //Every single sound needs another distinct soundplayer!
             switch (sound)
             {
                 case PlayerSounds.sword_cut:
@@ -80,7 +80,7 @@
         public void PlayActionSound(MenusSounds sound)
         {
             string asset = "";
-            foregroundsoundplayer = new MediaPlayer(); //minden sound-hoz kulön soundplayer kell
+            foregroundsoundplayer = new MediaPlayer(); //Every single sound needs another distinct soundplayer!
             switch (sound)
             {
                 case MenusSounds.button_click:
