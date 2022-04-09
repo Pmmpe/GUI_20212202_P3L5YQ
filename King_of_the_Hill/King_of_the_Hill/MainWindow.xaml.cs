@@ -134,6 +134,8 @@
             intersectLogic.InventoryAddWeaponFromLogic = InventoryAddWeapon;
             intersectLogic.InventoryAddArrowsFromLogic = InventoryAddArrow;
             intersectLogic.InventoryAddCharonFromLogic = InventoryAddCharon;
+            intersectLogic.InventoryAddHPFromLogic = InventorySetHP;
+            intersectLogic.InventoryAddArmorFromLogic = InventorySetArmor;
 
             
             
@@ -146,7 +148,7 @@
             label_slotOne.Content = weaponName;
         }
 
-        public void InventoryAddArrow(int numberOfArrows)
+        public void InventoryAddArrow(int numberOfArrows) //ha levonni szeretnél majd pl akkor amikor lőtt akkor negatív számot adj be, tehát ha 1-et akarsz levonni akkor -1 et.
         {
             label_slotTwo.Content = numberOfArrows + int.Parse(label_slotTwo.Content+"");
         }
@@ -154,6 +156,16 @@
         public void InventoryAddCharon(int number)
         {
             label_slotThree.Content = number;
+        }
+
+        public void InventorySetHP(int numberOfHP)
+        {
+            progressbar_hp.Value = numberOfHP;
+        }
+
+        public void InventorySetArmor(int numberOfAmor)
+        {
+            progressbar_armor.Value = numberOfAmor;
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)

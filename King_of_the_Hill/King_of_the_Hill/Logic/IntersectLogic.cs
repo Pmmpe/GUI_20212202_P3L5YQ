@@ -23,6 +23,9 @@ namespace King_of_the_Hill.Logic
         public Action<string> InventoryAddWeaponFromLogic; //amit megkap string azt kiírja a xaml.cs az inventory-ba.
         public Action<int> InventoryAddArrowsFromLogic; //megadod hány db nyilat kapjon
         public Action<int> InventoryAddCharonFromLogic; // charon érmét adhatsz illetve elvehetsz
+        public Action<int> InventoryAddHPFromLogic; // HP-t adhatsz
+        public Action<int> InventoryAddArmorFromLogic; // Armor-t adhatsz
+        
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
@@ -246,9 +249,9 @@ namespace King_of_the_Hill.Logic
                 {
                     if (item is Weapon && playerLogic.plyr.PrimaryWeapon.Name == "DELETED")
                     {
-                        playerLogic.plyr.PrimaryWeapon = (Weapon)item;
                         itemToRemove = item;
                         needRemove = true;
+                        playerLogic.plyr.PrimaryWeapon = (Weapon)item;
                         InventoryAddWeaponFromLogic(item.Name); //megkapja a xaml.cs a fegyver nevét amit kiír
                     }
                     else if (item is Bow)
@@ -256,6 +259,18 @@ namespace King_of_the_Hill.Logic
                         itemToRemove = item;
                         needRemove = true;
                         InventoryAddArrowsFromLogic(((Bow)item).NumberOfArrows); //megkapja a xaml.cs a nyílvesszők számát.
+                    }
+                    else if (item is HealPotion)
+                    {
+                        itemToRemove = item;
+                        needRemove = true;
+                        InventoryAddHPFromLogic(100); //Egy hp poti 100 hp-ad (max-ra tölt)
+                    }
+                    else if (item is Armor)
+                    {
+                        itemToRemove = item;
+                        needRemove = true;
+                        InventoryAddArrowsFromLogic(100); //armor szintén maxra tölt
                     }
                     
                 }
