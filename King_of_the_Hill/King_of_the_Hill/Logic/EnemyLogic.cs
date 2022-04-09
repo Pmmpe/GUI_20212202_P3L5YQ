@@ -1,12 +1,8 @@
-﻿using King_of_the_Hill.Model.NPC_Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model.NPC_Types;
+    using System.Collections.Generic;
+
     public class EnemyLogic
     {
         int actualWaveNumber;

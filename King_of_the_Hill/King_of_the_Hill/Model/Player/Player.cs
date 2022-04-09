@@ -1,5 +1,6 @@
 ﻿namespace King_of_the_Hill.Model
 {
+    using King_of_the_Hill.Model.GameItems;
     using System.Drawing;
     public class Player : Character
     {
@@ -10,6 +11,20 @@
             this.Weight = Weight;
         }
         
+        public Weapon weapon { get; set; }
 
+        public Bow bow { get; set; }
+
+        public double returnDamage()
+        {
+            if (weapon == null)
+            {
+                return 50;
+            }
+            else
+            {
+                return Weight * weapon.WeaponDamage;
+            }
+        }
     }
 }

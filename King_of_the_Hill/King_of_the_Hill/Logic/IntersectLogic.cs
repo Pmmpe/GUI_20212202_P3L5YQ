@@ -1,19 +1,15 @@
-﻿using King_of_the_Hill.Model;
-using King_of_the_Hill.Model.MapItem;
-using King_of_the_Hill.Model.NPC_Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.MapItem;
+    using King_of_the_Hill.Model.NPC_Types;
+    using System;
     public class IntersectLogic
     {
         PlayerLogic playerLogic;
         MapLogic mapLogic;
         EnemyLogic enemyLogic;
+
         int width;
         int height;
         static Random random = new Random();
@@ -29,6 +25,31 @@ namespace King_of_the_Hill.Logic
         {
             this.width = width;
             this.height = height;
+        }
+        //Returns true if the player is in intersect with any of the given NPCs in the current EnemyLogic
+        public bool isPlayerIntersectWithAnyNPC(PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        {
+            bool intersect = false;
+            foreach (var npc in enemyLogic.enemies)
+            {
+                if (playerLogic.playerRect.IntersectsWith(npc.enemyRect))
+                {
+                    intersect =  true;
+                }
+            }
+            return intersect;
+        }
+        //Returns the current npc that is intersecting with the player object. BEAWARE if you call it in none intersect situation, it could and will return null. (Handled in PlayerLogic)
+        public Npc PlayerIntersectWithThat(PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        {
+            foreach (var npc in enemyLogic.enemies)
+            {
+                if (playerLogic.playerRect.IntersectsWith(npc.enemyRect))
+                {
+                    return npc;
+                }
+            }
+            return null; 
         }
 
         //már megírt gravitációs leesés
