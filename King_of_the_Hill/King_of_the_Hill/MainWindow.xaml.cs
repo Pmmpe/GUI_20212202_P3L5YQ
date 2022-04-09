@@ -217,6 +217,7 @@
             label_difficulty.Content = "Current Difficulty: Easy";
             mapLogic.SetDifficulty("Easy");
             enemyLogic.SetDifficulty("Easy");
+            itemLogic.SetDifficulty("Easy");
         }
 
         private void Medium_Click(object sender, RoutedEventArgs e)
@@ -225,6 +226,7 @@
             label_difficulty.Content = "Current Difficulty: Medium";
             mapLogic.SetDifficulty("Medium");
             enemyLogic.SetDifficulty("Medium");
+            itemLogic.SetDifficulty("Medium");
         }
 
         private void Hard_Click(object sender, RoutedEventArgs e)
@@ -233,6 +235,7 @@
             label_difficulty.Content = "Current Difficulty: Hard";
             mapLogic.SetDifficulty("Hard");
             enemyLogic.SetDifficulty("Hard");
+            itemLogic.SetDifficulty("Hard");
         }
 
         private void BackToMenu_Click(object sender, RoutedEventArgs e)
