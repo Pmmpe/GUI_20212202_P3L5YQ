@@ -99,12 +99,12 @@
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
                 playerLogic.plyr.PrimaryWeapon.Name = "DELETED"; //nem tudom ki null-ozni szóval ha nincs a playernek fegyverek akkor átírjuk a fegyverének a nevét DELETED-re
-                InventoryAddWeapon("N/A");
+                InventorySetWeaponName("N/A");
             }
             if (Keyboard.IsKeyDown(Key.NumPad2))
             {
                 playerLogic.plyr.Bow.NumberOfArrows--;
-                InventoryAddArrow(playerLogic.plyr.Bow.NumberOfArrows);
+                InventorySetArrowNumber(playerLogic.plyr.Bow.NumberOfArrows);
             }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
@@ -131,9 +131,10 @@
             //menu zene
 
             //esemény feliratkoztatása
-            intersectLogic.InventoryAddWeaponFromLogic = InventoryAddWeapon;
-            intersectLogic.InventoryAddArrowsFromLogic = InventoryAddArrow;
-            intersectLogic.InventoryAddCharonFromLogic = InventoryAddCharon;
+            intersectLogic.InventoryAddWeaponFromLogic = InventorySetWeaponName;
+            intersectLogic.InventoryAddArrowsFromLogic = InventorySetArrowNumber;
+            intersectLogic.InventoryAddCharonFromLogic = InventorySetCharon;
+            intersectLogic.InventoryAddJetpackFuelFromLogic = InventorySetJetpackFuel;
             intersectLogic.InventoryAddHPFromLogic = InventorySetHP;
             intersectLogic.InventoryAddArmorFromLogic = InventorySetArmor;
 
@@ -143,19 +144,24 @@
 
         #region InventoryAndMenu
         
-        public void InventoryAddWeapon(string weaponName)
+        public void InventorySetWeaponName(string weaponName)
         {
             label_slotOne.Content = weaponName;
         }
 
-        public void InventoryAddArrow(int numberOfArrows) //ha levonni szeretnél majd pl akkor amikor lőtt akkor negatív számot adj be, tehát ha 1-et akarsz levonni akkor -1 et.
+        public void InventorySetArrowNumber(int numberOfArrows)
         {
-            label_slotTwo.Content = numberOfArrows + int.Parse(label_slotTwo.Content+"");
+            label_slotTwo.Content = numberOfArrows;
         }
 
-        public void InventoryAddCharon(int number)
+        public void InventorySetCharon(int number)
         {
             label_slotThree.Content = number;
+        }
+
+        public void InventorySetJetpackFuel(int fuel)
+        {
+            label_slotFour.Content = fuel;
         }
 
         public void InventorySetHP(int numberOfHP)
@@ -167,6 +173,7 @@
         {
             progressbar_armor.Value = numberOfAmor;
         }
+
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
