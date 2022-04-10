@@ -248,7 +248,7 @@ namespace King_of_the_Hill.Logic
             {
                 if (item.Rectangle.IntersectsWith(playerLogic.playerRect))
                 {
-                    if (item is Weapon && playerLogic.plyr.PrimaryWeapon.Name == "DELETED")
+                    if (item is Weapon && playerLogic.plyr.PrimaryWeapon == null)
                     {
                         itemToRemove = item;
                         needRemove = true;

@@ -23,15 +23,8 @@
         MapLogic mapLogic;
         IntersectLogic intersectLogic;
         SoundLogic soundplayer; //sound
-        
-
-        InventorySlot[] inv = new InventorySlot[5];
-        Brush defaultInventoryBackground = Brushes.Aqua;
 
         DispatcherTimer timer;
-
-        ProgressBar HPprogressBar;
-        ProgressBar ShieldprogressBar;
 
         #endregion
 
@@ -104,7 +97,8 @@
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
-                playerLogic.plyr.PrimaryWeapon.Name = "DELETED"; //nem tudom ki null-ozni szóval ha nincs a playernek fegyverek akkor átírjuk a fegyverének a nevét DELETED-re
+                //playerLogic.plyr.PrimaryWeapon.Name = "DELETED"; //nem tudom ki null-ozni szóval ha nincs a playernek fegyverek akkor átírjuk a fegyverének a nevét DELETED-re
+                playerLogic.plyr.PrimaryWeapon = null;
                 InventorySetWeaponName("N/A");
             }
             if (Keyboard.IsKeyDown(Key.NumPad2))
