@@ -1,6 +1,7 @@
 ﻿namespace King_of_the_Hill.Logic
 {
     using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.GameItems;
     using King_of_the_Hill.Model.MapItem;
     using King_of_the_Hill.Model.NPC_Types;
     using System;

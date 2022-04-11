@@ -21,20 +21,16 @@
             Bow = new Bow(25, "Bow", 0, 0, 0);
             Jetpack = new Jetpack("Jetpack", 0, 0);
         }
-        
-        public Weapon weapon { get; set; }
-
-        public Bow bow { get; set; }
 
         public double returnDamage()
         {
-            if (weapon == null)
+            if (PrimaryWeapon == null)
             {
                 return 50;
             }
             else
             {
-                return Weight * weapon.WeaponDamage;
+                return Weight * PrimaryWeapon.WeaponDamage;
             }
         }
     }
