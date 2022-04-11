@@ -106,5 +106,17 @@
                 maxWaveNumber = 15;
             }
         }
+
+        public bool IsOnlyArcher()
+        {
+            foreach (var enemy in enemies)
+            {
+                if (enemy is not Archer)
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
     }
 }

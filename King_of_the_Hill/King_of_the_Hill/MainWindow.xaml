@@ -15,8 +15,8 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="2*"/>
-                    <ColumnDefinition Width="1*"/>
+                    <ColumnDefinition Width="100*"/>
+                    <ColumnDefinition Width="85*"/>
                 </Grid.ColumnDefinitions>
                 <StackPanel Grid.Column="0" Orientation="Horizontal">
                     <Label Content="HP" FontSize="50" Margin="0,0,25,0"/>
@@ -34,15 +34,18 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label x:Name="label_slotOne" Content="N/A" Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotTwo" Content="0" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotThree" Content="0" Grid.Row="1" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotFour" Content="0" Grid.Row="1" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Kard" Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Nyíl" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Charon" Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Fentartott" Grid.Row="0" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="ENTER" x:Name="label_enter" Visibility="Hidden" Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotOne" Content="N/A" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotTwo" Content="0" Grid.Row="1" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotThree" Content="0" Grid.Row="1" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotFour" Content="0" Grid.Row="1" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Tovább" x:Name="label_next" Visibility="Hidden" Foreground="Red" Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Kard" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Nyíl" Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Charon" Grid.Row="0" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Jetpack" Grid.Row="0" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
                 </Grid>
             </Grid>
             <renderer:Display x:Name="display" Grid.Row="1"/>

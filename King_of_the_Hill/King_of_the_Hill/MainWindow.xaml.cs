@@ -28,6 +28,7 @@
         DispatcherTimer timer;
 
         double lastAttacksTime;
+        int counter = 0;
 
         #endregion
 
@@ -81,8 +82,8 @@
             display.InvalidateVisual();
             intersectLogic.IsPlayerAndMapIntersect();   // Summarized at implementation! 
             intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
-             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
-             enemyLogic.Move();                         //NPC moving function!
+            intersectLogic.SetEnemyDirection();        // Summarized at implementation!
+            enemyLogic.Move();                         //NPC moving function!
             intersectLogic.PlayerIntersectWithItem();   //item pick up
             
 
@@ -90,6 +91,24 @@
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
             //his or her Weight * (Weapon) weapons.WeaponDamage;
             isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
+
+            
+            if (enemyLogic.IsOnlyArcher())
+            {
+                if (counter == 50)
+                {
+                    label_enter.Visibility = Visibility.Visible;
+                    label_next.Visibility = Visibility.Visible;
+                    
+                }
+                if (counter == 100)
+                {
+                    label_enter.Visibility = Visibility.Hidden;
+                    label_next.Visibility = Visibility.Hidden;
+                    counter = 0;
+                }
+                counter++;
+            }
         }
 
         #region CharMoving
@@ -129,12 +148,10 @@
                     playerLogic.plyr.Jetpack.Fuel--;
                     InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
-                }
-                
+                }              
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
-                //playerLogic.plyr.PrimaryWeapon.Name = "DELETED"; //nem tudom ki null-ozni szóval ha nincs a playernek fegyverek akkor átírjuk a fegyverének a nevét DELETED-re
                 playerLogic.plyr.PrimaryWeapon = null;
                 InventorySetWeaponName("N/A");
             }
@@ -148,6 +165,8 @@
             }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
+                label_enter.Visibility = Visibility.Hidden;
+                label_next.Visibility = Visibility.Hidden;
                 if (enemyLogic.enemies.Count == 0)
                 {
                     enemyLogic.NextWave();
