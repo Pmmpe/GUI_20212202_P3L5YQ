@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Media;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using System;
+    using System.IO;
+    using System.Windows.Media;
     public class SoundLogic
     {
         //two kinds of sound
@@ -31,7 +26,8 @@ namespace King_of_the_Hill.Logic
                 backgroundsoundplayer = new MediaPlayer();
                 backgroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", "hatterzene_lol.mp3"), UriKind.RelativeOrAbsolute));
                 backgroundsoundplayer.MediaEnded += Soundplayer_MediaEnded;
-                backgroundsoundplayer.Play();
+                backgroundsoundplayer.Volume = 0.01;
+                backgroundsoundplayer.Play();         
             }
             else if (action == "stop")
             {
@@ -42,7 +38,8 @@ namespace King_of_the_Hill.Logic
         private void Soundplayer_MediaEnded(object? sender, EventArgs e) //looping sound
         {
             backgroundsoundplayer.Position = TimeSpan.Zero;
-            backgroundsoundplayer.Play();
+            backgroundsoundplayer.Volume = 0.01;
+            backgroundsoundplayer.Play();        
         }
 
         public void BackgroundMusicGame(string action)
@@ -52,14 +49,15 @@ namespace King_of_the_Hill.Logic
                 backgroundsoundplayer = new MediaPlayer();
                 backgroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", "game_bcg_music.mp3"), UriKind.RelativeOrAbsolute));
                 backgroundsoundplayer.MediaEnded += Soundplayer_MediaEnded;
-                backgroundsoundplayer.Play();
+                backgroundsoundplayer.Volume = 0.01;
+                backgroundsoundplayer.Play(); 
             }
         }
 
         public void PlayActionSound( PlayerSounds sound)
         {
             string asset = "";
-            foregroundsoundplayer = new MediaPlayer(); //minden sound-hoz kulön soundplayer kell
+            foregroundsoundplayer = new MediaPlayer(); //Every single sound needs another distinct soundplayer!
             switch (sound)
             {
                 case PlayerSounds.sword_cut:
@@ -78,14 +76,14 @@ namespace King_of_the_Hill.Logic
                     break;
             }
             foregroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
+            foregroundsoundplayer.Volume = 0.01;
             foregroundsoundplayer.Play();
-
         }
 
         public void PlayActionSound(MenusSounds sound)
         {
             string asset = "";
-            foregroundsoundplayer = new MediaPlayer(); //minden sound-hoz kulön soundplayer kell
+            foregroundsoundplayer = new MediaPlayer(); //Every single sound needs another distinct soundplayer!
             switch (sound)
             {
                 case MenusSounds.button_click:
@@ -98,8 +96,8 @@ namespace King_of_the_Hill.Logic
                     break;
             }
             foregroundsoundplayer.Open(new Uri(Path.Combine("Sources", "Sounds", asset), UriKind.RelativeOrAbsolute));
+            foregroundsoundplayer.Volume = 0.01;
             foregroundsoundplayer.Play();
-
         }
     }
 }

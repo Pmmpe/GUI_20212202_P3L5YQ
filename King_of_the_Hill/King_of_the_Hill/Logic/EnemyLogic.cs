@@ -1,18 +1,14 @@
-﻿using King_of_the_Hill.Model.NPC_Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model.NPC_Types;
+    using System.Collections.Generic;
+
     public class EnemyLogic
     {
         int actualWaveNumber;
         int maxWaveNumber;
         string difficulty;
-        public List<Npc> enemies; //ellenségek listája
+        public List<Npc> enemies; //List of every used current enemy npc unit in the current play session!
 
         public EnemyLogic()
         {
@@ -30,7 +26,9 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        //Hullámonként ide tudod beírni, hogy hány ellenség spawnoljon
+        //It spawns every single different enemy wave in the game.
+        //You could determinate what kind of enemies and how many of
+        //them to come in every single round, per wave by wave!
         private void CreateEnemies()
         {
             switch (actualWaveNumber)
@@ -90,7 +88,8 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        //beállítja hány hullám legyen
+        //It sets in the actual number of waves int the current
+        //game session according to the given difficulity!
         public void SetDifficulty(string difficulty)
         {
             this.difficulty = difficulty;

@@ -1,7 +1,7 @@
 ﻿namespace King_of_the_Hill.Logic
 {
     using King_of_the_Hill.Model;
-    using System;
+    using King_of_the_Hill.Model.NPC_Types;
     using System.Drawing;
     using System.Windows;
 
@@ -51,6 +51,16 @@
                 case Controls.E:
                     MessageBox.Show("HP Restored");
                     break;
+            }
+        }
+
+        public void Attack(bool couldAttack, Npc Enemy)
+        {
+            if (Enemy != null)
+            {
+                MessageBox.Show($"Before Hit calc the HP is: {Enemy.Health}");
+                Enemy.Health = Enemy.Health - plyr.returnDamage();
+                MessageBox.Show($"After Hit calc the HP is: {Enemy.Health}");
             }
         }
 

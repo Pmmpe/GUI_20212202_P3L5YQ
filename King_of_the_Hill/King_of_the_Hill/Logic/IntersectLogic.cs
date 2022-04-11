@@ -1,15 +1,9 @@
-﻿using King_of_the_Hill.Model;
-using King_of_the_Hill.Model.GameItems;
-using King_of_the_Hill.Model.MapItem;
-using King_of_the_Hill.Model.NPC_Types;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace King_of_the_Hill.Logic
+﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.MapItem;
+    using King_of_the_Hill.Model.NPC_Types;
+    using System;
     public class IntersectLogic
     {
         PlayerLogic playerLogic;
@@ -42,7 +36,35 @@ namespace King_of_the_Hill.Logic
             this.height = height;
         }
 
-        //már megírt gravitációs leesés
+        //Returns true if the player is in intersect with any of the given NPCs in the current EnemyLogic
+        public bool isPlayerIntersectWithAnyNPC(PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        {
+            bool intersect = false;
+            foreach (var npc in enemyLogic.enemies)
+            {
+                if (playerLogic.playerRect.IntersectsWith(npc.enemyRect))
+                {
+                    intersect =  true;
+                }
+            }
+            return intersect;
+        }
+
+        //Returns the current npc that is intersecting with the player object.
+        //BEAWARE if you call it in none intersect situation, it could and will return null. (Handled in PlayerLogic)
+        public Npc PlayerIntersectWithThat(PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        {
+            foreach (var npc in enemyLogic.enemies)
+            {
+                if (playerLogic.playerRect.IntersectsWith(npc.enemyRect))
+                {
+                    return npc;
+                }
+            }
+            return null; 
+        }
+
+        //The already stated player gravity function for further description see in the xaml.cs!
         public bool IsPlayerAndMapIntersect()
         {
             foreach (var ground in mapLogic.Grounds)
@@ -56,7 +78,7 @@ namespace King_of_the_Hill.Logic
             return false;
         }
 
-        //játékos nem tud kimenni a pályáról
+        //Prevents the player to leave the playable area aka the game map!
         public void SetPlayerInTheMap()
         {
             if (playerLogic.plyr.PosX < 0)
@@ -77,7 +99,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        //ellenség random generálása
+        //Random enemy generating function!
         public void GenerateEnemiesPositons()
         {
             bool ok;
@@ -133,7 +155,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        //játékos kezdő platformra helyezése
+        //Localising the player at the starter platform or area!
         public void PutPlayerOnTheStartPlatform()
         {
             foreach (var platform in mapLogic.Grounds)
@@ -145,7 +167,7 @@ namespace King_of_the_Hill.Logic
             }
         }
 
-        //Bármilyen character, legyen az játékos vagy ellenség a megadott platformra helyezése
+        //It places every single character (could be player or npc aswell) to a platform!
         private void PutTopOfAPlatform(IMapItem platform, Character character)
         {
             if (character.PosX < platform.X)
@@ -159,7 +181,7 @@ namespace King_of_the_Hill.Logic
             character.PosY = platform.Y - character.Height;
         }
 
-        //beállítja, hogy merre menjen az ellenség
+        //It sets the enemies moving direction / facing direction!
         public void SetEnemyDirection()
         {
             foreach (var enemy in enemyLogic.enemies)

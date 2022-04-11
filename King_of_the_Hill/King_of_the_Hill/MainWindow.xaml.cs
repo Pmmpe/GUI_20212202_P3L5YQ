@@ -12,7 +12,8 @@
     using System.Windows.Threading;
 
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Main logical part of the project it checks every component and it does every single move
+    /// or calculation from frame by frame according to the DispatcherTimers tickrate.
     /// </summary>
     public partial class MainWindow : Window
     {
@@ -26,6 +27,8 @@
 
         DispatcherTimer timer;
 
+        double lastAttacksTime;
+
         #endregion
 
         public MainWindow()
@@ -37,6 +40,8 @@
             mapLogic = new MapLogic();
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
 
+            lastAttacksTime = 0.0;
+
             soundplayer = new SoundLogic(); //sound
             
             
@@ -45,14 +50,46 @@
             timer.Tick += Timer_Tick;
         }
 
+        //Returns if enough time is elapsed since last attack or not.
+        private static bool isTimeElapsed(DispatcherTimer timer, double lastAttack)
+        {
+            //if (lastAttack + 500 < timer.Interval.TotalMilliseconds)
+            //{
+            //    return true;
+            //}
+            //return false;
+            return true;
+        }
+
+        //Button check for attacking, used in Timer_Tick, calling PlayerLogics attack function.
+        //Uses isTimeElapsed function to check the time elapsed between the button presses, to
+        //prevent constant damaging!
+        private bool isAttackButtonDown(PlayerLogic playerLogic, EnemyLogic enemyLogic, IntersectLogic intersectLogic)
+        {
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                if (isTimeElapsed(timer, lastAttacksTime))
+                {
+                    playerLogic.Attack(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), intersectLogic.PlayerIntersectWithThat(playerLogic, enemyLogic));
+                }
+                return true;
+            }
+            return false;
+        }
         private void Timer_Tick(object? sender, EventArgs e)
         {
             display.InvalidateVisual();
-            intersectLogic.IsPlayerAndMapIntersect(); //megvalósításnál részletezve
-            intersectLogic.SetPlayerInTheMap(); //megvalósításnál részletezve
-            intersectLogic.SetEnemyDirection(); //megvalósításnál részletezve
-            enemyLogic.Move(); //mozgatja az ellenséget
-            intersectLogic.PlayerIntersectWithItem(); //item felvétele
+            intersectLogic.IsPlayerAndMapIntersect();   // Summarized at implementation! 
+            intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
+             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
+             enemyLogic.Move();                         //NPC moving function!
+            intersectLogic.PlayerIntersectWithItem();   //item pick up
+            
+
+            //Chain functions: The player is attacking if the first checker function returns true for NPC intersecting and the "K" has been pressed down,
+            //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
+            //his or her Weight * (Weapon) weapons.WeaponDamage;
+            isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
         }
 
         #region CharMoving
@@ -127,9 +164,10 @@
             enemyLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             itemLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
-            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //méret átadása
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //Logicok átadása
-            //menu zene
+            intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //It gives the current sizes!
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //It passes through the logics!
+            
+            //Main Menu theme song!
             soundplayer.BackgroundMusicMenu("start");
             //menu zene
 
