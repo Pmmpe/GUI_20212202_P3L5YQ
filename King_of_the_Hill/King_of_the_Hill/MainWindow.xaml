@@ -8,23 +8,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="900" Width="1600" ResizeMode="CanMinimize" KeyDown="Window_KeyDown" Loaded="Window_Loaded">
     <Grid>
-        <Grid x:Name="gamegrid" Visibility="Hidden">
+        <Grid x:Name="gamegrid" Visibility="Visible">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="9*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="100*"/>
-                    <ColumnDefinition Width="85*"/>
-                </Grid.ColumnDefinitions>
-                <StackPanel Grid.Column="0" Orientation="Horizontal">
-                    <Label Content="HP" FontSize="50" Margin="0,0,25,0"/>
-                    <ProgressBar x:Name="progressbar_hp" Value="50" Maximum="100" Width="250" Margin="15"/>
-                    <Label Content="| Armor" FontSize="50" Margin="0,0,25,0"/>
-                    <ProgressBar x:Name="progressbar_armor" Value="50" Maximum="100" Width="250" Margin="15"/>
-                </StackPanel>
-                <Grid Grid.Column="1">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="1*"/>
                         <RowDefinition Height="1*"/>
@@ -35,17 +25,30 @@
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
                         <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
+                        <ColumnDefinition Width="1*"/>
                     </Grid.ColumnDefinitions>
-                    <Label Content="ENTER" x:Name="label_enter" Visibility="Hidden" Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotOne" Content="N/A" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotTwo" Content="0" Grid.Row="1" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotThree" Content="0" Grid.Row="1" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label x:Name="label_slotFour" Content="0" Grid.Row="1" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Tovább" x:Name="label_next" Visibility="Hidden" Foreground="Red" Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Kard" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Nyíl" Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Charon" Grid.Row="0" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
-                    <Label Content="Jetpack" Grid.Row="0" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_hp" Content="0" Grid.Row="1" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_armor" Content="0" Grid.Row="1" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_hp_potion" Content="0" Grid.Row="1" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_armor_repairkit" Content="0" Grid.Row="1" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="ENTER" x:Name="label_enter" Visibility="Hidden" Grid.Row="1" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotOne" Content="N/A" Grid.Row="1" Grid.Column="5" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotTwo" Content="0" Grid.Row="1" Grid.Column="6" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotThree" Content="0" Grid.Row="1" Grid.Column="7" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label x:Name="label_slotFour" Content="0" Grid.Row="1" Grid.Column="8" FontSize="25" HorizontalContentAlignment="Center"/>
+
+                    <Label Content="Életerő" Grid.Row="0" Grid.Column="0" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Páncél" Grid.Row="0" Grid.Column="1" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="HP poti" Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Páncél javító" Grid.Row="0" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Folytatáshoz" x:Name="label_next" Visibility="Hidden" Foreground="Red" Grid.Row="0" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Kard" Grid.Row="0" Grid.Column="5" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Nyíl" Grid.Row="0" Grid.Column="6" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Charon" Grid.Row="0" Grid.Column="7" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="Jetpack" Grid.Row="0" Grid.Column="8" FontSize="25" HorizontalContentAlignment="Center"/>
                 </Grid>
             </Grid>
             <renderer:Display x:Name="display" Grid.Row="1"/>
