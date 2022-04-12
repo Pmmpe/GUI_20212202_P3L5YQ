@@ -195,11 +195,17 @@
             intersectLogic.InventoryAddArrowsFromLogic = InventorySetArrowNumber;
             intersectLogic.InventoryAddCharonFromLogic = InventorySetCharon;
             intersectLogic.InventoryAddJetpackFuelFromLogic = InventorySetJetpackFuel;
-            intersectLogic.InventoryAddHPFromLogic = InventorySetHP;
-            intersectLogic.InventoryAddArmorFromLogic = InventorySetArmor;
+            intersectLogic.InventoryAddHealPotionFromLogic = InventorySetHpPotion;
+            intersectLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
 
-            
-            
+            playerLogic.InventoryAddHPFromLogic = InventorySetHP;
+            playerLogic.InventoryAddArmorFromLogic = InventorySetHP;
+            playerLogic.InventoryAddHealPotionFromLogic = InventorySetHpPotion;
+            playerLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
+
+
+
+
         }
 
         #region InventoryAndMenu
@@ -226,12 +232,22 @@
 
         public void InventorySetHP(int numberOfHP)
         {
-            progressbar_hp.Value = numberOfHP;
+            label_hp.Content = numberOfHP;
         }
 
-        public void InventorySetArmor(int numberOfAmor)
+        public void InventorySetArmor(int numberOfArmor)
         {
-            progressbar_armor.Value = numberOfAmor;
+            label_armor.Content = numberOfArmor;
+        }
+
+        public void InventorySetHpPotion(int numberOfHpPotion)
+        {
+            label_hp_potion.Content = numberOfHpPotion;
+        }
+
+        public void InventorySetArmorRepairKit(int numberOfArmorRepairKit)
+        {
+            label_armor_repairkit.Content = numberOfArmorRepairKit;
         }
 
 

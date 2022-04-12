@@ -18,8 +18,8 @@
         public Action<string> InventoryAddWeaponFromLogic; //amit megkap string azt kiírja a xaml.cs az inventory-ba.
         public Action<int> InventoryAddArrowsFromLogic; //megadod hány db nyilat kapjon
         public Action<int> InventoryAddCharonFromLogic; // charon érmét adhatsz illetve elvehetsz
-        public Action<int> InventoryAddHPFromLogic; // HP-t adhatsz
-        public Action<int> InventoryAddArmorFromLogic; // Armor-t adhatsz
+        public Action<int> InventoryAddHealPotionFromLogic; // HP potion-t adhatsz
+        public Action<int> InventoryAddArmorReapirKitFromLogic; // Armor javítót adhatsz
         public Action<int> InventoryAddJetpackFuelFromLogic; // Jetpack üzemanyagot adsz-t adhatsz
         
 
@@ -289,15 +289,15 @@
                     {
                         itemToRemove = item;
                         needRemove = true;
-                        playerLogic.plyr.Health = 100;
-                        InventoryAddHPFromLogic(100); //Egy hp poti 100 hp-ad (max-ra tölt)
+                        playerLogic.plyr.HealPotion.Amount++;
+                        InventoryAddHealPotionFromLogic(playerLogic.plyr.HealPotion.Amount);
                     }
                     else if (item is Armor)
                     {
                         itemToRemove = item;
                         needRemove = true;
-                        playerLogic.plyr.Armour = 100;
-                        InventoryAddArrowsFromLogic(100); //armor szintén maxra tölt
+                        playerLogic.plyr.ArmorRepairKit.Amount++;
+                        InventoryAddArmorReapirKitFromLogic(playerLogic.plyr.ArmorRepairKit.Amount);
                     }
                     else if (item is Jetpack)
                     {
