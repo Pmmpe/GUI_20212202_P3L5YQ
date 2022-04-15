@@ -255,7 +255,7 @@
         {
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
-            mapLogic.NextMap(); //következő pálya indítása, jelen esetben az első pálya indul.
+            mapLogic.CreateMap(); //nehézségi szintnek megfelelő pálya indul
             itemLogic.NextWave(); //következő hullám indítása, jelen esetben az első hullám indul.
             intersectLogic.GenerateItemsPositions(); //itemek legenerálása random helyekre
             intersectLogic.PutPlayerOnTheStartPlatform();

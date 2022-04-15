@@ -6,16 +6,13 @@
     public class MapLogic
     {
         public List<IMapItem> Grounds { get; set; }
-
-        int maxMapNumber;
-        int actualMapNumber;
         string difficulty;
 
         Size area;
 
         public MapLogic()
         {
-            actualMapNumber = 0;
+            difficulty = "";
             Grounds = new List<IMapItem>();
         }
 
@@ -24,53 +21,34 @@
             this.area = area;
         }
 
-        public void NextMap()
+        public void CreateMap()
         {
-            actualMapNumber++;
-            if (actualMapNumber <= maxMapNumber)
+            if (difficulty == "Easy")
             {
-                CreateMap();
+                Grounds.Add(new Ground(0, area.Height - 100, 1200, 100));
+                Grounds.Add(new Lava(1200, area.Height - 101, area.Width, 101));
+                Grounds.Add(new Platform(1000, 250, 500, 25));
+                Grounds.Add(new Platform(450, 400, 900, 25));
+                Grounds.Add(new StartPlatform(100, 155, 100, 25));
+            } 
+            else if(difficulty == "Medium")
+            {
+                Grounds.Add(new Ground(0, area.Height - 100, 400, 100));
+                Grounds.Add(new Ground(600, area.Height - 100, 800, 100));
+                Grounds.Add(new Lava(400, area.Height - 101, 200, 101));
+                Grounds.Add(new Lava(1400, area.Height - 101, area.Width, 101));
+                Grounds.Add(new Platform(1000, 250, 500, 25));
+                Grounds.Add(new StartPlatform(100, 155, 100, 25));
             }
-        }
-
-        private void CreateMap()
-        {
-            switch (actualMapNumber)
+            else
             {
-                case 1:
-                    Grounds.Add(new Ground(0, area.Height - 100, 400, 100));
-                    Grounds.Add(new Ground(600, area.Height - 100, 800, 100));
-                    Grounds.Add(new Lava(400, area.Height - 101, 200, 101));
-                    Grounds.Add(new Lava(1400, area.Height - 101, area.Width, 101));
-                    Grounds.Add(new Platform(1000, 250, 500, 25));
-                    Grounds.Add(new StartPlatform(100, 155, 100, 25));
-                    break;
-                case 2:
-                    break;
-                case 3:
-                    break;
-                case 4:
-                    break;
-                case 5:
-                    break;
+
             }
         }
 
         public void SetDifficulty(string difficulty)
         {
             this.difficulty = difficulty;
-            if (difficulty == "Easy")
-            {
-                maxMapNumber = 2;
-            }
-            else if (difficulty == "Medium")
-            {
-                maxMapNumber = 4;
-            }
-            else
-            {
-                maxMapNumber = 5;
-            }
         }
     }
 }
