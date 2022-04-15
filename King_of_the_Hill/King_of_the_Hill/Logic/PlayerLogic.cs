@@ -12,6 +12,12 @@
         public Action<int> InventoryAddArmorFromLogic;
         public Action<int> InventoryAddHealPotionFromLogic;
         public Action<int> InventoryAddArmorReapirKitFromLogic;
+        public Action<string> InventoryAddWeaponFromLogic;
+        public Action<int> InventoryAddArrowsFromLogic;
+        public Action<int> InventoryAddJetpackFuelFromLogic;
+
+        string difficulty;
+        static Random random = new Random();
 
         public enum Controls
         {
@@ -80,6 +86,72 @@
                 Enemy.Health = Enemy.Health - plyr.returnDamage();
                 MessageBox.Show($"After Hit calc the HP is: {Enemy.Health}");
             }
+        }
+
+        public void DropItems()
+        {
+            if (difficulty == "Easy")
+            {
+                //no drop
+            }
+            else if (difficulty == "Medium")
+            {
+                for (int i = 0; i < 2; i++)
+                {
+                    DropOneItem();
+                }
+            }
+            else
+            {
+                for (int i = 0; i < 4; i++)
+                {
+                    DropOneItem();
+                }
+            }
+        }
+
+        private void DropOneItem()
+        {
+            switch (random.Next(0, 5))
+            {
+                case 0:
+                    if (plyr.HealPotion.Amount > 0)
+                    {
+                        plyr.HealPotion.Amount--;
+                        InventoryAddHealPotionFromLogic(plyr.HealPotion.Amount);
+                    }
+                    break;
+                case 1:
+                    if (plyr.ArmorRepairKit.Amount > 0)
+                    {
+                        plyr.ArmorRepairKit.Amount--;
+                        InventoryAddArmorReapirKitFromLogic(plyr.ArmorRepairKit.Amount);
+                    }
+                    break;
+                case 2:
+                    plyr.PrimaryWeapon = null;
+                    InventoryAddWeaponFromLogic("N/A");
+                    break;
+                case 3:
+                    plyr.Bow.NumberOfArrows = 0;
+                    InventoryAddArrowsFromLogic(0);
+                    break;
+                case 4:
+                    plyr.Jetpack.Fuel -= 50;
+                    if (plyr.Jetpack.Fuel < 0)
+                    {
+                        plyr.Jetpack.Fuel = 0;
+                    }
+                    InventoryAddJetpackFuelFromLogic(plyr.Jetpack.Fuel);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void SetDifficulty(string difficulty)
+        {
+            this.difficulty = difficulty;
         }
 
         public void Gravity(double Weight)

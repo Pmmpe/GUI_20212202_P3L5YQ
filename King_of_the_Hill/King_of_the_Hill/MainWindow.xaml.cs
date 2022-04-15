@@ -162,14 +162,23 @@
                     playerLogic.plyr.Bow.NumberOfArrows--;
                     InventorySetArrowNumber(playerLogic.plyr.Bow.NumberOfArrows);
                 }
+                //temp
+                enemyLogic.enemies.Clear();
+                itemLogic.items.Clear();
             }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
                 label_enter.Visibility = Visibility.Hidden;
                 label_next.Visibility = Visibility.Hidden;
-                if (enemyLogic.enemies.Count == 0)
+                if (enemyLogic.enemies.Count == 0 || enemyLogic.IsOnlyArcher())
                 {
+                    enemyLogic.enemies.Clear();
+                    itemLogic.items.Clear();
                     enemyLogic.NextWave();
+                    itemLogic.NextWave();
+                    playerLogic.DropItems();
+                    intersectLogic.GenerateItemsPositions(); //itemek legenerálása random helyekre
+                    intersectLogic.PutPlayerOnTheStartPlatform();
                     intersectLogic.GenerateEnemiesPositons(); //ellenségek legenerálása véletlenszerű helyekre
                     display.InvalidateVisual();
                 }
@@ -182,6 +191,7 @@
             mapLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             enemyLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             itemLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
+            playerLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //It gives the current sizes!
             display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //It passes through the logics!
@@ -202,6 +212,9 @@
             playerLogic.InventoryAddArmorFromLogic = InventorySetHP;
             playerLogic.InventoryAddHealPotionFromLogic = InventorySetHpPotion;
             playerLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
+            playerLogic.InventoryAddWeaponFromLogic = InventorySetWeaponName;
+            playerLogic.InventoryAddArrowsFromLogic = InventorySetArrowNumber;
+            playerLogic.InventoryAddJetpackFuelFromLogic = InventorySetJetpackFuel;
 
 
 
@@ -256,10 +269,9 @@
             menu.Visibility = Visibility.Hidden;
             gamegrid.Visibility = Visibility.Visible;
             mapLogic.CreateMap(); //nehézségi szintnek megfelelő pálya indul
-            itemLogic.NextWave(); //következő hullám indítása, jelen esetben az első hullám indul.
-            intersectLogic.GenerateItemsPositions(); //itemek legenerálása random helyekre
             intersectLogic.PutPlayerOnTheStartPlatform();
-            
+
+
             timer.Start();
 
             soundplayer.PlayActionSound(SoundLogic.MenusSounds.game_start);
@@ -285,6 +297,7 @@
             mapLogic.SetDifficulty("Easy");
             enemyLogic.SetDifficulty("Easy");
             itemLogic.SetDifficulty("Easy");
+            playerLogic.SetDifficulty("Easy");
         }
 
         private void Medium_Click(object sender, RoutedEventArgs e)
@@ -294,6 +307,7 @@
             mapLogic.SetDifficulty("Medium");
             enemyLogic.SetDifficulty("Medium");
             itemLogic.SetDifficulty("Medium");
+            playerLogic.SetDifficulty("Medium");
         }
 
         private void Hard_Click(object sender, RoutedEventArgs e)
@@ -303,6 +317,7 @@
             mapLogic.SetDifficulty("Hard");
             enemyLogic.SetDifficulty("Hard");
             itemLogic.SetDifficulty("Hard");
+            playerLogic.SetDifficulty("Hard");
         }
 
         private void BackToMenu_Click(object sender, RoutedEventArgs e)

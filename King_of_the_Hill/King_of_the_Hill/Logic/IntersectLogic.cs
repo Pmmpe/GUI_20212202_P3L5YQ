@@ -20,8 +20,7 @@
         public Action<int> InventoryAddCharonFromLogic; // charon érmét adhatsz illetve elvehetsz
         public Action<int> InventoryAddHealPotionFromLogic; // HP potion-t adhatsz
         public Action<int> InventoryAddArmorReapirKitFromLogic; // Armor javítót adhatsz
-        public Action<int> InventoryAddJetpackFuelFromLogic; // Jetpack üzemanyagot adsz-t adhatsz
-        
+        public Action<int> InventoryAddJetpackFuelFromLogic; // Jetpack üzemanyagot adsz-t adhatsz     
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
