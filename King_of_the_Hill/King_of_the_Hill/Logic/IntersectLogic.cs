@@ -112,7 +112,7 @@
                     while (!ok)
                     {
                         enemy.PosX = random.Next(0, (int)(width - enemy.Width));
-                        enemy.PosY = random.Next(0, height - 500);
+                        enemy.PosY = random.Next(0, (int)(height - enemy.Height));
                         foreach (var platform in mapLogic.Grounds)
                         {
                             if (!ok && platform is Platform && enemy.enemyRect.IntersectsWith(platform.Rectangle))
@@ -175,11 +175,11 @@
             {
                 character.PosX = platform.X;
             }
-            if (character.PosX > platform.X + platform.Width)
+            if (character.PosX > platform.X)
             {
                 character.PosX = platform.X + platform.Width - character.Width;
             }
-            character.PosY = platform.Y - character.Height;
+            character.PosY = platform.Y - character.Height + 1;
         }
 
         //It sets the enemies moving direction / facing direction!
@@ -191,7 +191,7 @@
                 {
                     foreach (var platform in mapLogic.Grounds)
                     {
-                        if (platform is Platform)
+                        if (platform is Platform && enemy.enemyRect.IntersectsWith(platform.Rectangle))
                         {
                             if (enemy.PosX < platform.X)
                             {
@@ -210,7 +210,7 @@
                     {
                         enemy.DirectionIsLeft = false;
                     }
-                    else if (enemy.PosX >= width)
+                    else if (enemy.PosX >= width - enemy.Width)
                     {
                         enemy.DirectionIsLeft = true;
                     }
