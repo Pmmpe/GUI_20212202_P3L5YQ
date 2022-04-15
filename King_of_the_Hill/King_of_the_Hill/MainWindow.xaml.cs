@@ -172,6 +172,10 @@
                 label_next.Visibility = Visibility.Hidden;
                 if (enemyLogic.enemies.Count == 0 || enemyLogic.IsOnlyArcher())
                 {
+                    if (enemyLogic.IsEndGame())
+                    {
+                        MessageBox.Show("Nyertél!");
+                    }
                     enemyLogic.enemies.Clear();
                     itemLogic.items.Clear();
                     enemyLogic.NextWave();
