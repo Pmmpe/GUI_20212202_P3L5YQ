@@ -58,6 +58,7 @@
 
         //animations
         AnimationsLogic animationsLogic;
+        System.Windows.Threading.DispatcherTimer dispatcherTimer;
 
 
         public Display()
@@ -208,13 +209,7 @@
 
         public void FightAnimations()
         {
-            //int count = 0;
-            //playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
-            //while (count < 5)
-            //{
-            //    count++;
-            //}
-            //playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
+            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
 
             ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
             anim.Duration = TimeSpan.FromSeconds(10);
@@ -243,11 +238,23 @@
             var animation = new BrushAnimation
             {
                 From = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))),
-                To = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png")))),
+                To = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))),
                 Duration = new Duration(TimeSpan.FromSeconds(5))
             };
-            playerBrush.BeginAnimation(,);
+            //playerBrush.BeginAnimation(,);
 
+
+            //animation
+            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
+            dispatcherTimer.Tick += dispatcherTimer_Tick;
+            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
+            dispatcherTimer.Start();
+
+        }
+        private void dispatcherTimer_Tick(object sender, EventArgs e)
+        {
+            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
+            dispatcherTimer.Stop();
         }
 
         public void IdleAnimation(Rect playerRect)
