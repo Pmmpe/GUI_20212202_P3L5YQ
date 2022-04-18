@@ -8,7 +8,10 @@
     using System.IO;
     using System.Windows;
     using System.Windows.Media;
+    using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
+    using WpfAnimatedGif;
+
     public class Display : FrameworkElement
     {
         #region Brushes
@@ -51,6 +54,9 @@
         EnemyLogic enemyLogic;
         ItemLogic itemLogic;
 
+        //animations
+        AnimationsLogic animationsLogic;
+
 
         public Display()
         {
@@ -83,14 +89,19 @@
             longSwordBrush = Brushes.Orange;
             swordBrush = Brushes.Orange;
 
+
         }
 
-        public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
+        public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic, AnimationsLogic animationsLogic)
         {
             this.mapLogic = mapLogic;
             this.playerLogic = playerLogic;
             this.enemyLogic = enemyLogic;
             this.itemLogic = itemLogic;
+
+            #region Animations Subscribe
+            animationsLogic.Fight += FightAnimations;
+            #endregion
         }
 
         protected override void OnRender(DrawingContext drawingContext)
@@ -176,6 +187,59 @@
 
                 drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
             }
+        }
+
+        public void FightAnimations()
+        {
+            //int count = 0;
+            //playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
+            //while (count < 5)
+            //{
+            //    count++;
+            //}
+            //playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
+
+            ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
+            anim.Duration = TimeSpan.FromSeconds(10);
+            ImageSource[] images = new ImageSource[]
+            {
+                  new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
+                  new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
+            };
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            //            bool df = playerBrush.IsFrozen;
+            var clone = playerBrush.Clone();
+            clone.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
+            playerBrush = clone;
+
+
+
+            //// Set the target of the animation
+            //Storyboard.SetTarget(anim, playerBrush);
+            //Storyboard.SetTargetProperty(anim, new PropertyPath("ImageSourceProperty"));
+
+            //// Kick the animation off
+            //sb.Children.Add(anim);
+            //sb.Begin();
+
+            var animation = new BrushAnimation
+            {
+                From = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))),
+                To = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png")))),
+                Duration = new Duration(TimeSpan.FromSeconds(5))
+            };
+            playerBrush.BeginAnimation(,);
+
+        }
+
+        public void IdleAnimation(Rect playerRect)
+        {
+            var image = new BitmapImage();
+            image.BeginInit();
+            image.UriSource = new Uri(Path.Combine("Sources", "knight", "knight idle.gif"), UriKind.RelativeOrAbsolute);
+            image.EndInit();
+            //ImageBehavior.SetAnimatedSource(playerBrush,image);
         }
     }
 }

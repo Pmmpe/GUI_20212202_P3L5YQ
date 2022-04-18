@@ -24,6 +24,7 @@
         MapLogic mapLogic;
         IntersectLogic intersectLogic;
         SoundLogic soundplayer; //sound
+        AnimationsLogic animationsLogic; //animation
 
         DispatcherTimer timer;
 
@@ -39,6 +40,8 @@
             itemLogic = new ItemLogic();
             mapLogic = new MapLogic();
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
+            // animation
+            animationsLogic = new AnimationsLogic();
 
             lastAttacksTime = 0.0;
 
@@ -130,6 +133,7 @@
                     InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
                 }
+                animationsLogic.FightAnimations();
                 
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
@@ -165,7 +169,7 @@
             itemLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //It gives the current sizes!
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //It passes through the logics!
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic, animationsLogic); //It passes through the logics!
             
             //Main Menu theme song!
             soundplayer.BackgroundMusicMenu("start");
