@@ -5,13 +5,16 @@
     using King_of_the_Hill.Model.MapItem;
     using King_of_the_Hill.Model.NPC_Types;
     using System;
+    using System.Collections.Generic;
     using System.IO;
     using System.Windows;
     using System.Windows.Media;
     using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
+    using System.Windows.Threading;
     using WpfAnimatedGif;
 
+    //public delegate void DtTimerTickEventHandler(DispatcherTimer timer); //animation
     public class Display : FrameworkElement
     {
         #region Brushes
@@ -57,8 +60,8 @@
         ItemLogic itemLogic;
 
         //animations
-        AnimationsLogic animationsLogic;
-        System.Windows.Threading.DispatcherTimer dispatcherTimer;
+        //AnimationsLogic animationsLogic;
+        List<DispatcherTimer> dispatcherTimers;
 
 
         public Display()
@@ -93,6 +96,8 @@
             charonBrush = Brushes.Gold;
 
             arrowBrush = Brushes.Yellow;
+            dispatcherTimers = new List<DispatcherTimer>();
+
         }
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic, AnimationsLogic animationsLogic)
@@ -211,19 +216,19 @@
         {
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
 
-            ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
-            anim.Duration = TimeSpan.FromSeconds(10);
-            ImageSource[] images = new ImageSource[]
-            {
-                  new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
-                  new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
-            };
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
-            //            bool df = playerBrush.IsFrozen;
-            var clone = playerBrush.Clone();
-            clone.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
-            playerBrush = clone;
+            //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
+            //anim.Duration = TimeSpan.FromSeconds(10);
+            //ImageSource[] images = new ImageSource[]
+            //{
+            //      new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
+            //      new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
+            //};
+            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
+            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            ////            bool df = playerBrush.IsFrozen;
+            //var clone = playerBrush.Clone();
+            //clone.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
+            //playerBrush = clone;
 
 
 
@@ -235,35 +240,41 @@
             //sb.Children.Add(anim);
             //sb.Begin();
 
-            var animation = new BrushAnimation
-            {
-                From = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))),
-                To = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))),
-                Duration = new Duration(TimeSpan.FromSeconds(5))
-            };
+            //var animation = new BrushAnimation
+            //{
+            //    From = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))),
+            //    To = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))),
+            //    Duration = new Duration(TimeSpan.FromSeconds(5))
+            //};
             //playerBrush.BeginAnimation(,);
 
 
             //animation
-            dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-            dispatcherTimer.Tick += dispatcherTimer_Tick;
-            dispatcherTimer.Interval = new TimeSpan(0, 0, 5);
-            dispatcherTimer.Start();
+            var dispatcherTimerInstance = new DispatcherTimer();
+            dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
+            dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 5);
+            dispatcherTimerInstance.Start();
+            dispatcherTimers.Add(dispatcherTimerInstance);
 
         }
-        private void dispatcherTimer_Tick(object sender, EventArgs e)
+
+        private void RevertBackToDefPlayerBrush(object? sender, EventArgs e)
         {
-            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
-            dispatcherTimer.Stop();
+            if ((sender as DispatcherTimer).IsEnabled)
+            {
+                playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
+                (sender as DispatcherTimer).Stop();
+                dispatcherTimers.Remove(sender as DispatcherTimer);
+            }
         }
 
-        public void IdleAnimation(Rect playerRect)
+        public void IdleAnimation(Rect playerRect) //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
         {
             var image = new BitmapImage();
             image.BeginInit();
             image.UriSource = new Uri(Path.Combine("Sources", "knight", "knight idle.gif"), UriKind.RelativeOrAbsolute);
             image.EndInit();
-            //ImageBehavior.SetAnimatedSource(playerBrush,image);
+            //ImageBehavior.SetAnimatedSource(, (playerBrush as ImageBrush).ImageSource);
         }
     }
 }
