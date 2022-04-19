@@ -97,6 +97,8 @@
             enemyLogic.RemoveDeadEnemies();
             playerLogic.ArrowFly();
             playerLogic.ArrowIntersected(enemyLogic.enemies, mapLogic.Grounds);
+            enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), playerLogic);
+
 
             //Chain functions: The player is attacking if the first checker function returns true for NPC intersecting and the "K" has been pressed down,
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
@@ -107,7 +109,7 @@
         #region CharMoving
 
 
-        
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.W) && intersectLogic.IsPlayerAndMapIntersect())

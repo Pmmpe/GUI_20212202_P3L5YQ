@@ -85,7 +85,7 @@
             {
                 foreach (var ground in Grounds)
                 {
-                    if (arrow.arrowRect.IntersectsWith(ground.Rectangle))
+                    if (arrow.arrowRect.IntersectsWith(ground.Rectangle) && ground is not Ground && ground is not Lava)
                     {
                         toBeRomved = arrow;
                     }
@@ -118,11 +118,11 @@
                     Random rnd = new Random();
                     if (rnd.Next(0,2) == 1)
                     {
-                        arrow.PosY += 1.75;
+                        arrow.PosY += 1;
                     }
                     else
                     {
-                        arrow.PosY -= 1.75;
+                        arrow.PosY -= 2;
                     }
                 }
             }
