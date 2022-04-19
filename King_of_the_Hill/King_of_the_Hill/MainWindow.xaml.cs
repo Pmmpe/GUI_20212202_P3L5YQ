@@ -161,14 +161,17 @@
             if ((Keyboard.IsKeyDown(Key.S) || Keyboard.IsKeyDown(Key.Down)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
+                
             }
             if (Keyboard.IsKeyDown(Key.A) || Keyboard.IsKeyDown(Key.Left))
             {
                 playerLogic.Control(PlayerLogic.Controls.A);
+                animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
             {
                 playerLogic.Control(PlayerLogic.Controls.D);
+                animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.E))
             {

@@ -110,10 +110,13 @@
             #region Animations Subscribe
             animationsLogic.Fight += FightAnimations;
             animationsLogic.Jetpack += JetpackAnimation;
+            animationsLogic.MoveLeft += MoveLeftAnimation;
+            animationsLogic.MoveRight += MoveRightAnimation;
             #endregion
         }
 
         
+
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
@@ -281,12 +284,36 @@
 
         private void JetpackAnimation()
         {
-            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
+            var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
+            playerBrush = new ImageBrush(new TransformedBitmap(img, new ScaleTransform(-1,1)));
             var dispatcherTimerInstance = new DispatcherTimer();
             dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
             dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 2);
             dispatcherTimerInstance.Start();
             dispatcherTimers.Add(dispatcherTimerInstance);
+        }
+
+        private void MoveLeftAnimation(bool leftOrientation)
+        {
+            if (!leftOrientation)
+            {
+                var img = (BitmapSource)((ImageBrush)playerBrush).ImageSource;
+                var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
+                ((ImageBrush)playerBrush).ImageSource = mirrorredImage;
+                playerLogic.plyr.LeftOrientation = true;
+            }
+            
+        }
+
+        private void MoveRightAnimation(bool leftOrientation)
+        {
+            if (leftOrientation)
+            {
+                var img = (BitmapSource)((ImageBrush)playerBrush).ImageSource;
+                var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
+                ((ImageBrush)playerBrush).ImageSource = mirrorredImage;
+                playerLogic.plyr.LeftOrientation = false;
+            }
         }
 
     }
