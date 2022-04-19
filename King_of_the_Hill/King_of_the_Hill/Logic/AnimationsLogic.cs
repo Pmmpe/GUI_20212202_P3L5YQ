@@ -13,17 +13,17 @@ namespace King_of_the_Hill.Logic
         //delegate
 
         public PlayerAnimEventHandler Fight;
-        public JetpackAnimEventHandler StartJetpack; 
+        public JetpackAnimEventHandler Jetpack;
         public JetpackAnimEventHandler StopJetpack;
 
-        public void FightAnimations()
+        public void FightAnimations() //ha meghivod 5mp megjeleniti a harcolo player image-t
         {
             Fight?.Invoke();
         }
 
         public void StartJetpackAnimation()
         {
-
+            Jetpack?.Invoke();
         }
     }
 }

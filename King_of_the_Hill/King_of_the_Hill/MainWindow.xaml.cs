@@ -180,12 +180,13 @@
             }
             if (Keyboard.IsKeyDown(Key.Space))
             {
-                if (playerLogic.plyr.Jetpack.Fuel > 0)
+                if (playerLogic.plyr.Jetpack.Fuel > 0 || true) //change for test
                 {
                     playerLogic.plyr.Jetpack.Fuel--;
                     playerLogic.Control(PlayerLogic.Controls.Space);
+                    animationsLogic.Jetpack();
                 }
-                animationsLogic.FightAnimations();
+                //animationsLogic.FightAnimations();
                 
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
