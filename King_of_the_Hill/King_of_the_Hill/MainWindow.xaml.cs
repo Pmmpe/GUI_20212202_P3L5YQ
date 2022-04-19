@@ -92,9 +92,11 @@
             display.InvalidateVisual();
             intersectLogic.IsPlayerAndMapIntersect();   // Summarized at implementation! 
             intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
-             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
-             enemyLogic.Move();                         //NPC moving function!
-            
+            intersectLogic.SetEnemyDirection();        // Summarized at implementation!
+            enemyLogic.Move();                         //NPC moving function!
+            enemyLogic.RemoveDeadEnemies();
+            playerLogic.ArrowFly();
+            playerLogic.ArrowIntersected(enemyLogic.enemies, mapLogic.Grounds);
 
             //Chain functions: The player is attacking if the first checker function returns true for NPC intersecting and the "K" has been pressed down,
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
@@ -135,6 +137,14 @@
             if (Keyboard.IsKeyDown(Key.Space))
             {
                 playerLogic.Control(PlayerLogic.Controls.Space);
+            }            
+            if (Keyboard.IsKeyDown(Key.R))
+            {
+                playerLogic.Control(PlayerLogic.Controls.R);
+            }
+            if (Keyboard.IsKeyDown(Key.T))
+            {
+                playerLogic.Control(PlayerLogic.Controls.T);
             }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {

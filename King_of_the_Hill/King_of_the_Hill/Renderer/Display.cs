@@ -18,6 +18,7 @@
         public Brush backgroundTileset1Brush;
         public Brush backgroundTileset2Brush;
         public Brush arrowBrush;
+        public Brush arrowheadBrush;
 
         MapLogic mapLogic;
         PlayerLogic playerLogic;
@@ -31,6 +32,7 @@
             backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
             arrowBrush = Brushes.Red;
+            arrowheadBrush = Brushes.Yellow;
         }
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic)
@@ -87,6 +89,11 @@
                     {
                         drawingContext.DrawRectangle(Brushes.Yellow, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
+                }
+
+                foreach (var arrow in playerLogic.Arrows)
+                {
+                    drawingContext.DrawRectangle(arrowheadBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
 
                 drawingContext.DrawRectangle(Brushes.Black, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));

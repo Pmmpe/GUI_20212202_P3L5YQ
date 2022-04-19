@@ -106,5 +106,21 @@
                 maxWaveNumber = 15;
             }
         }
+
+        public void RemoveDeadEnemies()
+        {
+            Npc enemyToBeDeleted = null;
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Health <= 0)
+                {
+                    enemyToBeDeleted = enemy;
+                }
+            }
+            if (enemyToBeDeleted != null)
+            {
+                enemies.Remove(enemyToBeDeleted);
+            }
+        }
     }
 }
