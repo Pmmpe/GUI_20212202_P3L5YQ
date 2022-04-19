@@ -106,9 +106,11 @@
 
             #region Animations Subscribe
             animationsLogic.Fight += FightAnimations;
+            animationsLogic.Jetpack += JetpackAnimation;
             #endregion
         }
 
+        
         protected override void OnRender(DrawingContext drawingContext)
         {
             base.OnRender(drawingContext);
@@ -258,5 +260,16 @@
             image.EndInit();
             //ImageBehavior.SetAnimatedSource(, (playerBrush as ImageBrush).ImageSource);
         }
+
+        private void JetpackAnimation()
+        {
+            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
+            var dispatcherTimerInstance = new DispatcherTimer();
+            dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
+            dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 2);
+            dispatcherTimerInstance.Start();
+            dispatcherTimers.Add(dispatcherTimerInstance);
+        }
+
     }
 }
