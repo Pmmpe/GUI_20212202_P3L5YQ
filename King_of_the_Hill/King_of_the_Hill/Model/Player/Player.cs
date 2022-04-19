@@ -11,6 +11,8 @@
 
         public Jetpack Jetpack { get; set; }
 
+        public bool LeftOrientation { get; set; } //animation
+
         public Player(double Health, double Armour, double PosX, double PosY, double Width, double Height, int Weight) : base(PosX, PosY, Width, Height, Health, Armour)
         {
             this.Weight = Weight;
@@ -20,6 +22,7 @@
             PrimaryWeapon = null;
             Bow = new Bow(25, "Bow", 0, 0, 0);
             Jetpack = new Jetpack("Jetpack", 0, 0);
+            LeftOrientation = false; //animation
         }
 
         public double returnDamage()
