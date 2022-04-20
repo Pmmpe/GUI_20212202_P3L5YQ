@@ -239,11 +239,11 @@
         }
         public void HitPlayer(bool couldAttack, PlayerLogic player)
         {
-                if (player != null && couldAttack)
-                {
-                    double damage = 50;
-                    player.plyr.Health -= damage;
-                }
+            if (player != null && couldAttack)
+            {
+                double damage = 50;
+                player.plyr.Health -= damage;
+            }
         }
     }
 }

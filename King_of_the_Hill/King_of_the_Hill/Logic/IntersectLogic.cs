@@ -37,7 +37,7 @@
         }
 
         //Returns true if the player is in intersect with any of the given NPCs in the current EnemyLogic
-        public bool isPlayerIntersectWithAnyNPC(PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        public bool isPlayerIntersectWithAnyNPC()
         {
             bool intersect = false;
             foreach (var npc in enemyLogic.enemies)
@@ -52,7 +52,7 @@
 
         //Returns the current npc that is intersecting with the player object.
         //BEAWARE if you call it in none intersect situation, it could and will return null. (Handled in PlayerLogic)
-        public Npc PlayerIntersectWithThat(PlayerLogic playerLogic, EnemyLogic enemyLogic)
+        public Npc PlayerIntersectWithThat()
         {
             foreach (var npc in enemyLogic.enemies)
             {
@@ -61,7 +61,7 @@
                     return npc;
                 }
             }
-            return null; 
+            return null;
         }
 
         //The already stated player gravity function for further description see in the xaml.cs!

@@ -29,6 +29,7 @@
 
         double lastAttacksTime;
         int counter = 0;
+        int canAttackCounter = 0;
 
         #endregion
 
@@ -71,12 +72,13 @@
             {
                 if (isTimeElapsed(timer, lastAttacksTime))
                 {
-                    playerLogic.Attack(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), intersectLogic.PlayerIntersectWithThat(playerLogic, enemyLogic));
+                    playerLogic.Attack(intersectLogic.isPlayerIntersectWithAnyNPC(), intersectLogic.PlayerIntersectWithThat());
                 }
                 return true;
             }
             return false;
         }
+
         private void Timer_Tick(object? sender, EventArgs e)
         {
             display.InvalidateVisual();
@@ -90,13 +92,31 @@
             enemyLogic.RemoveDeadEnemies();
             playerLogic.ArrowFly();
             playerLogic.ArrowIntersected(enemyLogic.enemies, mapLogic.Grounds);
-            enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), playerLogic);
+            //enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), playerLogic);
+
+            //ha nem tetszik így, akkor töröld, de ez a legegyszerűbb megoldás:
+            if (intersectLogic.isPlayerIntersectWithAnyNPC())
+            {
+                if (canAttackCounter == 100)
+                {
+                    enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(), playerLogic);
+                    canAttackCounter = 0;
+                }
+                canAttackCounter++;
+
+            }
+            else
+            {
+                canAttackCounter = 0;
+            }
+            //idáig töröld, ha nem tetszik!!!!!!!!!!!!!
 
 
             //Chain functions: The player is attacking if the first checker function returns true for NPC intersecting and the "K" has been pressed down,
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
             //his or her Weight * (Weapon) weapons.WeaponDamage;
-            isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
+
+            //isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
 
             
             if (enemyLogic.IsOnlyArcher())
@@ -105,7 +125,6 @@
                 {
                     label_enter.Visibility = Visibility.Visible;
                     label_next.Visibility = Visibility.Visible;
-                    
                 }
                 if (counter == 100)
                 {
@@ -174,6 +193,7 @@
             }            
             if (Keyboard.IsKeyDown(Key.R))
             {
+                playerLogic.Attack(intersectLogic.isPlayerIntersectWithAnyNPC(), intersectLogic.PlayerIntersectWithThat());
                 playerLogic.Control(PlayerLogic.Controls.R);
             }
             if (Keyboard.IsKeyDown(Key.T))

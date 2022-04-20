@@ -1,6 +1,7 @@
 ﻿namespace King_of_the_Hill.Model
 {
     using King_of_the_Hill.Model.GameItems;
+
     public class Player : Character
     {
         public int Weight { get; set; }
@@ -30,7 +31,7 @@
         {
             if (PrimaryWeapon == null)
             {
-                return 50;
+                return 10;
             }
             else
             {
