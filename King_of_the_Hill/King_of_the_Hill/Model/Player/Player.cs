@@ -28,6 +28,14 @@
             HealPotion = new HealPotion("HP poti", 0, 0);
             ArmorRepairKit = new Armor("Armor kit", 0, 0);
         }
+        
+        public Weapon weapon { get; set; }
+
+        public Bow bow { get; set; }
+
+        public Weapon weapon { get; set; }
+
+        public Bow bow { get; set; }
 
         public double returnDamage()
         {

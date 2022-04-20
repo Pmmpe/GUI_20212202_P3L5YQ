@@ -44,6 +44,7 @@
         Brush swordBrush;
 
         Brush arrowBrush;
+        Brush arrowheadBrush;
 
 
         MapLogic mapLogic;
@@ -83,6 +84,7 @@
             longSwordBrush = Brushes.Orange;
             swordBrush = Brushes.Orange;
 
+            arrowheadBrush = Brushes.Yellow;
         }
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
@@ -175,6 +177,12 @@
                 }
 
                 drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                foreach (var arrow in playerLogic.Arrows)
+                {
+                    drawingContext.DrawRectangle(arrowheadBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                }
+
+                
             }
         }
     }

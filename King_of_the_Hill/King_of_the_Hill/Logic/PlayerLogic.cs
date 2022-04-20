@@ -1,8 +1,11 @@
 ﻿namespace King_of_the_Hill.Logic
 {
     using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.GameItems;
+    using King_of_the_Hill.Model.MapItem;
     using King_of_the_Hill.Model.NPC_Types;
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows;
 
@@ -19,15 +22,17 @@
         string difficulty;
         static Random random = new Random();
 
+        public List<Arrow> Arrows { get; set; }
         public enum Controls
         {
-            A, D, W, S, Space, Q, E
+            A, D, W, S, Space, Q, E, R, T
         }
 
         public Player plyr;
         public PlayerLogic()
         {
             plyr = new Player(100, 100, 0, 0, 75, 75, 1);
+            Arrows = new List<Arrow>();
         }
 
         public Rectangle playerRect
@@ -75,6 +80,9 @@
                         InventoryAddArmorReapirKitFromLogic(plyr.ArmorRepairKit.Amount);
                     }
                     break;
+                case Controls.T:
+                    Shoot();
+                    break;
             }
         }
 
@@ -82,9 +90,64 @@
         {
             if (Enemy != null)
             {
-                MessageBox.Show($"Before Hit calc the HP is: {Enemy.Health}");
                 Enemy.Health = Enemy.Health - plyr.returnDamage();
-                MessageBox.Show($"After Hit calc the HP is: {Enemy.Health}");
+            }
+        }
+        public void Shoot()
+        {
+            if (!(plyr.bow.Durability == 0))
+            {
+                Arrows.Add(new Arrow(plyr.PosX, plyr.PosY, 10, 10));
+                plyr.bow.Durability -= 1;
+            }
+        }
+        public void ArrowIntersected(List<Npc> Enemies, List<IMapItem> Grounds) //Dont place arrow remove inside loops it causes dataStream error.
+        {                                                                       //C# cant handle data looping and modifying (list.remove for example) at the same time.
+            Arrow toBeRomved = null;
+            foreach (var arrow in Arrows)
+            {
+                foreach (var ground in Grounds)
+                {
+                    if (arrow.arrowRect.IntersectsWith(ground.Rectangle) && ground is not Ground && ground is not Lava)
+                    {
+                        toBeRomved = arrow;
+                    }
+                }
+            }
+            Arrows.Remove(toBeRomved);
+            foreach (var arrow in Arrows)
+            {
+                foreach (var enemy in Enemies)
+                {
+                    if (arrow.arrowRect.IntersectsWith(enemy.enemyRect))
+                    {
+                        toBeRomved = arrow;
+                        enemy.Health -= plyr.bow.WeaponDamage;
+                    }
+                }
+            }
+            if (toBeRomved != null)
+            {
+                Arrows.Remove(toBeRomved);
+            }
+        }
+        public void ArrowFly()
+        {
+            foreach (var arrow in Arrows)
+            {
+                if (arrow.InterSected == false && arrow != null)
+                {
+                    arrow.PosX += 15;
+                    Random rnd = new Random();
+                    if (rnd.Next(0,2) == 1)
+                    {
+                        arrow.PosY += 1;
+                    }
+                    else
+                    {
+                        arrow.PosY -= 2;
+                    }
+                }
             }
         }
 
@@ -153,7 +216,6 @@
         {
             this.difficulty = difficulty;
         }
-
         public void Gravity(double Weight)
         {
            plyr.PosY = plyr.PosY + Weight;

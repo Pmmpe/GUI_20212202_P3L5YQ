@@ -1,5 +1,6 @@
 ﻿namespace King_of_the_Hill.Logic
 {
+    using King_of_the_Hill.Model;
     using King_of_the_Hill.Model.NPC_Types;
     using System.Collections.Generic;
 
@@ -219,6 +220,30 @@
             {
                 return actualWaveNumber == 15;
             }
+        }
+
+        public void RemoveDeadEnemies()
+        {
+            Npc enemyToBeDeleted = null;
+            foreach (var enemy in enemies)
+            {
+                if (enemy.Health <= 0)
+                {
+                    enemyToBeDeleted = enemy;
+                }
+            }
+            if (enemyToBeDeleted != null)
+            {
+                enemies.Remove(enemyToBeDeleted);
+            }
+        }
+        public void HitPlayer(bool couldAttack, PlayerLogic player)
+        {
+                if (player != null)
+                {
+                    double damage = 50;
+                    player.plyr.Health -= damage;
+                }
         }
     }
 }
