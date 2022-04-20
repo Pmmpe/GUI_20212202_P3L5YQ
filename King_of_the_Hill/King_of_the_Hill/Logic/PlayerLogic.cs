@@ -95,10 +95,10 @@
         }
         public void Shoot()
         {
-            if (!(plyr.bow.Durability == 0))
+            if (plyr.Bow.NumberOfArrows != 0)
             {
                 Arrows.Add(new Arrow(plyr.PosX, plyr.PosY, 10, 10));
-                plyr.bow.Durability -= 1;
+                plyr.Bow.NumberOfArrows--;
             }
         }
         public void ArrowIntersected(List<Npc> Enemies, List<IMapItem> Grounds) //Dont place arrow remove inside loops it causes dataStream error.
@@ -122,7 +122,7 @@
                     if (arrow.arrowRect.IntersectsWith(enemy.enemyRect))
                     {
                         toBeRomved = arrow;
-                        enemy.Health -= plyr.bow.WeaponDamage;
+                        enemy.Health -= plyr.Bow.WeaponDamage;
                     }
                 }
             }

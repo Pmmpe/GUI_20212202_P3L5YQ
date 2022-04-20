@@ -85,9 +85,8 @@
             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
             enemyLogic.Move();                         //NPC moving function!
             intersectLogic.PlayerIntersectWithItem();   //item pick up
+            InventoryDataChanged();
             
-            intersectLogic.SetEnemyDirection();        // Summarized at implementation!
-            enemyLogic.Move();                         //NPC moving function!
             enemyLogic.RemoveDeadEnemies();
             playerLogic.ArrowFly();
             playerLogic.ArrowIntersected(enemyLogic.enemies, mapLogic.Grounds);
@@ -228,7 +227,7 @@
             intersectLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
 
             playerLogic.InventoryAddHPFromLogic = InventorySetHP;
-            playerLogic.InventoryAddArmorFromLogic = InventorySetHP;
+            playerLogic.InventoryAddArmorFromLogic = InventorySetArmor;
             playerLogic.InventoryAddHealPotionFromLogic = InventorySetHpPotion;
             playerLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
             playerLogic.InventoryAddWeaponFromLogic = InventorySetWeaponName;
@@ -242,6 +241,26 @@
 
         #region InventoryAndMenu
         
+        public void InventoryDataChanged()
+        {
+            if (playerLogic.plyr.PrimaryWeapon == null)
+            {
+                label_slotOne.Content = "N/A";
+            }
+            else
+            {
+                label_slotOne.Content = playerLogic.plyr.PrimaryWeapon.Name;
+            }
+            label_slotTwo.Content = playerLogic.plyr.Bow.NumberOfArrows;
+            label_slotThree.Content = 0;//TODO: charon
+            label_slotFour.Content = playerLogic.plyr.Jetpack.Fuel;
+            label_hp.Content = playerLogic.plyr.Health;
+            label_armor.Content = playerLogic.plyr.Armour;
+            label_hp_potion.Content = playerLogic.plyr.HealPotion.Amount;
+            label_armor_repairkit.Content = playerLogic.plyr.ArmorRepairKit.Amount;
+
+        }
+
         public void InventorySetWeaponName(string weaponName)
         {
             label_slotOne.Content = weaponName;
