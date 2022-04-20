@@ -282,7 +282,7 @@
             //ImageBehavior.SetAnimatedSource(, (playerBrush as ImageBrush).ImageSource);
         }
 
-        private void JetpackAnimation()
+        private void JetpackAnimation() //just player
         {
             var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
             playerBrush = new ImageBrush(new TransformedBitmap(img, new ScaleTransform(-1,1)));
@@ -293,7 +293,7 @@
             dispatcherTimers.Add(dispatcherTimerInstance);
         }
 
-        private void MoveLeftAnimation(bool leftOrientation)
+        private void MoveLeftAnimation(bool leftOrientation) //just player currently
         {
             if (!leftOrientation)
             {
@@ -305,7 +305,7 @@
             
         }
 
-        private void MoveRightAnimation(bool leftOrientation)
+        private void MoveRightAnimation(bool leftOrientation) //just player currently
         {
             if (leftOrientation)
             {
