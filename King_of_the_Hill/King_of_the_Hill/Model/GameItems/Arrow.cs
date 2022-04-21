@@ -14,17 +14,17 @@ namespace King_of_the_Hill.Model.GameItems
         public double Width { get; set; }
         public double Height { get; set; }
         public bool DirectionIsLeft { get; set; }
+        public double ArrowDamage { get; set; }
 
-        public Arrow(double posX, double posY, double width, double height, bool directionIsLeft)
+        public Arrow(double arrowDamage, double posX, double posY, double width, double height, bool directionIsLeft)
         {
             PosX = posX;
             PosY = posY;
             Width = width;
             Height = height;
-            InterSected = false;
             DirectionIsLeft = directionIsLeft;
+            ArrowDamage = arrowDamage;
         }
-        public bool InterSected { get; set; }
         public Rectangle arrowRect
         {
             get

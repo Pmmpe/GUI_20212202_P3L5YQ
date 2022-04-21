@@ -182,8 +182,12 @@
                 {
                     drawingContext.DrawRectangle(arrowheadBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
+                foreach (var arrow in enemyLogic.arrows)
+                {
+                    drawingContext.DrawRectangle(arrowheadBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                }
 
-                
+
             }
         }
     }

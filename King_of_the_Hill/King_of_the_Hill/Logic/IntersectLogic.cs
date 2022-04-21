@@ -15,7 +15,8 @@
         int height;
         static Random random = new Random();
 
-          
+        int canArcherShootCounter;
+        bool canArcherShoot;
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
@@ -23,6 +24,8 @@
             this.mapLogic = mapLogic;
             this.enemyLogic = enemyLogic;
             this.itemLogic = itemLogic;
+            canArcherShootCounter = 0;
+            canArcherShoot = true;
         }
 
         public void SetSizes(int width, int height)
@@ -59,17 +62,50 @@
             return null;
         }
 
-        public void ArrowIntersected()
+        public void ArcherShoot()
         {
-            Arrow toBeRemoved = null;
-            foreach (var arrow in playerLogic.Arrows)
+            if (canArcherShoot)
             {
                 foreach (var enemy in enemyLogic.enemies)
                 {
-                    if (arrow.arrowRect.IntersectsWith(enemy.enemyRect))
+                    if (enemy is Archer && enemy.PosY - 50 < playerLogic.plyr.PosY && enemy.PosY + 50 > playerLogic.plyr.PosY)
+                    {
+                        bool directionIsLeft = false;
+                        if (playerLogic.plyr.PosX < enemy.PosX)
+                        {
+                            directionIsLeft = true;
+                        }
+                        enemyLogic.arrows.Add(new Arrow(enemy.Damage, enemy.PosX + enemy.Width / 2, enemy.PosY + enemy.Height / 2, 10, 10, directionIsLeft));
+                    }
+                }
+                canArcherShoot = false;
+            }
+            else
+            {
+                canArcherShootCounter++;
+                if (canArcherShootCounter == 150)
+                {
+                    canArcherShootCounter = 0;
+                    canArcherShoot = true;
+                }
+            }
+        }
+
+        public void ArrowIntersected()
+        {
+            Arrow toBeRemoved = null;
+            foreach (var enemy in enemyLogic.enemies)
+            {
+                foreach (var arrow in playerLogic.Arrows)
+                {
+                    if (arrow.PosX < 0 || arrow.PosX > 2500)
                     {
                         toBeRemoved = arrow;
-                        enemy.Health -= playerLogic.plyr.Bow.WeaponDamage;
+                    }
+                    else if (arrow.arrowRect.IntersectsWith(enemy.enemyRect))
+                    {
+                        toBeRemoved = arrow;
+                        enemy.Health -= arrow.ArrowDamage;
                     }
                 }
             }
@@ -78,17 +114,21 @@
                 playerLogic.Arrows.Remove(toBeRemoved);
                 toBeRemoved = null;
             }
-
-            foreach (var arrow in playerLogic.Arrows)
+            foreach (var arrow in enemyLogic.arrows)
             {
                 if (arrow.PosX < 0 || arrow.PosX > 2500)
                 {
                     toBeRemoved = arrow;
                 }
+                else if (arrow.arrowRect.IntersectsWith(playerLogic.playerRect))
+                {
+                    toBeRemoved = arrow;
+                    playerLogic.SufferDamage(arrow.ArrowDamage);
+                }
             }
             if (toBeRemoved != null)
             {
-                playerLogic.Arrows.Remove(toBeRemoved);
+                enemyLogic.arrows.Remove(toBeRemoved);
             }
         }
 

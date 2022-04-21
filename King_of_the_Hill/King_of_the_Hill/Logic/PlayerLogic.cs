@@ -82,7 +82,7 @@
         {
             if (enemy != null)
             {
-                enemy.Health -= plyr.returnDamage();
+                enemy.Health -= CauseDamage();
             }
         }
 
@@ -90,12 +90,7 @@
         {
             if (enemy != null && enemy is not Archer)
             {
-                plyr.Armour -= enemy.Damage;
-                if (plyr.Armour < 0)
-                {
-                    plyr.Health -= (int)plyr.Armour * -1;
-                    plyr.Armour = 0;
-                }
+                SufferDamage(enemy.Damage);
             }
         }
 
@@ -104,8 +99,30 @@
         {
             if (plyr.Bow != null && plyr.Bow.NumberOfArrows != 0)
             {
-                Arrows.Add(new Arrow(plyr.PosX + plyr.Width / 2, plyr.PosY + plyr.Height / 2, 10, 10, directionIsLeft));
+                Arrows.Add(new Arrow(plyr.Bow.WeaponDamage, plyr.PosX + plyr.Width / 2, plyr.PosY + plyr.Height / 2, 10, 10, directionIsLeft));
                 plyr.Bow.NumberOfArrows--;
+            }
+        }
+
+        public void SufferDamage(double damage)
+        {
+            plyr.Armour -= damage;
+            if (plyr.Armour < 0)
+            {
+                plyr.Health -= (int)plyr.Armour * -1;
+                plyr.Armour = 0;
+            }
+        }
+
+        public double CauseDamage()
+        {
+            if (plyr.PrimaryWeapon == null)
+            {
+                return 10.0;
+            }
+            else
+            {
+                return plyr.PrimaryWeapon.WeaponDamage;
             }
         }
 
@@ -113,24 +130,21 @@
         {
             foreach (var arrow in Arrows)
             {
-                if (arrow.InterSected == false && arrow != null)
+                if (arrow.DirectionIsLeft)
                 {
-                    if (arrow.DirectionIsLeft)
-                    {
-                        arrow.PosX -= 15;
-                    }
-                    else
-                    {
-                        arrow.PosX += 15;
-                    }
-                    if (random.Next(0,2) == 1)
-                    {
-                        arrow.PosY += 2;
-                    }
-                    else
-                    {
-                        arrow.PosY -= 1;
-                    }
+                    arrow.PosX -= 15;
+                }
+                else
+                {
+                    arrow.PosX += 15;
+                }
+                if (random.Next(0, 2) == 1)
+                {
+                    arrow.PosY += 2;
+                }
+                else
+                {
+                    arrow.PosY -= 1;
                 }
             }
         }
@@ -177,7 +191,7 @@
                     plyr.PrimaryWeapon = null;
                     break;
                 case 3:
-                    plyr.Bow.NumberOfArrows = 0;
+                    plyr.Bow = null;
                     break;
                 case 4:
                     plyr.Jetpack.Fuel -= 50;

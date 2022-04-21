@@ -68,11 +68,13 @@
             intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
             intersectLogic.PlayerIntersectWithItem();   //item pick up
+            intersectLogic.ArcherShoot();
             enemyLogic.RemoveDeadEnemies();
             enemyLogic.Move();                         //NPC moving function!
 
 
             playerLogic.ArrowFly();
+            enemyLogic.ArrowFly();
             intersectLogic.ArrowIntersected();
 
             if (intersectLogic.isPlayerIntersectWithAnyNPC())

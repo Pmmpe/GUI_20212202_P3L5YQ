@@ -26,17 +26,5 @@
             HealPotion = new HealPotion("HP poti", 0, 0);
             ArmorRepairKit = new Armor("Armor kit", 0, 0);
         }
-
-        public double returnDamage()
-        {
-            if (PrimaryWeapon == null)
-            {
-                return 10;
-            }
-            else
-            {
-                return Weight * PrimaryWeapon.WeaponDamage;
-            }
-        }
     }
 }

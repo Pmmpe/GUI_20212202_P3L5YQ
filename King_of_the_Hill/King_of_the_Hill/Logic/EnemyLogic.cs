@@ -1,6 +1,7 @@
 ﻿namespace King_of_the_Hill.Logic
 {
     using King_of_the_Hill.Model;
+    using King_of_the_Hill.Model.GameItems;
     using King_of_the_Hill.Model.NPC_Types;
     using System;
     using System.Collections.Generic;
@@ -12,6 +13,8 @@
         string difficulty;
         double attackDamageMultiplier;
         public List<Npc> enemies; //List of every used current enemy npc unit in the current play session!
+        public List<Arrow> arrows;
+
 
         static Random random = new Random();
 
@@ -19,7 +22,31 @@
         {
             actualWaveNumber = 0;
             enemies = new List<Npc>();
+            arrows = new List<Arrow>();
             difficulty = "";
+        }
+
+        public void ArrowFly()
+        {
+            foreach (var arrow in arrows)
+            {
+                if (arrow.DirectionIsLeft)
+                {
+                    arrow.PosX -= 15;
+                }
+                else
+                {
+                    arrow.PosX += 15;
+                }
+                if (random.Next(0, 2) == 1)
+                {
+                    arrow.PosY += 2;
+                }
+                else
+                {
+                    arrow.PosY -= 1;
+                }
+            }
         }
 
         public void NextWave()
