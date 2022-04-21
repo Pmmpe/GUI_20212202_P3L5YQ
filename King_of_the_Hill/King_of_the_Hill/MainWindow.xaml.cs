@@ -133,19 +133,19 @@
 
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
-            if (Keyboard.IsKeyDown(Key.W) && intersectLogic.IsPlayerAndMapIntersect())
+            if ((Keyboard.IsKeyDown(Key.W) || Keyboard.IsKeyDown(Key.Up)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
             }
-            if (Keyboard.IsKeyDown(Key.S) && intersectLogic.IsPlayerAndMapIntersect())
+            if ((Keyboard.IsKeyDown(Key.S) || Keyboard.IsKeyDown(Key.Down)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
             }
-            if (Keyboard.IsKeyDown(Key.A))
+            if (Keyboard.IsKeyDown(Key.A) || Keyboard.IsKeyDown(Key.Left))
             {
                 playerLogic.Control(PlayerLogic.Controls.A);
             }
-            if (Keyboard.IsKeyDown(Key.D))
+            if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
             {
                 playerLogic.Control(PlayerLogic.Controls.D);
             }
