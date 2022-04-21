@@ -15,6 +15,8 @@
         public List<Npc> enemies; //List of every used current enemy npc unit in the current play session!
         public List<Arrow> arrows;
 
+        public string AchievedScore { get { return difficulty + " -> " + actualWaveNumber + " Pont"; } }
+
 
         static Random random = new Random();
 

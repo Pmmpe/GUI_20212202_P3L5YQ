@@ -130,7 +130,7 @@
             InventoryDataChanged();
             if (playerLogic.IsPlayerDead())
             {
-                MessageBox.Show("Game Over!");
+                MessageBox.Show("Vesztettél!\n" + enemyLogic.AchievedScore);
                 timer.Stop();
             }
         }
@@ -212,7 +212,8 @@
                 {
                     if (enemyLogic.IsEndGame())
                     {
-                        MessageBox.Show("Nyertél!");
+                        MessageBox.Show("Nyertél!\n" + enemyLogic.AchievedScore);
+                        timer.Stop();
                     }
                     enemyLogic.enemies.Clear();
                     itemLogic.items.Clear();
