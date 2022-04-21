@@ -65,11 +65,12 @@
         {
             display.InvalidateVisual();
             intersectLogic.IsPlayerAndMapIntersect();   // Summarized at implementation! 
+            intersectLogic.PlayerIntersectWithLava();
             intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
             intersectLogic.PlayerIntersectWithItem();   //item pick up
             intersectLogic.ArcherShoot();
-            enemyLogic.RemoveDeadEnemies();
+            intersectLogic.RemoveDeadEnemies();
             enemyLogic.Move();                         //NPC moving function!
 
 
@@ -127,6 +128,11 @@
                 nextWaveLabelCounter++;
             }
             InventoryDataChanged();
+            if (playerLogic.IsPlayerDead())
+            {
+                MessageBox.Show("Game Over!");
+                timer.Stop();
+            }
         }
 
         #region CharMoving
@@ -263,7 +269,7 @@
             {
                 label_slotTwo.Content = playerLogic.plyr.Bow.NumberOfArrows;
             }
-            label_slotThree.Content = 0;//TODO: charon
+            label_slotThree.Content = playerLogic.plyr.Charon;
             label_slotFour.Content = playerLogic.plyr.Jetpack.Fuel;
             label_hp.Content = playerLogic.plyr.Health;
             label_armor.Content = playerLogic.plyr.Armour;

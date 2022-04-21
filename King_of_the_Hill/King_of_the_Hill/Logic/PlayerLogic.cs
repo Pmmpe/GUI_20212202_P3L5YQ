@@ -24,7 +24,7 @@
         public Player plyr;
         public PlayerLogic()
         {
-            plyr = new Player(100, 100, 0, 0, 75, 75, 1);
+            plyr = new Player(100, 50, 0, 0, 75, 75);
             directionIsLeft = false;
             Arrows = new List<Arrow>();
         }
@@ -56,26 +56,43 @@
                     plyr.PosY += 5;
                     break;
                 case Controls.Space:
-                    plyr.PosY = plyr.PosY - 25 + plyr.Weight;
+                    plyr.PosY -= 25;
                     break;
                 case Controls.Q:
                     if (plyr.HealPotion.Amount > 0)
                     {
                         plyr.HealPotion.Amount--;
-                        plyr.Health += 50;
+                        plyr.Health += 25;
                     }
                     break;
                 case Controls.E:
                     if (plyr.ArmorRepairKit.Amount > 0)
                     {
                         plyr.ArmorRepairKit.Amount--;
-                        plyr.Armour += 50;
+                        plyr.Armour += 25;
                     }
                     break;
                 case Controls.R:
                     Shoot();
                     break;
             }
+        }
+
+        public bool IsPlayerDead()
+        {
+            if (plyr.Health < 1)
+            {
+                if (plyr.Charon == 1)
+                {
+                    plyr.Health = 100;
+                    plyr.Charon = 0;
+                }
+                else
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         public void Attack(Npc enemy)
@@ -94,7 +111,6 @@
             }
         }
 
-
         public void Shoot()
         {
             if (plyr.Bow != null && plyr.Bow.NumberOfArrows != 0)
@@ -106,6 +122,10 @@
 
         public void SufferDamage(double damage)
         {
+            if (plyr.Armour > 0)
+            {
+                damage *= 0.5;
+            }
             plyr.Armour -= damage;
             if (plyr.Armour < 0)
             {

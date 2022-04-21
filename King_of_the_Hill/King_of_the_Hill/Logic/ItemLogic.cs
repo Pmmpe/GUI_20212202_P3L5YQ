@@ -17,11 +17,14 @@ namespace King_of_the_Hill.Logic
 
         static Random random = new Random();
 
+        bool charonGeneratedYet;
+
         public ItemLogic()
         {
             actualWaveNumber = 0;
             items = new List<GameItem>();
             difficulty = "";
+            charonGeneratedYet = false;
         }
 
         public void NextWave()
@@ -44,6 +47,26 @@ namespace King_of_the_Hill.Logic
             if (random.Next(0, 2) == 0)
             {
                 items.Add(new Jetpack("Jetpack", 0, 0));
+            }
+
+            if (!charonGeneratedYet)
+            {
+                int number = random.Next(1, 101);
+                if (difficulty == "Easy" && number < 25)
+                {
+                    items.Add(new Charon("Charon", 0, 0));
+                    charonGeneratedYet = true;
+                }
+                else if (difficulty == "Medium" && number < 15)
+                {
+                    items.Add(new Charon("Charon", 0, 0));
+                    charonGeneratedYet = true;
+                }
+                else if (number < 10)
+                {
+                    items.Add(new Charon("Charon", 0, 0));
+                    charonGeneratedYet = true;
+                }
             }
 
             //Potik amik csak wave számától függően generálódik
@@ -199,7 +222,7 @@ namespace King_of_the_Hill.Logic
                     items.Add(new LongSword(35 * attackDamageMultiplier, "LongSword", 2, 0, 0));
                     break;
                 case 2:
-                    items.Add(new Axe(25 * attackDamageMultiplier, "Axe", 3, 0, 0));
+                    items.Add(new Axe(50 * attackDamageMultiplier, "Axe", 10, 0, 0));
                     break;
                 case 3:
                     //Az íjnál kell nyíl darabszám beállítás is nehézségi szinttől függően ezért kell az if

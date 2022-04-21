@@ -4,8 +4,6 @@
 
     public class Player : Character
     {
-        public int Weight { get; set; }
-
         public Weapon PrimaryWeapon { get; set; }
 
         public Bow Bow { get; set; }
@@ -16,15 +14,18 @@
 
         public Armor ArmorRepairKit { get; set; }
 
-        public Player(double Health, double Armour, double PosX, double PosY, double Width, double Height, int Weight) : base(PosX, PosY, Width, Height, Health, Armour)
+        public int Charon { get; set; }
+
+        public Player(double Health, double Armour, double PosX, double PosY, double Width, double Height) : base(PosX, PosY, Width, Height, Health, Armour)
         {
-            this.Weight = Weight;
             PrimaryWeapon = null;
             Bow = null;
             Jetpack = new Jetpack("Jetpack", 0, 0);
 
             HealPotion = new HealPotion("HP poti", 0, 0);
             ArmorRepairKit = new Armor("Armor kit", 0, 0);
+
+            Charon = 0;
         }
     }
 }

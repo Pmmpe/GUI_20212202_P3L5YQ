@@ -42,9 +42,10 @@
         Brush jetpackBrush;
         Brush longSwordBrush;
         Brush swordBrush;
+        Brush charonBrush;
 
+        //arrow 10x10px
         Brush arrowBrush;
-        Brush arrowheadBrush;
 
 
         MapLogic mapLogic;
@@ -63,7 +64,6 @@
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
             //Ideiglenesen fekete:
             playerBrush = Brushes.Black;
-            arrowBrush = Brushes.Red;
 
             //TODO képeket berakni a Brush-okra.
             //Ideiglenes Brushok, ezeket majd törölni kell:
@@ -83,8 +83,9 @@
             jetpackBrush = Brushes.Black;
             longSwordBrush = Brushes.Orange;
             swordBrush = Brushes.Orange;
+            charonBrush = Brushes.Gold;
 
-            arrowheadBrush = Brushes.Yellow;
+            arrowBrush = Brushes.Yellow;
         }
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
@@ -154,6 +155,10 @@
                     {
                         drawingContext.DrawRectangle(swordBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
+                    else if (item is Charon)
+                    {
+                        drawingContext.DrawRectangle(charonBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                    }
                 }
 
                 foreach (var item in enemyLogic.enemies)
@@ -180,11 +185,11 @@
                 
                 foreach (var arrow in playerLogic.Arrows)
                 {
-                    drawingContext.DrawRectangle(arrowheadBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
                 foreach (var arrow in enemyLogic.arrows)
                 {
-                    drawingContext.DrawRectangle(arrowheadBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
 
 

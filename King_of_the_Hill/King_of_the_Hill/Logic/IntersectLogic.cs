@@ -62,6 +62,26 @@
             return null;
         }
 
+        public void RemoveDeadEnemies()
+        {
+            Npc enemyToBeDeleted = null;
+            foreach (var enemy in enemyLogic.enemies)
+            {
+                if (enemy.Health <= 0)
+                {
+                    enemyToBeDeleted = enemy;
+                    if (enemy is Archer)
+                    {
+                        playerLogic.plyr.Health += 50;
+                    }
+                }
+            }
+            if (enemyToBeDeleted != null)
+            {
+                enemyLogic.enemies.Remove(enemyToBeDeleted);
+            }
+        }
+
         public void ArcherShoot()
         {
             if (canArcherShoot)
@@ -129,6 +149,17 @@
             if (toBeRemoved != null)
             {
                 enemyLogic.arrows.Remove(toBeRemoved);
+            }
+        }
+
+        public void PlayerIntersectWithLava()
+        {
+            foreach (var lava in mapLogic.Grounds)
+            {
+                if (lava is Lava && playerLogic.playerRect.IntersectsWith(lava.Rectangle))
+                {
+                    playerLogic.plyr.Health--;
+                }
             }
         }
 
@@ -368,7 +399,13 @@
                         needRemove = true;
                         playerLogic.plyr.Jetpack.Fuel += 100; //kap 100 üzemanyagot
                     }
-                    
+                    else if (item is Charon)
+                    {
+                        itemToRemove = item;
+                        needRemove = true;
+                        playerLogic.plyr.Charon = 1;
+                    }
+
                 }
             }
             if (needRemove)
