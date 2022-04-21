@@ -79,13 +79,28 @@
             }
         }
 
-        public void Attack(bool couldAttack, Npc Enemy)
+        public void Attack(Npc enemy)
         {
-            if (Enemy != null)
+            if (enemy != null)
             {
-                Enemy.Health = Enemy.Health - plyr.returnDamage();
+                enemy.Health -= plyr.returnDamage();
             }
         }
+
+        public void HitPlayer(Npc enemy)
+        {
+            if (enemy != null)
+            {
+                plyr.Armour -= enemy.Damage;
+                if (plyr.Armour < 0)
+                {
+                    plyr.Health -= (int)plyr.Armour * -1;
+                    plyr.Armour = 0;
+                }
+            }
+        }
+
+
         public void Shoot()
         {
             if (plyr.Bow.NumberOfArrows != 0)
@@ -94,48 +109,7 @@
                 plyr.Bow.NumberOfArrows--;
             }
         }
-        public void ArrowIntersected(List<Npc> Enemies, List<IMapItem> Grounds) //Dont place arrow remove inside loops it causes dataStream error.
-        {                                                                       //C# cant handle data looping and modifying (list.remove for example) at the same time.
-            Arrow toBeRomved = null;
-            foreach (var arrow in Arrows)
-            {
-                foreach (var ground in Grounds)
-                {
-                    if (arrow.arrowRect.IntersectsWith(ground.Rectangle) && ground is not Ground && ground is not Lava)
-                    {
-                        toBeRomved = arrow;
-                    }
-                }
-            }
-            Arrows.Remove(toBeRomved);
-            foreach (var arrow in Arrows)
-            {
-                foreach (var enemy in Enemies)
-                {
-                    if (arrow.arrowRect.IntersectsWith(enemy.enemyRect))
-                    {
-                        toBeRomved = arrow;
-                        enemy.Health -= plyr.Bow.WeaponDamage;
-                    }
-                }
-            }
-            if (toBeRomved != null)
-            {
-                Arrows.Remove(toBeRomved);
-            }
-
-            foreach (var arrow in Arrows)
-            {
-                if (arrow.PosX < 0 || arrow.PosX > 2500)
-                {
-                    toBeRomved = arrow;
-                }
-            }
-            if (toBeRomved != null)
-            {
-                Arrows.Remove(toBeRomved);
-            }
-        }
+        
         public void ArrowFly()
         {
             foreach (var arrow in Arrows)
@@ -150,14 +124,13 @@
                     {
                         arrow.PosX += 15;
                     }
-                    Random rnd = new Random();
-                    if (rnd.Next(0,2) == 1)
+                    if (random.Next(0,2) == 1)
                     {
-                        arrow.PosY += 1;
+                        arrow.PosY += 2;
                     }
                     else
                     {
-                        arrow.PosY -= 2;
+                        arrow.PosY -= 1;
                     }
                 }
             }
@@ -223,9 +196,9 @@
         {
             this.difficulty = difficulty;
         }
-        public void Gravity(double Weight)
+        public void Gravity()
         {
-           plyr.PosY += Weight;
+           plyr.PosY += 2;
         }
     }
 }

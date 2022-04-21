@@ -59,6 +59,39 @@
             return null;
         }
 
+        public void ArrowIntersected()
+        {
+            Arrow toBeRemoved = null;
+            foreach (var arrow in playerLogic.Arrows)
+            {
+                foreach (var enemy in enemyLogic.enemies)
+                {
+                    if (arrow.arrowRect.IntersectsWith(enemy.enemyRect))
+                    {
+                        toBeRemoved = arrow;
+                        enemy.Health -= playerLogic.plyr.Bow.WeaponDamage;
+                    }
+                }
+            }
+            if (toBeRemoved != null)
+            {
+                playerLogic.Arrows.Remove(toBeRemoved);
+                toBeRemoved = null;
+            }
+
+            foreach (var arrow in playerLogic.Arrows)
+            {
+                if (arrow.PosX < 0 || arrow.PosX > 2500)
+                {
+                    toBeRemoved = arrow;
+                }
+            }
+            if (toBeRemoved != null)
+            {
+                playerLogic.Arrows.Remove(toBeRemoved);
+            }
+        }
+
         //The already stated player gravity function for further description see in the xaml.cs!
         public bool IsPlayerAndMapIntersect()
         {
@@ -69,7 +102,7 @@
                     return true;
                 }
             }
-            playerLogic.Gravity(2);
+            playerLogic.Gravity();
             return false;
         }
 

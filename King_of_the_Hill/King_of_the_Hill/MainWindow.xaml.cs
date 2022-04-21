@@ -27,7 +27,6 @@
 
         DispatcherTimer timer;
 
-        double lastAttacksTime;
         int counter = 0;
         int canAttackCounter = 0;
 
@@ -61,17 +60,16 @@
             intersectLogic.PlayerIntersectWithItem();   //item pick up
             enemyLogic.RemoveDeadEnemies();
             enemyLogic.Move();                         //NPC moving function!
-            
-            
+
+
             playerLogic.ArrowFly();
-            playerLogic.ArrowIntersected(enemyLogic.enemies, mapLogic.Grounds);
-            //enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), playerLogic);
+            intersectLogic.ArrowIntersected();
 
             if (intersectLogic.isPlayerIntersectWithAnyNPC())
             {
-                if (canAttackCounter == 100)
+                if (canAttackCounter == 50)
                 {
-                    enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(), playerLogic);
+                    playerLogic.HitPlayer(intersectLogic.PlayerIntersectWithThat());
                     canAttackCounter = 0;
                 }
                 canAttackCounter++;
@@ -151,11 +149,10 @@
                 //temp
                 enemyLogic.enemies.Clear();
                 itemLogic.items.Clear();
-            }            
+            }
             if (Keyboard.IsKeyDown(Key.R))
             {
-                playerLogic.Attack(intersectLogic.isPlayerIntersectWithAnyNPC(), intersectLogic.PlayerIntersectWithThat());
-                playerLogic.Control(PlayerLogic.Controls.R);
+                playerLogic.Attack(intersectLogic.PlayerIntersectWithThat());
             }
             if (Keyboard.IsKeyDown(Key.T))
             {
