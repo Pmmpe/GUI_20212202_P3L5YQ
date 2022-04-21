@@ -11,14 +11,6 @@
 
     public class PlayerLogic
     {
-        public Action<int> InventoryAddHPFromLogic;
-        public Action<int> InventoryAddArmorFromLogic;
-        public Action<int> InventoryAddHealPotionFromLogic;
-        public Action<int> InventoryAddArmorReapirKitFromLogic;
-        public Action<string> InventoryAddWeaponFromLogic;
-        public Action<int> InventoryAddArrowsFromLogic;
-        public Action<int> InventoryAddJetpackFuelFromLogic;
-
         string difficulty;
         static Random random = new Random();
         bool directionIsLeft;
@@ -72,8 +64,6 @@
                     {
                         plyr.HealPotion.Amount--;
                         plyr.Health += 50;
-                        InventoryAddHPFromLogic((int)plyr.Health);
-                        InventoryAddHealPotionFromLogic(plyr.HealPotion.Amount);
                     }
                     break;
                 case Controls.E:
@@ -81,8 +71,6 @@
                     {
                         plyr.ArmorRepairKit.Amount--;
                         plyr.Armour += 50;
-                        InventoryAddArmorFromLogic((int)plyr.Armour);
-                        InventoryAddArmorReapirKitFromLogic(plyr.ArmorRepairKit.Amount);
                     }
                     break;
                 case Controls.T:
@@ -205,23 +193,19 @@
                     if (plyr.HealPotion.Amount > 0)
                     {
                         plyr.HealPotion.Amount--;
-                        InventoryAddHealPotionFromLogic(plyr.HealPotion.Amount);
                     }
                     break;
                 case 1:
                     if (plyr.ArmorRepairKit.Amount > 0)
                     {
                         plyr.ArmorRepairKit.Amount--;
-                        InventoryAddArmorReapirKitFromLogic(plyr.ArmorRepairKit.Amount);
                     }
                     break;
                 case 2:
                     plyr.PrimaryWeapon = null;
-                    InventoryAddWeaponFromLogic("N/A");
                     break;
                 case 3:
                     plyr.Bow.NumberOfArrows = 0;
-                    InventoryAddArrowsFromLogic(0);
                     break;
                 case 4:
                     plyr.Jetpack.Fuel -= 50;
@@ -229,7 +213,6 @@
                     {
                         plyr.Jetpack.Fuel = 0;
                     }
-                    InventoryAddJetpackFuelFromLogic(plyr.Jetpack.Fuel);
                     break;
                 default:
                     break;
@@ -242,7 +225,7 @@
         }
         public void Gravity(double Weight)
         {
-           plyr.PosY = plyr.PosY + Weight;
+           plyr.PosY += Weight;
         }
     }
 }

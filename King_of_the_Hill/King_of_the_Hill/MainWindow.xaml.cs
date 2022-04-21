@@ -42,8 +42,6 @@
             mapLogic = new MapLogic();
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
 
-            lastAttacksTime = 0.0;
-
             soundplayer = new SoundLogic(); //sound
             
             
@@ -52,32 +50,7 @@
             timer.Tick += Timer_Tick;
         }
 
-        //Returns if enough time is elapsed since last attack or not.
-        private static bool isTimeElapsed(DispatcherTimer timer, double lastAttack)
-        {
-            //if (lastAttack + 500 < timer.Interval.TotalMilliseconds)
-            //{
-            //    return true;
-            //}
-            //return false;
-            return true;
-        }
-
-        //Button check for attacking, used in Timer_Tick, calling PlayerLogics attack function.
-        //Uses isTimeElapsed function to check the time elapsed between the button presses, to
-        //prevent constant damaging!
-        private bool isAttackButtonDown(PlayerLogic playerLogic, EnemyLogic enemyLogic, IntersectLogic intersectLogic)
-        {
-            if (Keyboard.IsKeyDown(Key.R))
-            {
-                if (isTimeElapsed(timer, lastAttacksTime))
-                {
-                    playerLogic.Attack(intersectLogic.isPlayerIntersectWithAnyNPC(), intersectLogic.PlayerIntersectWithThat());
-                }
-                return true;
-            }
-            return false;
-        }
+        
 
         private void Timer_Tick(object? sender, EventArgs e)
         {
@@ -85,16 +58,15 @@
             intersectLogic.IsPlayerAndMapIntersect();   // Summarized at implementation! 
             intersectLogic.SetPlayerInTheMap();         // Summarized at implementation!
             intersectLogic.SetEnemyDirection();        // Summarized at implementation!
-            enemyLogic.Move();                         //NPC moving function!
             intersectLogic.PlayerIntersectWithItem();   //item pick up
-            InventoryDataChanged();
-            
             enemyLogic.RemoveDeadEnemies();
+            enemyLogic.Move();                         //NPC moving function!
+            
+            
             playerLogic.ArrowFly();
             playerLogic.ArrowIntersected(enemyLogic.enemies, mapLogic.Grounds);
             //enemyLogic.HitPlayer(intersectLogic.isPlayerIntersectWithAnyNPC(playerLogic, enemyLogic), playerLogic);
 
-            //ha nem tetszik így, akkor töröld, de ez a legegyszerűbb megoldás:
             if (intersectLogic.isPlayerIntersectWithAnyNPC())
             {
                 if (canAttackCounter == 100)
@@ -109,15 +81,6 @@
             {
                 canAttackCounter = 0;
             }
-            //idáig töröld, ha nem tetszik!!!!!!!!!!!!!
-
-
-            //Chain functions: The player is attacking if the first checker function returns true for NPC intersecting and the "K" has been pressed down,
-            //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
-            //his or her Weight * (Weapon) weapons.WeaponDamage;
-
-            //isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
-
             
             if (enemyLogic.IsOnlyArcher())
             {
@@ -134,6 +97,7 @@
                 }
                 counter++;
             }
+            InventoryDataChanged();
         }
 
         #region CharMoving
@@ -171,21 +135,18 @@
                 if (playerLogic.plyr.Jetpack.Fuel > 0)
                 {
                     playerLogic.plyr.Jetpack.Fuel--;
-                    InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
                 }              
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
                 playerLogic.plyr.PrimaryWeapon = null;
-                InventorySetWeaponName("N/A");
             }
             if (Keyboard.IsKeyDown(Key.NumPad2))
             {
                 if (playerLogic.plyr.Bow.NumberOfArrows > 0)
                 {
                     playerLogic.plyr.Bow.NumberOfArrows--;
-                    InventorySetArrowNumber(playerLogic.plyr.Bow.NumberOfArrows);
                 }
                 //temp
                 enemyLogic.enemies.Clear();
@@ -238,21 +199,7 @@
             soundplayer.BackgroundMusicMenu("start");
             //menu zene
 
-            //esemény feliratkoztatása
-            intersectLogic.InventoryAddWeaponFromLogic = InventorySetWeaponName;
-            intersectLogic.InventoryAddArrowsFromLogic = InventorySetArrowNumber;
-            intersectLogic.InventoryAddCharonFromLogic = InventorySetCharon;
-            intersectLogic.InventoryAddJetpackFuelFromLogic = InventorySetJetpackFuel;
-            intersectLogic.InventoryAddHealPotionFromLogic = InventorySetHpPotion;
-            intersectLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
-
-            playerLogic.InventoryAddHPFromLogic = InventorySetHP;
-            playerLogic.InventoryAddArmorFromLogic = InventorySetArmor;
-            playerLogic.InventoryAddHealPotionFromLogic = InventorySetHpPotion;
-            playerLogic.InventoryAddArmorReapirKitFromLogic = InventorySetArmorRepairKit;
-            playerLogic.InventoryAddWeaponFromLogic = InventorySetWeaponName;
-            playerLogic.InventoryAddArrowsFromLogic = InventorySetArrowNumber;
-            playerLogic.InventoryAddJetpackFuelFromLogic = InventorySetJetpackFuel;
+            
 
 
 
@@ -280,47 +227,6 @@
             label_armor_repairkit.Content = playerLogic.plyr.ArmorRepairKit.Amount;
 
         }
-
-        public void InventorySetWeaponName(string weaponName)
-        {
-            label_slotOne.Content = weaponName;
-        }
-
-        public void InventorySetArrowNumber(int numberOfArrows)
-        {
-            label_slotTwo.Content = numberOfArrows;
-        }
-
-        public void InventorySetCharon(int number)
-        {
-            label_slotThree.Content = number;
-        }
-
-        public void InventorySetJetpackFuel(int fuel)
-        {
-            label_slotFour.Content = fuel;
-        }
-
-        public void InventorySetHP(int numberOfHP)
-        {
-            label_hp.Content = numberOfHP;
-        }
-
-        public void InventorySetArmor(int numberOfArmor)
-        {
-            label_armor.Content = numberOfArmor;
-        }
-
-        public void InventorySetHpPotion(int numberOfHpPotion)
-        {
-            label_hp_potion.Content = numberOfHpPotion;
-        }
-
-        public void InventorySetArmorRepairKit(int numberOfArmorRepairKit)
-        {
-            label_armor_repairkit.Content = numberOfArmorRepairKit;
-        }
-
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {

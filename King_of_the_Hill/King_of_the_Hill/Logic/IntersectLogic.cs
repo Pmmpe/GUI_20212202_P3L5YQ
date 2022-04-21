@@ -15,12 +15,7 @@
         int height;
         static Random random = new Random();
 
-        public Action<string> InventoryAddWeaponFromLogic; //amit megkap string azt kiírja a xaml.cs az inventory-ba.
-        public Action<int> InventoryAddArrowsFromLogic; //megadod hány db nyilat kapjon
-        public Action<int> InventoryAddCharonFromLogic; // charon érmét adhatsz illetve elvehetsz
-        public Action<int> InventoryAddHealPotionFromLogic; // HP potion-t adhatsz
-        public Action<int> InventoryAddArmorReapirKitFromLogic; // Armor javítót adhatsz
-        public Action<int> InventoryAddJetpackFuelFromLogic; // Jetpack üzemanyagot adsz-t adhatsz     
+          
 
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
@@ -275,35 +270,30 @@
                         itemToRemove = item;
                         needRemove = true;
                         playerLogic.plyr.PrimaryWeapon = (Weapon)item; //player megkapja a fegyverét
-                        InventoryAddWeaponFromLogic(item.Name); //megkapja a xaml.cs a fegyver nevét amit kiír
                     }
                     else if (item is Bow)
                     {
                         itemToRemove = item;
                         needRemove = true;
                         playerLogic.plyr.Bow.NumberOfArrows += ((Bow)item).NumberOfArrows; //player megkapja a nyílvesszőket
-                        InventoryAddArrowsFromLogic(playerLogic.plyr.Bow.NumberOfArrows); //megkapja a xaml.cs a nyílvesszők számát.
                     }
                     else if (item is HealPotion)
                     {
                         itemToRemove = item;
                         needRemove = true;
                         playerLogic.plyr.HealPotion.Amount++;
-                        InventoryAddHealPotionFromLogic(playerLogic.plyr.HealPotion.Amount);
                     }
                     else if (item is Armor)
                     {
                         itemToRemove = item;
                         needRemove = true;
                         playerLogic.plyr.ArmorRepairKit.Amount++;
-                        InventoryAddArmorReapirKitFromLogic(playerLogic.plyr.ArmorRepairKit.Amount);
                     }
                     else if (item is Jetpack)
                     {
                         itemToRemove = item;
                         needRemove = true;
-                        playerLogic.plyr.Jetpack.Fuel += 250; //kap 250 üzemanyagot
-                        InventoryAddJetpackFuelFromLogic(playerLogic.plyr.Jetpack.Fuel);
+                        playerLogic.plyr.Jetpack.Fuel += 100; //kap 100 üzemanyagot
                     }
                     
                 }
