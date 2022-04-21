@@ -12,6 +12,7 @@ namespace King_of_the_Hill.Logic
         int actualWaveNumber;
         int maxWaveNumber;
         string difficulty;
+        double attackDamageMultiplier;
         public List<GameItem> items; //itemek listája
 
         static Random random = new Random();
@@ -192,27 +193,27 @@ namespace King_of_the_Hill.Logic
             switch (random.Next(0, 4))
             {
                 case 0:
-                    items.Add(new Sword(25, "Sword", 100, 1, 0, 0));
+                    items.Add(new Sword(25 * attackDamageMultiplier, "Sword", 1, 0, 0));
                     break;
                 case 1:
-                    items.Add(new LongSword(25, "LongSword", 100, 1, 0, 0));
+                    items.Add(new LongSword(35 * attackDamageMultiplier, "LongSword", 1, 0, 0));
                     break;
                 case 2:
-                    items.Add(new Axe(25, "Axe", 100, 1, 0, 0));
+                    items.Add(new Axe(25 * attackDamageMultiplier, "Axe", 1, 0, 0));
                     break;
                 case 3:
                     //Az íjnál kell nyíl darabszám beállítás is nehézségi szinttől függően ezért kell az if
                     if (difficulty == "Easy")
                     {
-                        items.Add(new Bow(25, "Bow", 15, 0, 0));
+                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 1, 15, 0, 0));
                     }
                     else if (difficulty == "Medium")
                     {
-                        items.Add(new Bow(25, "Bow", 10, 0, 0));
+                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 1, 10, 0, 0));
                     }
                     else //Hard
                     {
-                        items.Add(new Bow(25, "Bow", 5, 0, 0));
+                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 1, 5, 0, 0));
                     }
                     break;
             }
@@ -224,14 +225,17 @@ namespace King_of_the_Hill.Logic
             if (difficulty == "Easy")
             {
                 maxWaveNumber = 5;
+                attackDamageMultiplier = 1.5;
             }
             else if (difficulty == "Medium")
             {
                 maxWaveNumber = 10;
+                attackDamageMultiplier = 1.25;
             }
             else
             {
                 maxWaveNumber = 15;
+                attackDamageMultiplier = 1.0;
             }
         }
     }

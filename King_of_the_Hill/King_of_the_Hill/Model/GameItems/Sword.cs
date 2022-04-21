@@ -2,7 +2,7 @@
 {
     public class Sword : Weapon
     {
-        public Sword(double weaponDamage, string weaponName, double durability, double attackSpeed, double PosX, double PosY) : base(weaponDamage, weaponName, durability, attackSpeed, PosX, PosY)
+        public Sword(double weaponDamage, string weaponName, double attackSpeed, double PosX, double PosY) : base(weaponDamage, weaponName, attackSpeed, PosX, PosY)
         {
 
         }

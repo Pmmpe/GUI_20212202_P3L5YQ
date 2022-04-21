@@ -292,23 +292,23 @@
 
         public void PlayerIntersectWithItem()
         {
-            GameItem itemToRemove = new Axe(0, "temp", 0, 0, 0, 0);
+            GameItem itemToRemove = new Axe(0, "temp", 0, 0, 0);
             bool needRemove = false;
             foreach (var item in itemLogic.items)
             {
                 if (item.Rectangle.IntersectsWith(playerLogic.playerRect))
                 {
-                    if (item is Weapon && playerLogic.plyr.PrimaryWeapon == null)
+                    if (item is Bow)
+                    {
+                        itemToRemove = item;
+                        needRemove = true;
+                        playerLogic.plyr.Bow = (Bow)item; //player megkapja az íjat.
+                    }
+                    else if (item is Weapon && playerLogic.plyr.PrimaryWeapon == null)
                     {
                         itemToRemove = item;
                         needRemove = true;
                         playerLogic.plyr.PrimaryWeapon = (Weapon)item; //player megkapja a fegyverét
-                    }
-                    else if (item is Bow)
-                    {
-                        itemToRemove = item;
-                        needRemove = true;
-                        playerLogic.plyr.Bow.NumberOfArrows += ((Bow)item).NumberOfArrows; //player megkapja a nyílvesszőket
                     }
                     else if (item is HealPotion)
                     {

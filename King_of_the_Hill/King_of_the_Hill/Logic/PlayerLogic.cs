@@ -25,7 +25,7 @@
         public PlayerLogic()
         {
             plyr = new Player(100, 100, 0, 0, 75, 75, 1);
-            plyr.Bow.NumberOfArrows = 100;
+            //plyr.Bow.NumberOfArrows = 100;//TODO remove, only for test
             directionIsLeft = false;
             Arrows = new List<Arrow>();
         }
@@ -109,7 +109,7 @@
                 plyr.Bow.NumberOfArrows--;
             }
         }
-        
+
         public void ArrowFly()
         {
             foreach (var arrow in Arrows)

@@ -73,7 +73,6 @@
                     canAttackCounter = 0;
                 }
                 canAttackCounter++;
-
             }
             else
             {
