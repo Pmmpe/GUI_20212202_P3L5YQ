@@ -21,6 +21,7 @@
 
         string difficulty;
         static Random random = new Random();
+        bool directionIsLeft;
 
         public List<Arrow> Arrows { get; set; }
         public enum Controls
@@ -32,6 +33,8 @@
         public PlayerLogic()
         {
             plyr = new Player(100, 100, 0, 0, 75, 75, 1);
+            plyr.Bow.NumberOfArrows = 100;
+            directionIsLeft = false;
             Arrows = new List<Arrow>();
         }
 
@@ -49,9 +52,11 @@
             {
                 case Controls.A:
                     plyr.PosX -= 5;
+                    directionIsLeft = true;
                     break;
                 case Controls.D:
                     plyr.PosX += 5;
+                    directionIsLeft = false;
                     break;
                 case Controls.W:
                     plyr.PosY -= 5;
@@ -97,7 +102,7 @@
         {
             if (plyr.Bow.NumberOfArrows != 0)
             {
-                Arrows.Add(new Arrow(plyr.PosX, plyr.PosY, 10, 10));
+                Arrows.Add(new Arrow(plyr.PosX, plyr.PosY, 10, 10, directionIsLeft));
                 plyr.Bow.NumberOfArrows--;
             }
         }
@@ -130,6 +135,18 @@
             {
                 Arrows.Remove(toBeRomved);
             }
+
+            foreach (var arrow in Arrows)
+            {
+                if (arrow.PosX < 0 || arrow.PosX > 2500)
+                {
+                    toBeRomved = arrow;
+                }
+            }
+            if (toBeRomved != null)
+            {
+                Arrows.Remove(toBeRomved);
+            }
         }
         public void ArrowFly()
         {
@@ -137,7 +154,14 @@
             {
                 if (arrow.InterSected == false && arrow != null)
                 {
-                    arrow.PosX += 15;
+                    if (arrow.DirectionIsLeft)
+                    {
+                        arrow.PosX -= 15;
+                    }
+                    else
+                    {
+                        arrow.PosX += 15;
+                    }
                     Random rnd = new Random();
                     if (rnd.Next(0,2) == 1)
                     {
