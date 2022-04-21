@@ -20,7 +20,7 @@
         {
             this.Weight = Weight;
             PrimaryWeapon = null;
-            Bow = new Bow(0, "Bow", 0, 0, 0, 0);
+            Bow = null;
             Jetpack = new Jetpack("Jetpack", 0, 0);
 
             HealPotion = new HealPotion("HP poti", 0, 0);

@@ -196,24 +196,24 @@ namespace King_of_the_Hill.Logic
                     items.Add(new Sword(25 * attackDamageMultiplier, "Sword", 1, 0, 0));
                     break;
                 case 1:
-                    items.Add(new LongSword(35 * attackDamageMultiplier, "LongSword", 1, 0, 0));
+                    items.Add(new LongSword(35 * attackDamageMultiplier, "LongSword", 2, 0, 0));
                     break;
                 case 2:
-                    items.Add(new Axe(25 * attackDamageMultiplier, "Axe", 1, 0, 0));
+                    items.Add(new Axe(25 * attackDamageMultiplier, "Axe", 3, 0, 0));
                     break;
                 case 3:
                     //Az íjnál kell nyíl darabszám beállítás is nehézségi szinttől függően ezért kell az if
                     if (difficulty == "Easy")
                     {
-                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 1, 15, 0, 0));
+                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 5, 15, 0, 0));
                     }
                     else if (difficulty == "Medium")
                     {
-                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 1, 10, 0, 0));
+                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 5, 10, 0, 0));
                     }
                     else //Hard
                     {
-                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 1, 5, 0, 0));
+                        items.Add(new Bow(25 * attackDamageMultiplier, "Bow", 5, 5, 0, 0));
                     }
                     break;
             }

@@ -18,14 +18,13 @@
         public List<Arrow> Arrows { get; set; }
         public enum Controls
         {
-            A, D, W, S, Space, Q, E, R, T
+            A, D, W, S, Space, Q, E, R
         }
 
         public Player plyr;
         public PlayerLogic()
         {
             plyr = new Player(100, 100, 0, 0, 75, 75, 1);
-            //plyr.Bow.NumberOfArrows = 100;//TODO remove, only for test
             directionIsLeft = false;
             Arrows = new List<Arrow>();
         }
@@ -73,7 +72,7 @@
                         plyr.Armour += 50;
                     }
                     break;
-                case Controls.T:
+                case Controls.R:
                     Shoot();
                     break;
             }
@@ -103,9 +102,9 @@
 
         public void Shoot()
         {
-            if (plyr.Bow.NumberOfArrows != 0)
+            if (plyr.Bow != null && plyr.Bow.NumberOfArrows != 0)
             {
-                Arrows.Add(new Arrow(plyr.PosX, plyr.PosY, 10, 10, directionIsLeft));
+                Arrows.Add(new Arrow(plyr.PosX + plyr.Width / 2, plyr.PosY + plyr.Height / 2, 10, 10, directionIsLeft));
                 plyr.Bow.NumberOfArrows--;
             }
         }

@@ -4,7 +4,7 @@
     {
         public int NumberOfArrows { get; set; }
 
-        public Bow(double weaponDamage, string weaponName, double attackSpeed, int numberOfArrows, double PosX, double PosY) : base(weaponDamage, weaponName, attackSpeed, PosX, PosY)
+        public Bow(double weaponDamage, string weaponName, int attackSpeed, int numberOfArrows, double PosX, double PosY) : base(weaponDamage, weaponName, attackSpeed, PosX, PosY)
         {
             WeaponDamage = weaponDamage;
             NumberOfArrows = numberOfArrows;

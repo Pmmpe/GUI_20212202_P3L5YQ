@@ -27,8 +27,12 @@
 
         DispatcherTimer timer;
 
-        int counter = 0;
-        int canAttackCounter = 0;
+        private int nextWaveLabelCounter;
+        private int canEnemyAttackCounter;
+        private int canPlayerAttackCounter;
+        private bool canPlayerAttack;
+        private int canPlayerShootCounter;
+        private bool canPlayerShoot;
 
         #endregion
 
@@ -42,8 +46,14 @@
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
 
             soundplayer = new SoundLogic(); //sound
-            
-            
+
+            nextWaveLabelCounter = 0;
+            canEnemyAttackCounter = 0;
+            canPlayerAttackCounter = 0;
+            canPlayerAttack = true;
+            canPlayerShootCounter = 0;
+            canPlayerShoot = true;
+
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += Timer_Tick;
@@ -67,32 +77,52 @@
 
             if (intersectLogic.isPlayerIntersectWithAnyNPC())
             {
-                if (canAttackCounter == 50)
+                if (canEnemyAttackCounter == 50)
                 {
                     playerLogic.HitPlayer(intersectLogic.PlayerIntersectWithThat());
-                    canAttackCounter = 0;
+                    canEnemyAttackCounter = 0;
                 }
-                canAttackCounter++;
+                canEnemyAttackCounter++;
             }
             else
             {
-                canAttackCounter = 0;
+                canEnemyAttackCounter = 0;
             }
-            
+
+            if (!canPlayerAttack)
+            {
+                canPlayerAttackCounter++;
+                if (canPlayerAttackCounter == 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed))
+                {
+                    canPlayerAttackCounter = 0;
+                    canPlayerAttack = true;
+                }
+            }
+
+            if (!canPlayerShoot)
+            {
+                canPlayerShootCounter++;
+                if (canPlayerShootCounter == 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed))
+                {
+                    canPlayerShootCounter = 0;
+                    canPlayerShoot = true;
+                }
+            }
+
             if (enemyLogic.IsOnlyArcher())
             {
-                if (counter == 50)
+                if (nextWaveLabelCounter == 50)
                 {
                     label_enter.Visibility = Visibility.Visible;
                     label_next.Visibility = Visibility.Visible;
                 }
-                if (counter == 100)
+                if (nextWaveLabelCounter == 100)
                 {
                     label_enter.Visibility = Visibility.Hidden;
                     label_next.Visibility = Visibility.Hidden;
-                    counter = 0;
+                    nextWaveLabelCounter = 0;
                 }
-                counter++;
+                nextWaveLabelCounter++;
             }
             InventoryDataChanged();
         }
@@ -141,7 +171,7 @@
             }
             if (Keyboard.IsKeyDown(Key.NumPad2))
             {
-                if (playerLogic.plyr.Bow.NumberOfArrows > 0)
+                if (playerLogic.plyr.Bow != null && playerLogic.plyr.Bow.NumberOfArrows > 0)
                 {
                     playerLogic.plyr.Bow.NumberOfArrows--;
                 }
@@ -149,13 +179,22 @@
                 enemyLogic.enemies.Clear();
                 itemLogic.items.Clear();
             }
+            if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
+            {
+                if (canPlayerAttack)
+                {
+                    playerLogic.Attack(intersectLogic.PlayerIntersectWithThat());
+                    canPlayerAttack = false;
+                }
+            }
             if (Keyboard.IsKeyDown(Key.R))
             {
-                playerLogic.Attack(intersectLogic.PlayerIntersectWithThat());
-            }
-            if (Keyboard.IsKeyDown(Key.T))
-            {
-                playerLogic.Control(PlayerLogic.Controls.T);
+                if (canPlayerShoot)
+                {
+                    playerLogic.Control(PlayerLogic.Controls.R);
+                    canPlayerShoot = false;
+                }
+                
             }
             if (Keyboard.IsKeyDown(Key.Enter)) //indítja az ellenségek spawnolását, azaz az új hullámot
             {
@@ -214,7 +253,14 @@
             {
                 label_slotOne.Content = playerLogic.plyr.PrimaryWeapon.Name;
             }
-            label_slotTwo.Content = playerLogic.plyr.Bow.NumberOfArrows;
+            if (playerLogic.plyr.Bow == null)
+            {
+                label_slotTwo.Content = 0;
+            }
+            else
+            {
+                label_slotTwo.Content = playerLogic.plyr.Bow.NumberOfArrows;
+            }
             label_slotThree.Content = 0;//TODO: charon
             label_slotFour.Content = playerLogic.plyr.Jetpack.Fuel;
             label_hp.Content = playerLogic.plyr.Health;
