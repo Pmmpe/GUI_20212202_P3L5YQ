@@ -2,6 +2,7 @@
 {
     using King_of_the_Hill.Model;
     using King_of_the_Hill.Model.NPC_Types;
+    using System;
     using System.Collections.Generic;
 
     public class EnemyLogic
@@ -9,7 +10,10 @@
         int actualWaveNumber;
         int maxWaveNumber;
         string difficulty;
+        double attackDamageMultiplier;
         public List<Npc> enemies; //List of every used current enemy npc unit in the current play session!
+
+        static Random random = new Random();
 
         public EnemyLogic()
         {
@@ -32,131 +36,59 @@
         //them to come in every single round, per wave by wave!
         private void CreateEnemies()
         {
-            switch (actualWaveNumber)
+            GenerateRandomEnemies();
+            if (actualWaveNumber == 5 || actualWaveNumber == 10 || actualWaveNumber == 15)
             {
-                case 1:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 2:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 3:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 4:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 5:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    enemies.Add(new HeavyBrute(250, 0, 0, 0, 75, 75, 25));
-                    break;
-                case 6:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 7:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 8:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 9:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 10:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    enemies.Add(new HeavyBrute(250, 0, 0, 0, 75, 75, 25));
-                    break;
-                case 11:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 12:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 13:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 14:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    break;
-                case 15:
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12));
-                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 5));
-                    enemies.Add(new HeavyBrute(250, 0, 0, 0, 75, 75, 25));
-                    break;
+                enemies.Add(new HeavyBrute(250, 0, 0, 0, 75, 75, 25 * attackDamageMultiplier));
+            }
+        }
+
+        private void GenerateRandomEnemies()
+        {
+            if (difficulty == "Easy")
+            {
+                for (int i = 0; i < random.Next(1, 4); i++)
+                {
+                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10 * attackDamageMultiplier));
+                }
+                for (int i = 0; i < random.Next(1, 3); i++)
+                {
+                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12 * attackDamageMultiplier));
+                }
+                for (int i = 0; i < random.Next(0, 2); i++)
+                {
+                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 15 * attackDamageMultiplier));
+                }
+            }
+            else if (difficulty == "Medium")
+            {
+                for (int i = 0; i < random.Next(1, 5); i++)
+                {
+                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10 * attackDamageMultiplier));
+                }
+                for (int i = 0; i < random.Next(1, 3); i++)
+                {
+                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12 * attackDamageMultiplier));
+                }
+                for (int i = 0; i < random.Next(1, 3); i++)
+                {
+                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 15 * attackDamageMultiplier));
+                }
+            }
+            else
+            {
+                for (int i = 0; i < random.Next(1, 5); i++)
+                {
+                    enemies.Add(new Grunt(50, 0, 0, 0, 50, 50, 10 * attackDamageMultiplier));
+                }
+                for (int i = 0; i < random.Next(1, 4); i++)
+                {
+                    enemies.Add(new Brute(100, 0, 0, 0, 50, 50, 12 * attackDamageMultiplier));
+                }
+                for (int i = 0; i < random.Next(2, 3); i++)
+                {
+                    enemies.Add(new Archer(30, 0, 0, 0, 50, 50, 15 * attackDamageMultiplier));
+                }
             }
         }
 
@@ -183,14 +115,17 @@
             if (difficulty == "Easy")
             {
                 maxWaveNumber = 5;
+                attackDamageMultiplier = 0.5;
             }
             else if (difficulty == "Medium")
             {
                 maxWaveNumber = 10;
+                attackDamageMultiplier = 0.75;
             }
             else
             {
                 maxWaveNumber = 15;
+                attackDamageMultiplier = 1.0;
             }
         }
 

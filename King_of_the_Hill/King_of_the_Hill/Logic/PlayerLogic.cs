@@ -88,7 +88,7 @@
 
         public void HitPlayer(Npc enemy)
         {
-            if (enemy != null)
+            if (enemy != null && enemy is not Archer)
             {
                 plyr.Armour -= enemy.Damage;
                 if (plyr.Armour < 0)
