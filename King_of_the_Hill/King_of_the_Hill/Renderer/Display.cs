@@ -71,7 +71,7 @@
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
             //Ideiglenesen fekete:
-            playerBrush = Brushes.Black;
+//          playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
 
             //TODO képeket berakni a Brush-okra.
@@ -203,19 +203,17 @@
         {
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
 
-            //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
-            //anim.Duration = TimeSpan.FromSeconds(10);
-            //ImageSource[] images = new ImageSource[]
-            //{
-            //      new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
-            //      new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
-            //};
-            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
-            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
-            ////            bool df = playerBrush.IsFrozen;
-            //var clone = playerBrush.Clone();
-            //clone.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
-            //playerBrush = clone;
+            ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
+            anim.Duration = TimeSpan.FromSeconds(3);
+            anim.FillBehavior = FillBehavior.Stop;
+            ImageSource[] images = new ImageSource[]
+            {
+                  new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
+                  new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
+            };
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
 
 
 
@@ -237,11 +235,11 @@
 
 
             //animation
-            var dispatcherTimerInstance = new DispatcherTimer();
-            dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
-            dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 5);
-            dispatcherTimerInstance.Start();
-            dispatcherTimers.Add(dispatcherTimerInstance);
+            //var dispatcherTimerInstance = new DispatcherTimer();
+            //dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
+            //dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 5);
+            //dispatcherTimerInstance.Start();
+            //dispatcherTimers.Add(dispatcherTimerInstance);
 
         }
 
