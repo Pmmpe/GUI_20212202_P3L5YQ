@@ -122,6 +122,8 @@
 
             if (enemyLogic.IsOnlyArcher())
             {
+                label_damageBy.Visibility = Visibility.Hidden;
+                label_damageValue.Visibility = Visibility.Hidden;
                 if (nextWaveLabelCounter == 50)
                 {
                     label_enter.Visibility = Visibility.Visible;
@@ -251,14 +253,14 @@
             playerLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //It gives the current sizes!
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //It passes through the logics!
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //It passes through the logics! 
             
             //Main Menu theme song!
             soundplayer.BackgroundMusicMenu("start");
             //menu zene
 
-            
-
+            playerLogic.CausedDamageEvent = DamageToDisplay;
+            intersectLogic.CausedDamageEvent = DamageToDisplay;
 
 
 
@@ -266,6 +268,14 @@
 
         #region InventoryAndMenu
         
+        public void DamageToDisplay(string weaponName, double damage)
+        {
+            label_damageBy.Visibility = Visibility.Visible;
+            label_damageValue.Visibility = Visibility.Visible;
+            label_damageBy.Content = weaponName;
+            label_damageValue.Content = damage;
+        }
+
         public void InventoryDataChanged()
         {
             if (playerLogic.plyr.PrimaryWeapon == null)

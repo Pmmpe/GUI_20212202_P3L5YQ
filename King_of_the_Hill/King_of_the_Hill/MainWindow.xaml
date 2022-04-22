@@ -35,6 +35,7 @@
                     <Label x:Name="label_hp_potion" Content="0" Grid.Row="1" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label x:Name="label_armor_repairkit" Content="0" Grid.Row="1" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label Content="ENTER" x:Name="label_enter" Visibility="Hidden" Grid.Row="1" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="0" x:Name="label_damageValue" Visibility="Hidden" Grid.Row="1" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label x:Name="label_slotOne" Content="N/A" Grid.Row="1" Grid.Column="5" FontSize="25" HorizontalContentAlignment="Center"/>
                     <ProgressBar x:Name="progressbar_hit" Value="0" Visibility="Hidden" Grid.Row="1" Grid.Column="5" Margin="5,10,5,10"/>
                     <Label x:Name="label_slotTwo" Content="0" Grid.Row="1" Grid.Column="6" FontSize="25" HorizontalContentAlignment="Center"/>
@@ -47,6 +48,7 @@
                     <Label Content="HP poti" Grid.Row="0" Grid.Column="2" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label Content="Páncél javító" Grid.Row="0" Grid.Column="3" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label Content="Folytatáshoz" x:Name="label_next" Visibility="Hidden" Foreground="Red" Grid.Row="0" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
+                    <Label Content="" x:Name="label_damageBy" Visibility="Hidden" Grid.Row="0" Grid.Column="4" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label Content="Fegyver" Grid.Row="0" Grid.Column="5" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label Content="Nyíl" Grid.Row="0" Grid.Column="6" FontSize="25" HorizontalContentAlignment="Center"/>
                     <Label Content="Charon" Grid.Row="0" Grid.Column="7" FontSize="25" HorizontalContentAlignment="Center"/>

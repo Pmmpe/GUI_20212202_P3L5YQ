@@ -15,6 +15,8 @@
         static Random random = new Random();
         bool directionIsLeft;
 
+        public Action<string, double> CausedDamageEvent;
+
         public List<Arrow> Arrows { get; set; }
         public enum Controls
         {
@@ -138,10 +140,12 @@
         {
             if (plyr.PrimaryWeapon == null)
             {
+                CausedDamageEvent("Hand", 10.0);
                 return 10.0;
             }
             else
             {
+                CausedDamageEvent(plyr.PrimaryWeapon.Name ,plyr.PrimaryWeapon.WeaponDamage);
                 return plyr.PrimaryWeapon.WeaponDamage;
             }
         }

@@ -18,6 +18,8 @@
         int canArcherShootCounter;
         bool canArcherShoot;
 
+        public Action<string, double> CausedDamageEvent;
+
         public IntersectLogic(PlayerLogic playerLogic, MapLogic mapLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
             this.playerLogic = playerLogic;
@@ -126,7 +128,8 @@
                     {
                         toBeRemoved = arrow;
                         enemy.Health -= arrow.ArrowDamage;
-                    }
+                        CausedDamageEvent(playerLogic.plyr.Bow.Name, arrow.ArrowDamage);
+    }
                 }
             }
             if (toBeRemoved != null)
