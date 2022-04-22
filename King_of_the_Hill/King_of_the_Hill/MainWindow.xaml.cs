@@ -95,20 +95,28 @@
             if (!canPlayerAttack)
             {
                 canPlayerAttackCounter++;
+                progressbar_hit.Value++;
                 if (canPlayerAttackCounter == 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed))
                 {
                     canPlayerAttackCounter = 0;
                     canPlayerAttack = true;
+                    label_slotOne.Visibility = Visibility.Visible;
+                    progressbar_hit.Visibility = Visibility.Hidden;
+                    progressbar_hit.Value = 0;
                 }
             }
 
             if (!canPlayerShoot)
             {
                 canPlayerShootCounter++;
+                progressbar_shoot.Value++;
                 if (canPlayerShootCounter == 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed))
                 {
                     canPlayerShootCounter = 0;
                     canPlayerShoot = true;
+                    label_slotTwo.Visibility = Visibility.Visible;
+                    progressbar_shoot.Visibility = Visibility.Hidden;
+                    progressbar_shoot.Value = 0;
                 }
             }
 
@@ -192,6 +200,9 @@
                 if (canPlayerAttack)
                 {
                     playerLogic.Attack(intersectLogic.PlayerIntersectWithThat());
+                    label_slotOne.Visibility = Visibility.Hidden;
+                    progressbar_hit.Visibility = Visibility.Visible;
+                    progressbar_hit.Maximum = 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed);
                     canPlayerAttack = false;
                 }
             }
@@ -200,6 +211,9 @@
                 if (canPlayerShoot)
                 {
                     playerLogic.Control(PlayerLogic.Controls.R);
+                    label_slotTwo.Visibility = Visibility.Hidden;
+                    progressbar_shoot.Visibility = Visibility.Visible;
+                    progressbar_shoot.Maximum = 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed);
                     canPlayerShoot = false;
                 }
                 
