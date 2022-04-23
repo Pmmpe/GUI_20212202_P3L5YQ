@@ -189,7 +189,6 @@
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     animationsLogic.Jetpack();
                 }
-                //animationsLogic.FightAnimations();
                 
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))

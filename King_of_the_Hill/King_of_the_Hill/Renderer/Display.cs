@@ -59,9 +59,7 @@
         EnemyLogic enemyLogic;
         ItemLogic itemLogic;
 
-        //animations
-        //AnimationsLogic animationsLogic;
-        List<DispatcherTimer> dispatcherTimers;
+        
 
 
         public Display()
@@ -72,8 +70,7 @@
             
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
-            //Ideiglenesen fekete:
-//          playerBrush = Brushes.Black;
+            //playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
 
             //TODO képeket berakni a Brush-okra.
@@ -95,9 +92,6 @@
             longSwordBrush = Brushes.Orange;
             swordBrush = Brushes.Orange;
             charonBrush = Brushes.Gold;
-
-            arrowBrush = Brushes.Yellow;
-            dispatcherTimers = new List<DispatcherTimer>();
 
         }
 
@@ -220,7 +214,7 @@
 
         public void FightAnimations()
         {
-            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
+//           playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
 
             ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
             anim.Duration = TimeSpan.FromSeconds(3);
@@ -262,15 +256,15 @@
 
         }
 
-        private void RevertBackToDefPlayerBrush(object? sender, EventArgs e)
-        {
-            if ((sender as DispatcherTimer).IsEnabled)
-            {
-                playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
-                (sender as DispatcherTimer).Stop();
-                dispatcherTimers.Remove(sender as DispatcherTimer);
-            }
-        }
+        //private void RevertBackToDefPlayerBrush(object? sender, EventArgs e)
+        //{
+        //    if ((sender as DispatcherTimer).IsEnabled)
+        //    {
+        //        playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))); //visszacsere
+        //        (sender as DispatcherTimer).Stop();
+        //        dispatcherTimers.Remove(sender as DispatcherTimer);
+        //    }
+        //}
 
         public void IdleAnimation(Rect playerRect) //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
         {
@@ -283,13 +277,25 @@
 
         private void JetpackAnimation() //just player
         {
-            var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
-            playerBrush = new ImageBrush(new TransformedBitmap(img, new ScaleTransform(-1,1)));
-            var dispatcherTimerInstance = new DispatcherTimer();
-            dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
-            dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 2);
-            dispatcherTimerInstance.Start();
-            dispatcherTimers.Add(dispatcherTimerInstance);
+            //var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
+            //playerBrush = new ImageBrush(new TransformedBitmap(img, new ScaleTransform(-1,1)));
+            //var dispatcherTimerInstance = new DispatcherTimer();
+            //dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
+            //dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 2);
+            //dispatcherTimerInstance.Start();
+            //dispatcherTimers.Add(dispatcherTimerInstance);
+
+            ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
+            anim.Duration = TimeSpan.FromSeconds(3);
+            anim.FillBehavior = FillBehavior.Stop;
+                ImageSource[] images = new ImageSource[]
+            {
+                  (playerBrush as ImageBrush).ImageSource,
+                  new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
+            };
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
         }
 
         private void MoveLeftAnimation(bool leftOrientation) //just player currently
