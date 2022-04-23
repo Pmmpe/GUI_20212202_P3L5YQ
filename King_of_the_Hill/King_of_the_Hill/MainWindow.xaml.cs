@@ -51,6 +51,8 @@
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += Timer_Tick;
+
+            
         }
 
         //Returns if enough time is elapsed since last attack or not.
@@ -93,17 +95,38 @@
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
             //his or her Weight * (Weapon) weapons.WeaponDamage;
             isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
+
+            isSpaceButtonDown(animationsLogic);
+        }
+
+        private void isSpaceButtonDown(AnimationsLogic animationsLogic) //jetpackAnimation
+        {
+            if (Keyboard.IsKeyDown(Key.Space))
+            {
+                if (true) //ToDo
+                {
+                    animationsLogic.StartJetpackAnimation();
+                    
+                }
+                
+            }
+            else
+            {
+                animationsLogic.StopJetpackAnimation();
+            }
+            
         }
 
         #region CharMoving
 
 
-        
+
         private void Window_KeyDown(object sender, KeyEventArgs e)
         {
             if (Keyboard.IsKeyDown(Key.W) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
+                
             }
             if (Keyboard.IsKeyDown(Key.S) && intersectLogic.IsPlayerAndMapIntersect())
             {
@@ -113,12 +136,14 @@
             if (Keyboard.IsKeyDown(Key.A))
             {
                 playerLogic.Control(PlayerLogic.Controls.A);
-                animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
+                playerLogic.plyr.LeftOrientation = true;
+                //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D))
             {
                 playerLogic.Control(PlayerLogic.Controls.D);
-                animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
+                playerLogic.plyr.LeftOrientation = false;
+                //animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.E))
             {
@@ -135,7 +160,7 @@
                     playerLogic.plyr.Jetpack.Fuel--;
                     InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
-                    animationsLogic.Jetpack();
+                    
                 }
                 
             }

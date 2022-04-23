@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace King_of_the_Hill.Logic
 {
-    public delegate void JetpackAnimEventHandler();
+    public delegate void JetpackAnimEventHandler(string action);
     public delegate void PlayerAnimEventHandler();
     public delegate void MovementAnimEventHandler(bool leftOrientation);
     public class AnimationsLogic
@@ -26,7 +26,12 @@ namespace King_of_the_Hill.Logic
 
         public void StartJetpackAnimation()
         {
-            Jetpack?.Invoke();
+            Jetpack?.Invoke("start");
+        }
+
+        public void StopJetpackAnimation()
+        {
+            Jetpack?.Invoke("stop");
         }
 
         public void MoveRightAnimation(bool leftOrientation)
