@@ -70,6 +70,7 @@
             
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            playerBrush = new VisualBrush();
             //playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
 
@@ -93,6 +94,8 @@
             swordBrush = Brushes.Orange;
             charonBrush = Brushes.Gold;
 
+            
+
         }
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic, AnimationsLogic animationsLogic)
@@ -105,8 +108,8 @@
             #region Animations Subscribe
             animationsLogic.Fight += FightAnimations;
             animationsLogic.Jetpack += JetpackAnimation;
-            animationsLogic.MoveLeft += MoveLeftAnimation;
-            animationsLogic.MoveRight += MoveRightAnimation;
+            //animationsLogic.MoveLeft += MoveLeftAnimation;
+            //animationsLogic.MoveRight += MoveRightAnimation;
             #endregion
         }
 
@@ -181,6 +184,7 @@
                 {
                     if (item is Grunt)
                     {
+                        setupCharacterOrientation(item.DirectionIsLeft,gruntBrush);
                         drawingContext.DrawRectangle(gruntBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is Brute)
@@ -197,6 +201,7 @@
                     }
                 }
 
+                setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
                 drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
                 
                 foreach (var arrow in playerLogic.Arrows)
@@ -212,9 +217,28 @@
             }
         }
 
+        private void setupCharacterOrientation(bool directionIsLeft, Brush characterBrush)
+        {
+            //if (directionIsLeft)
+            //{
+            //    MoveLeftAnimation(directionIsLeft, characterBrush);
+            //}
+            //else
+            //{
+            //    MoveRightAnimation(directionIsLeft, characterBrush);
+            //}
+
+            if (directionIsLeft)
+            {
+                var img = (BitmapSource)((ImageBrush)characterBrush).ImageSource;
+                var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
+                ((ImageBrush)characterBrush).ImageSource = mirrorredImage;
+            }
+        }
+
         public void FightAnimations()
         {
-//           playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
+ //            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
 
             ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
             anim.Duration = TimeSpan.FromSeconds(3);
@@ -224,8 +248,8 @@
                   new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
                   new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
             };
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
             anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
             playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
 
 
@@ -266,17 +290,28 @@
         //    }
         //}
 
-        public void IdleAnimation(Rect playerRect) //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
+        public void IdleAnimation() //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
         {
             var image = new BitmapImage();
             image.BeginInit();
             image.UriSource = new Uri(Path.Combine("Sources", "knight", "knight idle.gif"), UriKind.RelativeOrAbsolute);
             image.EndInit();
-            //ImageBehavior.SetAnimatedSource(, (playerBrush as ImageBrush).ImageSource);
+            System.Windows.Controls.Image img = new System.Windows.Controls.Image();
+            img.Source = (playerBrush as ImageBrush).ImageSource;
+            ImageBehavior.SetAnimatedSource(img,image);
         }
 
-        private void JetpackAnimation() //just player
+        private void JetpackAnimation(string action) //just player
         {
+            if (action == "start")
+            {
+                playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute)));
+            }
+            if (action == "stop")
+            {
+                playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            }
+            
             //var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
             //playerBrush = new ImageBrush(new TransformedBitmap(img, new ScaleTransform(-1,1)));
             //var dispatcherTimerInstance = new DispatcherTimer();
@@ -285,39 +320,37 @@
             //dispatcherTimerInstance.Start();
             //dispatcherTimers.Add(dispatcherTimerInstance);
 
-            ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
-            anim.Duration = TimeSpan.FromSeconds(3);
-            anim.FillBehavior = FillBehavior.Stop;
-                ImageSource[] images = new ImageSource[]
-            {
-                  (playerBrush as ImageBrush).ImageSource,
-                  new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
-            };
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
-            playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
+            //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
+            //anim.Duration = TimeSpan.FromSeconds(10);
+            //anim.FillBehavior = FillBehavior.Stop;
+            //ImageSource[] images = new ImageSource[]
+            //{
+            //      (playerBrush as ImageBrush).ImageSource,
+            //      new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
+            //};
+            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
+            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            //playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
         }
 
-        private void MoveLeftAnimation(bool leftOrientation) //just player currently
+        private void MoveLeftAnimation(bool leftOrientation, Brush characterbrush) //just player currently
         {
             if (!leftOrientation)
             {
-                var img = (BitmapSource)((ImageBrush)playerBrush).ImageSource;
+                var img = (BitmapSource)((ImageBrush)characterbrush).ImageSource;
                 var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                ((ImageBrush)playerBrush).ImageSource = mirrorredImage;
-                playerLogic.plyr.LeftOrientation = true;
+                ((ImageBrush)characterbrush).ImageSource = mirrorredImage;
             }
             
         }
 
-        private void MoveRightAnimation(bool leftOrientation) //just player currently
+        private void MoveRightAnimation(bool leftOrientation, Brush characterbrush) //just player currently
         {
             if (leftOrientation)
             {
-                var img = (BitmapSource)((ImageBrush)playerBrush).ImageSource;
+                var img = (BitmapSource)((ImageBrush)characterbrush).ImageSource;
                 var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                ((ImageBrush)playerBrush).ImageSource = mirrorredImage;
-                playerLogic.plyr.LeftOrientation = false;
+                ((ImageBrush)characterbrush).ImageSource = mirrorredImage;
             }
         }
 

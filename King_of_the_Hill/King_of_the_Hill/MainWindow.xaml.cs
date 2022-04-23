@@ -60,6 +60,8 @@
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromMilliseconds(1);
             timer.Tick += Timer_Tick;
+
+            
         }
 
         
@@ -157,6 +159,7 @@
             if ((Keyboard.IsKeyDown(Key.W) || Keyboard.IsKeyDown(Key.Up)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
+                
             }
             if ((Keyboard.IsKeyDown(Key.S) || Keyboard.IsKeyDown(Key.Down)) && intersectLogic.IsPlayerAndMapIntersect())
             {
@@ -166,12 +169,14 @@
             if (Keyboard.IsKeyDown(Key.A) || Keyboard.IsKeyDown(Key.Left))
             {
                 playerLogic.Control(PlayerLogic.Controls.A);
-                animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
+                playerLogic.plyr.LeftOrientation = true;
+                //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
             {
                 playerLogic.Control(PlayerLogic.Controls.D);
-                animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
+                playerLogic.plyr.LeftOrientation = false;
+                //animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.E))
             {
@@ -187,7 +192,7 @@
                 {
                     playerLogic.plyr.Jetpack.Fuel--;
                     playerLogic.Control(PlayerLogic.Controls.Space);
-                    animationsLogic.Jetpack();
+                    
                 }
                 
             }
