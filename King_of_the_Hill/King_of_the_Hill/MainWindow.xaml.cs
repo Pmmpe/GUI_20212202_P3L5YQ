@@ -193,9 +193,6 @@
                 {
                     playerLogic.plyr.Bow.NumberOfArrows--;
                 }
-                //temp
-                enemyLogic.enemies.Clear();
-                itemLogic.items.Clear();
             }
             if (Keyboard.IsKeyDown(Key.LeftShift) || Keyboard.IsKeyDown(Key.RightShift))
             {
