@@ -22,7 +22,8 @@
         #endregion
 
         //player 50x50px
-        Brush playerBrush;
+        ImageBrush playerBrush;
+        ImageBrush playerBrushMirrored;
 
         //map
         Brush backgroundBrush;
@@ -35,10 +36,14 @@
         
 
         //enemies 50x50px
-        Brush archerBrush;
-        Brush bruteBrush;
-        Brush gruntBrush;
-        Brush heavyBruteBrush;
+        ImageBrush archerBrush;
+        ImageBrush archerBrushMirored;
+        ImageBrush bruteBrush;
+        ImageBrush bruteBrushMirrored;
+        ImageBrush gruntBrush;
+        ImageBrush gruntBrushMirrored;
+        ImageBrush heavyBruteBrush;
+        ImageBrush heavyBruteBrushMirrored;
 
         //items 25x25px
         Brush armorBrush;
@@ -68,6 +73,7 @@
             
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
             playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            playerBrushMirrored = MirrorBrush(playerBrush);
             
             //playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
@@ -79,9 +85,13 @@
             platformBrush = Brushes.LightBlue;
 
             gruntBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            gruntBrushMirrored = MirrorBrush(gruntBrush);
             bruteBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            bruteBrushMirrored = MirrorBrush(bruteBrush);
             archerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            archerBrushMirored = MirrorBrush(archerBrush);
             heavyBruteBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            heavyBruteBrushMirrored = MirrorBrush(heavyBruteBrush);
 
             armorBrush = Brushes.Aqua;
             axeBrush = Brushes.Orange;
@@ -177,45 +187,71 @@
                 {
                     if (item is Grunt)
                     {
-                        setupCharacterOrientation(item.DirectionIsLeft,gruntBrush);
-                        drawingContext.DrawRectangle(gruntBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.DirectionIsLeft)
+                        {
+                            drawingContext.DrawRectangle(gruntBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            drawingContext.DrawRectangle(gruntBrushMirrored, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
                     }
                     else if (item is Brute)
                     {
-                        drawingContext.DrawRectangle(bruteBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.DirectionIsLeft)
+                        {
+                            drawingContext.DrawRectangle(bruteBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            drawingContext.DrawRectangle(bruteBrushMirrored, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
                     }
                     else if (item is Archer)
                     {
-                        drawingContext.DrawRectangle(archerBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.DirectionIsLeft)
+                        {
+                            drawingContext.DrawRectangle(archerBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            drawingContext.DrawRectangle(archerBrushMirored, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
                     }
                     else if (item is HeavyBrute)
                     {
-                        drawingContext.DrawRectangle(heavyBruteBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.DirectionIsLeft)
+                        {
+                            drawingContext.DrawRectangle(heavyBruteBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            drawingContext.DrawRectangle(heavyBruteBrushMirrored, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
                     }
                 }
 
-                setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
-                drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                if (!playerLogic.plyr.LeftOrientation)
+                {
+                    drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                }
+                else
+                {
+                    drawingContext.DrawRectangle(playerBrushMirrored, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                }
+                
             }
         }
 
-        private void setupCharacterOrientation(bool directionIsLeft, Brush characterBrush)
-        {
-            //if (directionIsLeft)
-            //{
-            //    MoveLeftAnimation(directionIsLeft, characterBrush);
-            //}
-            //else
-            //{
-            //    MoveRightAnimation(directionIsLeft, characterBrush);
-            //}
+        
 
-            if (directionIsLeft)
-            {
-                var img = (BitmapSource)((ImageBrush)characterBrush).ImageSource;
-                var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                ((ImageBrush)characterBrush).ImageSource = mirrorredImage;
-            }
+        private ImageBrush MirrorBrush(Brush characterBrush)
+        {
+            ImageBrush mirrored = new ImageBrush();
+            var img = (BitmapSource)((ImageBrush)characterBrush).ImageSource;
+            var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
+            mirrored.ImageSource = mirrorredImage;
+            return mirrored;
         }
 
         public void FightAnimations()

@@ -95,27 +95,14 @@
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
             //his or her Weight * (Weapon) weapons.WeaponDamage;
             isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
-
-            isSpaceButtonDown(animationsLogic);
-        }
-
-        private void isSpaceButtonDown(AnimationsLogic animationsLogic) //jetpackAnimation
-        {
-            if (Keyboard.IsKeyDown(Key.Space))
-            {
-                if (true) //ToDo
-                {
-                    animationsLogic.StartJetpackAnimation();
-                    
-                }
-                
-            }
-            else
-            {
-                animationsLogic.StopJetpackAnimation();
-            }
             
+            
+                
+            
+
         }
+
+        
 
         #region CharMoving
 
@@ -160,9 +147,15 @@
                     playerLogic.plyr.Jetpack.Fuel--;
                     InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
-                    
+                    animationsLogic.StartJetpackAnimation();
+
                 }
                 
+                
+            }
+            else
+            {
+                animationsLogic.StopJetpackAnimation();
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
