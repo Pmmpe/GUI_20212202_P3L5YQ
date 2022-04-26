@@ -192,9 +192,15 @@
                 {
                     playerLogic.plyr.Jetpack.Fuel--;
                     playerLogic.Control(PlayerLogic.Controls.Space);
-                    
+                    animationsLogic.StartJetpackAnimation();
+
                 }
                 
+                
+            }
+            else
+            {
+                animationsLogic.StopJetpackAnimation();
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
