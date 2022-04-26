@@ -95,10 +95,10 @@
             //then the second function returns the NPC that is currently intersecting with the player! The player will then causes damage to this npc equal to
             //his or her Weight * (Weapon) weapons.WeaponDamage;
             isAttackButtonDown(playerLogic, enemyLogic, intersectLogic);
+
             
-            
-                
-            
+
+
 
         }
 
@@ -113,23 +113,30 @@
             if (Keyboard.IsKeyDown(Key.W) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
-                
+                animationsLogic.StopJetpackAnimation();
+
             }
             if (Keyboard.IsKeyDown(Key.S) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
-                
+                animationsLogic.StopJetpackAnimation();
+                //animationsLogic.FightAnimations();
+
             }
             if (Keyboard.IsKeyDown(Key.A))
             {
-                playerLogic.Control(PlayerLogic.Controls.A);
+                
                 playerLogic.plyr.LeftOrientation = true;
+                playerLogic.Control(PlayerLogic.Controls.A);
+               
                 //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D))
             {
-                playerLogic.Control(PlayerLogic.Controls.D);
+                
                 playerLogic.plyr.LeftOrientation = false;
+                playerLogic.Control(PlayerLogic.Controls.D);
+
                 //animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.E))
@@ -148,15 +155,12 @@
                     InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     animationsLogic.StartJetpackAnimation();
-
                 }
-                
-                
             }
-            else
-            {
-                animationsLogic.StopJetpackAnimation();
-            }
+            //else
+            //{
+            //    animationsLogic.StopJetpackAnimation();
+            //}
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
                 //playerLogic.plyr.PrimaryWeapon.Name = "DELETED"; //nem tudom ki null-ozni szóval ha nincs a playernek fegyverek akkor átírjuk a fegyverének a nevét DELETED-re
