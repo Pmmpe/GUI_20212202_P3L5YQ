@@ -159,23 +159,30 @@
             if ((Keyboard.IsKeyDown(Key.W) || Keyboard.IsKeyDown(Key.Up)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
-                
+                animationsLogic.StopJetpackAnimation();
+
             }
             if ((Keyboard.IsKeyDown(Key.S) || Keyboard.IsKeyDown(Key.Down)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
-                
+                animationsLogic.StopJetpackAnimation();
+                //animationsLogic.FightAnimations();
+
             }
             if (Keyboard.IsKeyDown(Key.A) || Keyboard.IsKeyDown(Key.Left))
             {
-                playerLogic.Control(PlayerLogic.Controls.A);
+                
                 playerLogic.plyr.LeftOrientation = true;
+                playerLogic.Control(PlayerLogic.Controls.A);
+               
                 //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
             {
-                playerLogic.Control(PlayerLogic.Controls.D);
+                
                 playerLogic.plyr.LeftOrientation = false;
+                playerLogic.Control(PlayerLogic.Controls.D);
+
                 //animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.E))
@@ -193,15 +200,12 @@
                     playerLogic.plyr.Jetpack.Fuel--;
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     animationsLogic.StartJetpackAnimation();
-
                 }
-                
-                
             }
-            else
-            {
-                animationsLogic.StopJetpackAnimation();
-            }
+            //else
+            //{
+            //    animationsLogic.StopJetpackAnimation();
+            //}
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
                 playerLogic.plyr.PrimaryWeapon = null;
