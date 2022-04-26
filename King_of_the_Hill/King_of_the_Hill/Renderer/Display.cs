@@ -22,7 +22,7 @@
         #endregion
 
         //player 50x50px
-        Brush playerBrush;
+        CharacterBrush playerBrush;
 
         //map
         Brush backgroundBrush;
@@ -35,10 +35,10 @@
         
 
         //enemies 50x50px
-        Brush archerBrush;
-        Brush bruteBrush;
-        Brush gruntBrush;
-        Brush heavyBruteBrush;
+        CharacterBrush archerBrush;
+        CharacterBrush bruteBrush;
+        CharacterBrush gruntBrush;
+        CharacterBrush heavyBruteBrush;
 
         //items 25x25px
         Brush armorBrush;
@@ -57,7 +57,13 @@
         EnemyLogic enemyLogic;
         ItemLogic itemLogic;
 
-        
+        //bool isarcherBrushFlipped = false;
+        //bool isbruteBrushFlipped = false;
+        //bool isgruntBrushFlipped = false;
+        //bool isheavyBruteBrushFlipped = false;
+
+
+
 
 
         public Display()
@@ -67,7 +73,7 @@
             backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
             
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
-            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
             
             //playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
@@ -78,10 +84,10 @@
             lavaBrush = Brushes.Red;
             platformBrush = Brushes.LightBlue;
 
-            gruntBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
-            bruteBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
-            archerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
-            heavyBruteBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+            gruntBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            bruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            archerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            heavyBruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
 
             armorBrush = Brushes.Aqua;
             axeBrush = Brushes.Orange;
@@ -178,61 +184,64 @@
                     if (item is Grunt)
                     {
                         setupCharacterOrientation(item.DirectionIsLeft,gruntBrush);
-                        drawingContext.DrawRectangle(gruntBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        drawingContext.DrawRectangle(gruntBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is Brute)
                     {
-                        drawingContext.DrawRectangle(bruteBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        setupCharacterOrientation(item.DirectionIsLeft, bruteBrush);
+                        drawingContext.DrawRectangle(bruteBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is Archer)
                     {
-                        drawingContext.DrawRectangle(archerBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        setupCharacterOrientation(item.DirectionIsLeft, archerBrush);
+                        drawingContext.DrawRectangle(archerBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is HeavyBrute)
                     {
-                        drawingContext.DrawRectangle(heavyBruteBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrush);
+                        drawingContext.DrawRectangle(heavyBruteBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                 }
 
                 setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
-                drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                drawingContext.DrawRectangle(playerBrush.Brush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
             }
         }
 
-        private void setupCharacterOrientation(bool directionIsLeft, Brush characterBrush)
+        private void setupCharacterOrientation(bool directionIsLeft, CharacterBrush characterBrush)
         {
-            //if (directionIsLeft)
-            //{
-            //    MoveLeftAnimation(directionIsLeft, characterBrush);
-            //}
-            //else
-            //{
-            //    MoveRightAnimation(directionIsLeft, characterBrush);
-            //}
+            //alapbol minden kép balra néz. --> .Flipped = false
+            //ha a karakter nem balra néz + a kép .Flipped = false => flip
+
 
             if (directionIsLeft)
             {
-                var img = (BitmapSource)((ImageBrush)characterBrush).ImageSource;
-                var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                ((ImageBrush)characterBrush).ImageSource = mirrorredImage;
+                MoveLeftAnimation(characterBrush);
+                
             }
+            else
+            {
+                MoveRightAnimation(characterBrush);
+            }
+
+            
         }
 
         public void FightAnimations()
         {
  //            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
 
-            ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
-            anim.Duration = TimeSpan.FromSeconds(3);
-            anim.FillBehavior = FillBehavior.Stop;
-            ImageSource[] images = new ImageSource[]
-            {
-                  new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
-                  new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
-            };
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
-            anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
-            playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
+            //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
+            //anim.Duration = TimeSpan.FromSeconds(3);
+            //anim.FillBehavior = FillBehavior.Stop;
+            //ImageSource[] images = new ImageSource[]
+            //{
+            //      new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
+            //      new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
+            //};
+            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
+            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
+            //playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
 
 
 
@@ -279,7 +288,7 @@
             image.UriSource = new Uri(Path.Combine("Sources", "knight", "knight idle.gif"), UriKind.RelativeOrAbsolute);
             image.EndInit();
             System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            img.Source = (playerBrush as ImageBrush).ImageSource;
+            img.Source = (playerBrush.Brush).ImageSource;
             ImageBehavior.SetAnimatedSource(img,image);
         }
 
@@ -287,11 +296,11 @@
         {
             if (action == "start")
             {
-                playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute)));
+                playerBrush.Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute)));
             }
             if (action == "stop")
             {
-                playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+                playerBrush.Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
             }
             
             //var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
@@ -315,24 +324,26 @@
             //playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
         }
 
-        private void MoveLeftAnimation(bool leftOrientation, Brush characterbrush) //just player currently
+        private void MoveLeftAnimation(CharacterBrush characterBrush) //just player currently
         {
-            if (!leftOrientation)
+            if (characterBrush.IsFlipped)
             {
-                var img = (BitmapSource)((ImageBrush)characterbrush).ImageSource;
+                var img = (BitmapSource)characterBrush.Brush.ImageSource;
                 var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                ((ImageBrush)characterbrush).ImageSource = mirrorredImage;
+                characterBrush.Brush.ImageSource = mirrorredImage;
+                characterBrush.IsFlipped = false;
             }
-            
+
         }
 
-        private void MoveRightAnimation(bool leftOrientation, Brush characterbrush) //just player currently
+        private void MoveRightAnimation(CharacterBrush characterBrush) //just player currently
         {
-            if (leftOrientation)
+            if (!characterBrush.IsFlipped)
             {
-                var img = (BitmapSource)((ImageBrush)characterbrush).ImageSource;
+                var img = (BitmapSource)characterBrush. Brush.ImageSource;
                 var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                ((ImageBrush)characterbrush).ImageSource = mirrorredImage;
+                characterBrush.Brush.ImageSource = mirrorredImage;
+                characterBrush.IsFlipped = true;
             }
         }
 

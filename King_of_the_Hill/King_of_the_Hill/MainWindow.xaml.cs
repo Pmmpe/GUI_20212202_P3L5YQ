@@ -118,18 +118,19 @@
             if (Keyboard.IsKeyDown(Key.S) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
+                //animationsLogic.FightAnimations();
                 
             }
             if (Keyboard.IsKeyDown(Key.A))
             {
-                playerLogic.Control(PlayerLogic.Controls.A);
                 playerLogic.plyr.LeftOrientation = true;
+                playerLogic.Control(PlayerLogic.Controls.A);
                 //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D))
             {
-                playerLogic.Control(PlayerLogic.Controls.D);
                 playerLogic.plyr.LeftOrientation = false;
+                playerLogic.Control(PlayerLogic.Controls.D);
                 //animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.E))
@@ -148,10 +149,7 @@
                     InventorySetJetpackFuel(playerLogic.plyr.Jetpack.Fuel);
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     animationsLogic.StartJetpackAnimation();
-
                 }
-                
-                
             }
             else
             {
