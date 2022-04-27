@@ -211,7 +211,7 @@
                 }
 
                 setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
-                drawingContext.DrawRectangle(playerBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                drawingContext.DrawRectangle(playerBrush.Brush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
                 
                 foreach (var arrow in playerLogic.Arrows)
                 {

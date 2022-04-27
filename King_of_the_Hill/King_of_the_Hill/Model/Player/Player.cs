@@ -16,6 +16,8 @@
 
         public int Charon { get; set; }
 
+        public bool LeftOrientation { get; set; }
+
         public Player(double Health, double Armour, double PosX, double PosY, double Width, double Height) : base(PosX, PosY, Width, Height, Health, Armour)
         {
             PrimaryWeapon = null;
@@ -24,7 +26,7 @@
 
             HealPotion = new HealPotion("HP poti", 0, 0);
             ArmorRepairKit = new Armor("Armor kit", 0, 0);
-
+            LeftOrientation = false;
             Charon = 0;
         }
     }
