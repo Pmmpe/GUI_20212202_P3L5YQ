@@ -14,7 +14,7 @@
     using System.Windows.Threading;
     using WpfAnimatedGif;
 
-    //public delegate void DtTimerTickEventHandler(DispatcherTimer timer); //animation
+    
     public class Display : FrameworkElement
     {
         #region Brushes
@@ -59,15 +59,7 @@
         EnemyLogic enemyLogic;
         ItemLogic itemLogic;
 
-        //bool isarcherBrushFlipped = false;
-        //bool isbruteBrushFlipped = false;
-        //bool isgruntBrushFlipped = false;
-        //bool isheavyBruteBrushFlipped = false;
-
-
-
-
-
+  
         public Display()
         {
             backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd1.png"), UriKind.RelativeOrAbsolute)));
@@ -191,27 +183,27 @@
                     if (item is Grunt)
                     {
                         setupCharacterOrientation(item.DirectionIsLeft,gruntBrush);
-                        drawingContext.DrawRectangle(gruntBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        drawingContext.DrawRectangle(gruntBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is Brute)
                     {
                         setupCharacterOrientation(item.DirectionIsLeft, bruteBrush);
-                        drawingContext.DrawRectangle(bruteBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        drawingContext.DrawRectangle(bruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is Archer)
                     {
                         setupCharacterOrientation(item.DirectionIsLeft, archerBrush);
-                        drawingContext.DrawRectangle(archerBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        drawingContext.DrawRectangle(archerBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                     else if (item is HeavyBrute)
                     {
                         setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrush);
-                        drawingContext.DrawRectangle(heavyBruteBrush.Brush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        drawingContext.DrawRectangle(heavyBruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                     }
                 }
 
                 setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
-                drawingContext.DrawRectangle(playerBrush.Brush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                drawingContext.DrawRectangle(playerBrush.CurrentBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
                 
                 foreach (var arrow in playerLogic.Arrows)
                 {
@@ -245,10 +237,24 @@
             
         }
 
-        public void FightAnimations()
-        {
- //            playerBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))); //TODO képcsere
+        //private void RevertDefaultPlayerAnimation()
+        //{
+        //    playerBrush.CurrentBrush = playerBrush.DefaultBrush;
+        //}
 
+        public void FightAnimations(string action)
+        {
+            if (action == "start")
+            {
+                playerBrush.CurrentBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute)));
+            }
+            if (action == "stop")
+            {
+                playerBrush.CurrentBrush = playerBrush.DefaultBrush;
+            }
+            
+
+            #region obsolete
             //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
             //anim.Duration = TimeSpan.FromSeconds(3);
             //anim.FillBehavior = FillBehavior.Stop;
@@ -287,6 +293,20 @@
             //dispatcherTimerInstance.Start();
             //dispatcherTimers.Add(dispatcherTimerInstance);
 
+            //var animation = new BrushAnimation
+            //{
+            //    From = Brushes.Red,
+            //    To = new LinearGradientBrush(Colors.Green, Colors.Yellow, 45),
+            //    Duration = new Duration(TimeSpan.FromSeconds(5)),
+            //};
+            //animation.Completed += new EventHandler(animation_Completed);
+            //Storyboard.SetTarget(animation, border);
+            //Storyboard.SetTargetProperty(animation, new PropertyPath("Background"));
+
+            //var sb = new Storyboard();
+            //sb.Children.Add(animation);
+            //sb.Begin();
+
         }
 
         //private void RevertBackToDefPlayerBrush(object? sender, EventArgs e)
@@ -299,6 +319,8 @@
         //    }
         //}
 
+        #endregion
+
         public void IdleAnimation() //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
         {
             var image = new BitmapImage();
@@ -306,7 +328,7 @@
             image.UriSource = new Uri(Path.Combine("Sources", "knight", "knight idle.gif"), UriKind.RelativeOrAbsolute);
             image.EndInit();
             System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-            img.Source = (playerBrush.Brush).ImageSource;
+            img.Source = (playerBrush.CurrentBrush).ImageSource;
             ImageBehavior.SetAnimatedSource(img,image);
         }
 
@@ -314,11 +336,12 @@
         {
             if (action == "start")
             {
-                playerBrush.Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute)));
+                
+                playerBrush.CurrentBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute)));
             }
-            if (action == "stop") //rossz
+            if (action == "stop") 
             {
-                playerBrush.Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)));
+                playerBrush.CurrentBrush = playerBrush.DefaultBrush;
             }
             
             //var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
@@ -346,9 +369,9 @@
         {
             if (characterBrush.IsFlipped)
             {
-                var img = (BitmapSource)characterBrush.Brush.ImageSource;
+                var img = (BitmapSource)characterBrush.CurrentBrush.ImageSource;
                 var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                characterBrush.Brush.ImageSource = mirrorredImage;
+                characterBrush.CurrentBrush.ImageSource = mirrorredImage;
                 characterBrush.IsFlipped = false;
             }
 
@@ -358,9 +381,9 @@
         {
             if (!characterBrush.IsFlipped)
             {
-                var img = (BitmapSource)characterBrush. Brush.ImageSource;
+                var img = (BitmapSource)characterBrush.CurrentBrush.ImageSource;
                 var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
-                characterBrush.Brush.ImageSource = mirrorredImage;
+                characterBrush.CurrentBrush.ImageSource = mirrorredImage;
                 characterBrush.IsFlipped = true;
             }
         }

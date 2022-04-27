@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:King_of_the_Hill"
         xmlns:renderer="clr-namespace:King_of_the_Hill.Renderer.Display"
         mc:Ignorable="d"
-        Title="MainWindow" Height="900" Width="1600" ResizeMode="CanMinimize" KeyDown="Window_KeyDown" Loaded="Window_Loaded">
+        Title="MainWindow" Height="900" Width="1600" ResizeMode="CanMinimize" KeyDown="Window_KeyDown" KeyUp="Window_KeyUp" Loaded="Window_Loaded">
     <Grid>
         <Grid x:Name="gamegrid" Visibility="Hidden">
             <Grid.RowDefinitions>

@@ -13,6 +13,7 @@
     <None Remove="Sources\bckgrnd3.png" />
     <None Remove="Sources\knight\knight 3 idle.png" />
     <None Remove="Sources\knight\knight idle.gif" />
+    <None Remove="Sources\knight_Attack.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_Single_Big.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_small.png" />
@@ -32,6 +33,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\knight\knight idle.gif">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\knight_Attack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png">

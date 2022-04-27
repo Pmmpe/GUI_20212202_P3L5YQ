@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace King_of_the_Hill.Logic
 {
     public delegate void JetpackAnimEventHandler(string action);
-    public delegate void PlayerAnimEventHandler();
+    public delegate void PlayerAnimEventHandler(string action);
     public delegate void MovementAnimEventHandler(bool leftOrientation);
     public class AnimationsLogic
     {
@@ -19,10 +19,16 @@ namespace King_of_the_Hill.Logic
         public MovementAnimEventHandler MoveLeft;
         //public JetpackAnimEventHandler StopJetpack;
 
-        public void FightAnimations() //ha meghivod 5mp megjeleniti a harcolo player image-t
+        public void StartFightAnimations() 
         {
-            Fight?.Invoke();
+            Fight?.Invoke("start");
         }
+
+        public void StopFightAnimations()
+        {
+            Fight?.Invoke("stop");
+        }
+
 
         public void StartJetpackAnimation()
         {
@@ -43,5 +49,7 @@ namespace King_of_the_Hill.Logic
         {
             MoveLeft?.Invoke(leftOrientation);
         }
+
+        
     }
 }

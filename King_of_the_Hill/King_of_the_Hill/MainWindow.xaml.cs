@@ -108,6 +108,7 @@
                     label_slotOne.Visibility = Visibility.Visible;
                     progressbar_hit.Visibility = Visibility.Hidden;
                     progressbar_hit.Value = 0;
+                    animationsLogic.StopFightAnimations(); //it works!
                 }
             }
 
@@ -148,6 +149,8 @@
                 MessageBox.Show("Vesztettél!\n" + enemyLogic.AchievedScore);
                 timer.Stop();
             }
+
+            
         }
 
         #region CharMoving
@@ -159,22 +162,22 @@
             if ((Keyboard.IsKeyDown(Key.W) || Keyboard.IsKeyDown(Key.Up)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
-                animationsLogic.StopJetpackAnimation();
+                //animationsLogic.StopJetpackAnimation();
 
             }
             if ((Keyboard.IsKeyDown(Key.S) || Keyboard.IsKeyDown(Key.Down)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
-                animationsLogic.StopJetpackAnimation();
-                //animationsLogic.FightAnimations();
+                //animationsLogic.StopJetpackAnimation();
 
             }
             if (Keyboard.IsKeyDown(Key.A) || Keyboard.IsKeyDown(Key.Left))
             {
-                
+
                 playerLogic.plyr.LeftOrientation = true;
                 playerLogic.Control(PlayerLogic.Controls.A);
-               
+                
+
                 //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
@@ -195,17 +198,13 @@
             }
             if (Keyboard.IsKeyDown(Key.Space))
             {
-                if (playerLogic.plyr.Jetpack.Fuel > 0 || true) //change for test
+                if (playerLogic.plyr.Jetpack.Fuel > 0) 
                 {
                     playerLogic.plyr.Jetpack.Fuel--;
                     playerLogic.Control(PlayerLogic.Controls.Space);
                     animationsLogic.StartJetpackAnimation();
                 }
             }
-            //else
-            //{
-            //    animationsLogic.StopJetpackAnimation();
-            //}
             if (Keyboard.IsKeyDown(Key.NumPad1))
             {
                 playerLogic.plyr.PrimaryWeapon = null;
@@ -225,6 +224,7 @@
                     label_slotOne.Visibility = Visibility.Hidden;
                     progressbar_hit.Visibility = Visibility.Visible;
                     progressbar_hit.Maximum = 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed);
+                    animationsLogic.StartFightAnimations();
                     canPlayerAttack = false;
                 }
             }
@@ -263,6 +263,18 @@
                 }
             }
         }
+
+        private void Window_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Keyboard.IsKeyUp(Key.Space))
+            {
+                if (playerLogic.plyr.Jetpack.Fuel > 0)
+                {
+                    animationsLogic.StopJetpackAnimation();
+                }
+            }
+        }
+
         #endregion
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -385,5 +397,7 @@
             menu.Visibility = Visibility.Visible;
         }
         #endregion
+
+        
     }
 }

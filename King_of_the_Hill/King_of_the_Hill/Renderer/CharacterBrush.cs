@@ -9,13 +9,16 @@ namespace King_of_the_Hill.Renderer
 {
     class CharacterBrush
     {
-        public ImageBrush Brush { get; set; }
+        public ImageBrush DefaultBrush { get; set; }
+
+        public ImageBrush CurrentBrush { get; set; }
         public bool IsFlipped { get; set; }
 
         public CharacterBrush(ImageBrush brush)
         {
-            Brush = brush;
+            DefaultBrush = brush;
             IsFlipped = false;
+            CurrentBrush = brush;
         }
     }
 }
