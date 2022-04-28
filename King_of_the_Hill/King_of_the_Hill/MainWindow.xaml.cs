@@ -123,6 +123,7 @@
                     label_slotTwo.Visibility = Visibility.Visible;
                     progressbar_shoot.Visibility = Visibility.Hidden;
                     progressbar_shoot.Value = 0;
+                    animationsLogic.StopBowShootAnimations();
                 }
             }
 
@@ -236,6 +237,7 @@
                     label_slotTwo.Visibility = Visibility.Hidden;
                     progressbar_shoot.Visibility = Visibility.Visible;
                     progressbar_shoot.Maximum = 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed);
+                    animationsLogic.StartBowShootAnimations();
                     canPlayerShoot = false;
                 }
                 

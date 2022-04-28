@@ -14,6 +14,7 @@ namespace King_of_the_Hill.Logic
         //delegate
 
         public PlayerAnimEventHandler Fight;
+        public PlayerAnimEventHandler BowShoot;
         public JetpackAnimEventHandler Jetpack;
         public MovementAnimEventHandler MoveRight;
         public MovementAnimEventHandler MoveLeft;
@@ -28,6 +29,18 @@ namespace King_of_the_Hill.Logic
         {
             Fight?.Invoke("stop");
         }
+
+        public void StartBowShootAnimations()
+        {
+            BowShoot?.Invoke("start");
+        }
+
+        public void StopBowShootAnimations()
+        {
+            BowShoot?.Invoke("stop");
+        }
+
+
 
 
         public void StartJetpackAnimation()

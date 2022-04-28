@@ -67,7 +67,7 @@
             backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
             
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
-            playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_idle.png"), UriKind.RelativeOrAbsolute))));
             
             //playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
@@ -106,12 +106,11 @@
             #region Animations Subscribe
             animationsLogic.Fight += FightAnimations;
             animationsLogic.Jetpack += JetpackAnimation;
+            animationsLogic.BowShoot += BowShootAnimation;
             //animationsLogic.MoveLeft += MoveLeftAnimation;
             //animationsLogic.MoveRight += MoveRightAnimation;
             #endregion
         }
-
-        
 
         protected override void OnRender(DrawingContext drawingContext)
         {
@@ -252,7 +251,7 @@
             {
                 playerBrush.CurrentBrush = playerBrush.DefaultBrush;
             }
-            
+
 
             #region obsolete
             //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
@@ -307,6 +306,20 @@
             //sb.Children.Add(animation);
             //sb.Begin();
 
+            #endregion
+
+        }
+
+        private void BowShootAnimation(string action)
+        {
+            if (action == "start")
+            {
+                playerBrush.CurrentBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_bowshoot.png"), UriKind.RelativeOrAbsolute)));
+            }
+            if (action == "stop")
+            {
+                playerBrush.CurrentBrush = playerBrush.DefaultBrush;
+            }
         }
 
         //private void RevertBackToDefPlayerBrush(object? sender, EventArgs e)
@@ -319,7 +332,7 @@
         //    }
         //}
 
-        #endregion
+
 
         public void IdleAnimation() //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
         {
@@ -365,7 +378,7 @@
             //playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
         }
 
-        private void MoveLeftAnimation(CharacterBrush characterBrush) //just player currently
+        private void MoveLeftAnimation(CharacterBrush characterBrush)
         {
             if (characterBrush.IsFlipped)
             {
@@ -377,7 +390,7 @@
 
         }
 
-        private void MoveRightAnimation(CharacterBrush characterBrush) //just player currently
+        private void MoveRightAnimation(CharacterBrush characterBrush)
         {
             if (!characterBrush.IsFlipped)
             {
