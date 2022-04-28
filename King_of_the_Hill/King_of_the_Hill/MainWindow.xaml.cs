@@ -179,7 +179,7 @@
                 playerLogic.Control(PlayerLogic.Controls.A);
                 
 
-                //animationsLogic.MoveLeftAnimation(playerLogic.plyr.LeftOrientation);
+                animationsLogic.StartPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "left"); // kell a left?
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
             {
@@ -187,7 +187,7 @@
                 playerLogic.plyr.LeftOrientation = false;
                 playerLogic.Control(PlayerLogic.Controls.D);
 
-                //animationsLogic.MoveRightAnimation(playerLogic.plyr.LeftOrientation);
+                animationsLogic.StartPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "right"); // kell a left?
             }
             if (Keyboard.IsKeyDown(Key.E))
             {
@@ -274,6 +274,10 @@
                 {
                     animationsLogic.StopJetpackAnimation();
                 }
+            }
+            if (Keyboard.IsKeyUp(Key.A) || Keyboard.IsKeyUp(Key.D))
+            {
+                animationsLogic.StopPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "left");
             }
         }
 

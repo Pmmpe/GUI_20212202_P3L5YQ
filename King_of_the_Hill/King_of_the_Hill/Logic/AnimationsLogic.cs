@@ -8,7 +8,7 @@ namespace King_of_the_Hill.Logic
 {
     public delegate void JetpackAnimEventHandler(string action);
     public delegate void PlayerAnimEventHandler(string action);
-    public delegate void MovementAnimEventHandler(bool leftOrientation);
+    public delegate void MovementAnimEventHandler(bool leftOrientation, string direction, string action);
     public class AnimationsLogic
     {
         //delegate
@@ -16,9 +16,9 @@ namespace King_of_the_Hill.Logic
         public PlayerAnimEventHandler Fight;
         public PlayerAnimEventHandler BowShoot;
         public JetpackAnimEventHandler Jetpack;
-        public MovementAnimEventHandler MoveRight;
-        public MovementAnimEventHandler MoveLeft;
-        //public JetpackAnimEventHandler StopJetpack;
+        public MovementAnimEventHandler Move;
+//        public MovementAnimEventHandler MoveLeft;
+        
 
         public void StartFightAnimations() 
         {
@@ -53,16 +53,25 @@ namespace King_of_the_Hill.Logic
             Jetpack?.Invoke("stop");
         }
 
-        public void MoveRightAnimation(bool leftOrientation)
+        //public void StartPlayerMoveRightAnimation(bool leftOrientation)
+        //{
+        //    MoveRight?.Invoke(leftOrientation, "start");
+        //}
+
+        //public void StopPlayerMoveLeftAnimation(bool leftOrientation)
+        //{
+        //    MoveLeft?.Invoke(leftOrientation, "start");
+        //}
+
+        public void StartPlayerMoveAnimation(bool leftOrientation, string direction)
         {
-            MoveRight?.Invoke(leftOrientation);
+            Move?.Invoke(leftOrientation, direction, "start");
+        }
+        public void StopPlayerMoveAnimation(bool leftOrientation, string direction)
+        {
+            Move?.Invoke(leftOrientation, direction, "stop");
         }
 
-        public void MoveLeftAnimation(bool leftOrientation)
-        {
-            MoveLeft?.Invoke(leftOrientation);
-        }
 
-        
     }
 }

@@ -16,6 +16,8 @@
     <None Remove="Sources\knight_Attack.png" />
     <None Remove="Sources\knight_bowshoot.png" />
     <None Remove="Sources\knight_Idle.png" />
+    <None Remove="Sources\knight_JetPack.png" />
+    <None Remove="Sources\knight_Run.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_Single_Big.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_small.png" />
@@ -41,6 +43,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\knight_Idle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\knight_JetPack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\knight_Run.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png">
