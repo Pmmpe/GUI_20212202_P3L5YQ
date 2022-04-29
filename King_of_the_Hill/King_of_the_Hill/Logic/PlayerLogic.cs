@@ -2,12 +2,10 @@
 {
     using King_of_the_Hill.Model;
     using King_of_the_Hill.Model.GameItems;
-    using King_of_the_Hill.Model.MapItem;
     using King_of_the_Hill.Model.NPC_Types;
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Windows;
 
     public class PlayerLogic
     {

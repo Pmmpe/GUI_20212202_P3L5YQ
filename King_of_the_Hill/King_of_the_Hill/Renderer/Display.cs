@@ -13,8 +13,6 @@
     {
         #region Brushes
 
-        #endregion
-
         //player 50x50px
         Brush playerBrush;
 
@@ -47,12 +45,11 @@
         //arrow 10x10px
         Brush arrowBrush;
 
-
         MapLogic mapLogic;
         PlayerLogic playerLogic;
         EnemyLogic enemyLogic;
         ItemLogic itemLogic;
-
+        #endregion
 
         public Display()
         {
@@ -191,8 +188,6 @@
                 {
                     drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
-
-
             }
         }
     }
