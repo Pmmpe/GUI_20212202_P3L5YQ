@@ -8,39 +8,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Sources\bckgrnd1.png" />
-    <None Remove="Sources\bckgrnd2.png" />
-    <None Remove="Sources\bckgrnd3.png" />
-    <None Remove="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png" />
-    <None Remove="Sources\Mossy_FloatingPlatforms_Single_Big.png" />
-    <None Remove="Sources\Mossy_FloatingPlatforms_small.png" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Sources\bckgrnd1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sources\bckgrnd2.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sources\bckgrnd3.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sources\Mossy_FloatingPlatforms_Single_Big.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="Sources\Mossy_FloatingPlatforms_small.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <None Update="Sources\Her.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="Sources\Sounds\braqoon__arrow-damage.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -71,6 +38,13 @@
     <None Update="Sources\Sounds\sword-strikes-armor.wav">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\Textures\Enemies\" />
+    <Folder Include="Shared\Textures\GameItems\" />
+    <Folder Include="Shared\Textures\Player\" />
+    <Folder Include="Shared\Textures\Platforms\" />
   </ItemGroup>
 
 </Project>
