@@ -28,6 +28,7 @@
         CharacterBrush playerBrushSword;
         CharacterBrush playerBrushBow;
         CharacterBrush playerBrushIdle;
+        CharacterBrush playerBrushFall;
 
         //map
         Brush backgroundBrush;
@@ -78,6 +79,7 @@
             playerBrushRun = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Run.png"), UriKind.RelativeOrAbsolute))));
             playerBrushSword = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
             playerBrushIdle = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_idle.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushFall = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
 
             //playerBrush = Brushes.Black;
             arrowBrush = Brushes.Red;
@@ -120,10 +122,13 @@
             //animationsLogic.MoveLeft += PlyrMoveLeftAnimation;
             //animationsLogic.MoveRight += PlyrMoveRightAnimation;
             animationsLogic.Move += PlyrMoveAnimation;
+            animationsLogic.Fall += FallAnimation;
             #endregion
         }
 
         
+
+
 
         //private void PlyrMoveRightAnimation(bool leftOrientation, string action) //kell a leftorientation?
         //{
@@ -274,6 +279,15 @@
                 //playerBrush.CurrentBrush = playerBrush.DefaultBrush;
                 playerBrush = playerBrushIdle;
             }
+        }
+
+        private void FallAnimation(string action)
+        {
+            if (action == "start")
+            {
+                playerBrush = playerBrushFall;
+            }
+            //todo?
         }
 
         //private void RevertDefaultPlayerAnimation()

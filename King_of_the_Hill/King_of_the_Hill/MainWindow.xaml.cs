@@ -144,6 +144,10 @@
                 }
                 nextWaveLabelCounter++;
             }
+            if (!intersectLogic.IsPlayerAndMapIntersect() && !Keyboard.IsKeyDown(Key.Space)) //ilyet lehet?
+            {
+                animationsLogic.StartPlayerFallAnimation();
+            }
             InventoryDataChanged();
             if (playerLogic.IsPlayerDead())
             {
@@ -163,22 +167,15 @@
             if ((Keyboard.IsKeyDown(Key.W) || Keyboard.IsKeyDown(Key.Up)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.W);
-                //animationsLogic.StopJetpackAnimation();
-
             }
             if ((Keyboard.IsKeyDown(Key.S) || Keyboard.IsKeyDown(Key.Down)) && intersectLogic.IsPlayerAndMapIntersect())
             {
                 playerLogic.Control(PlayerLogic.Controls.S);
-                //animationsLogic.StopJetpackAnimation();
-
             }
             if (Keyboard.IsKeyDown(Key.A) || Keyboard.IsKeyDown(Key.Left))
             {
-
                 playerLogic.plyr.LeftOrientation = true;
                 playerLogic.Control(PlayerLogic.Controls.A);
-                
-
                 animationsLogic.StartPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "left"); // kell a left?
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))

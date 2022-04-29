@@ -17,6 +17,7 @@ namespace King_of_the_Hill.Logic
         public PlayerAnimEventHandler BowShoot;
         public JetpackAnimEventHandler Jetpack;
         public MovementAnimEventHandler Move;
+        public PlayerAnimEventHandler Fall;
 //        public MovementAnimEventHandler MoveLeft;
         
 
@@ -70,6 +71,11 @@ namespace King_of_the_Hill.Logic
         public void StopPlayerMoveAnimation(bool leftOrientation, string direction)
         {
             Move?.Invoke(leftOrientation, direction, "stop");
+        }
+
+        public void StartPlayerFallAnimation()
+        {
+            Fall?.Invoke("start");
         }
 
 
