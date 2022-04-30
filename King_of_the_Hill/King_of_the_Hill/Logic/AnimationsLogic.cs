@@ -6,18 +6,16 @@ using System.Threading.Tasks;
 
 namespace King_of_the_Hill.Logic
 {
-    public delegate void JetpackAnimEventHandler(string action);
-    public delegate void PlayerAnimEventHandler(string action);
-    public delegate void MovementAnimEventHandler(bool leftOrientation, string direction, string action);
+    
     public class AnimationsLogic
     {
         //delegate
 
-        public PlayerAnimEventHandler Fight;
-        public PlayerAnimEventHandler BowShoot;
-        public JetpackAnimEventHandler Jetpack;
-        public MovementAnimEventHandler Move;
-        public PlayerAnimEventHandler Fall;
+        public Action<string> Fight;
+        public Action<string> BowShoot;
+        public Action<string> Jetpack;
+        public Action<bool,string,string> Move;
+        public Action<string> Fall;
 //        public MovementAnimEventHandler MoveLeft;
         
 

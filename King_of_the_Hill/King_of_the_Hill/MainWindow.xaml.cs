@@ -87,7 +87,9 @@
             {
                 if (canEnemyAttackCounter == 50)
                 {
-                    playerLogic.HitPlayer(intersectLogic.PlayerIntersectWithThat());
+                    var enemy = intersectLogic.PlayerIntersectWithThat();
+                    playerLogic.HitPlayer(enemy);
+                    display.EnemyHit(enemy);
                     canEnemyAttackCounter = 0;
                 }
                 canEnemyAttackCounter++;
@@ -95,6 +97,7 @@
             else
             {
                 canEnemyAttackCounter = 0;
+                
             }
 
             if (!canPlayerAttack)
@@ -177,6 +180,7 @@
                 playerLogic.plyr.LeftOrientation = true;
                 playerLogic.Control(PlayerLogic.Controls.A);
                 animationsLogic.StartPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "left"); // kell a left?
+                display.ChnagePlayerBrushToRight();
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
             {
