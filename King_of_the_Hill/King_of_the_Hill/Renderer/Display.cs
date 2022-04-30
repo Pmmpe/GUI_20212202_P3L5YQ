@@ -65,7 +65,10 @@
         EnemyLogic enemyLogic;
         ItemLogic itemLogic;
 
-  
+        int enemyhitcounter;
+
+
+
         public Display()
         {
             backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd1.png"), UriKind.RelativeOrAbsolute)));
@@ -104,8 +107,27 @@
             swordBrush = Brushes.Orange;
             charonBrush = Brushes.Gold;
 
-            
+            enemyhitcounter = 0;
 
+        }
+
+        internal void EnemyHit(Npc npc)
+        {
+            if (enemyhitcounter == 0)
+            {
+                //animation start
+                enemyhitcounter++;
+            }
+            else if (enemyhitcounter < 25)
+            {
+                enemyhitcounter++;
+
+            }
+            else if(enemyhitcounter == 25)
+            {
+                enemyhitcounter = 0;
+                //stop
+            }
         }
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic, AnimationsLogic animationsLogic)
@@ -246,6 +268,11 @@
 
 
             }
+        }
+
+        internal void ChnagePlayerBrushToRight()
+        {
+            
         }
 
         private void setupCharacterOrientation(bool directionIsLeft, CharacterBrush characterBrush)
