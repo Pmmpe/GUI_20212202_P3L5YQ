@@ -24,7 +24,6 @@
         MapLogic mapLogic;
         IntersectLogic intersectLogic;
         SoundLogic soundplayer; //sound
-        AnimationsLogic animationsLogic; //animation
 
         DispatcherTimer timer;
 
@@ -45,8 +44,6 @@
             itemLogic = new ItemLogic();
             mapLogic = new MapLogic();
             intersectLogic = new IntersectLogic(playerLogic, mapLogic, enemyLogic, itemLogic);
-            // animation
-            animationsLogic = new AnimationsLogic();
 
             soundplayer = new SoundLogic(); //sound
 
@@ -115,7 +112,7 @@
                     label_slotOne.Visibility = Visibility.Visible;
                     progressbar_hit.Visibility = Visibility.Hidden;
                     progressbar_hit.Value = 0;
-                    animationsLogic.StopFightAnimations(); //it works!
+                    display.FightAnimations("stop");
                 }
             }
 
@@ -130,7 +127,7 @@
                     label_slotTwo.Visibility = Visibility.Visible;
                     progressbar_shoot.Visibility = Visibility.Hidden;
                     progressbar_shoot.Value = 0;
-                    animationsLogic.StopBowShootAnimations();
+                    display.BowShootAnimation("stop");
                 }
             }
 
@@ -151,9 +148,9 @@
                 }
                 nextWaveLabelCounter++;
             }
-            if (!intersectLogic.IsPlayerAndMapIntersect() && !Keyboard.IsKeyDown(Key.Space)) //ilyet lehet?
+            if (!intersectLogic.IsPlayerAndMapIntersect() && !Keyboard.IsKeyDown(Key.Space))
             {
-                animationsLogic.StartPlayerFallAnimation();
+                display.FallAnimation("start");
             }
             InventoryDataChanged();
             if (playerLogic.IsPlayerDead())
@@ -183,16 +180,13 @@
             {
                 playerLogic.plyr.LeftOrientation = true;
                 playerLogic.Control(PlayerLogic.Controls.A);
-                animationsLogic.StartPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "left"); // kell a left?
-                display.ChnagePlayerBrushToRight();
+                display.PlyrMoveAnimation(playerLogic.plyr.LeftOrientation,"start");
             }
             if (Keyboard.IsKeyDown(Key.D) || Keyboard.IsKeyDown(Key.Right))
-            {
-                
+            {              
                 playerLogic.plyr.LeftOrientation = false;
                 playerLogic.Control(PlayerLogic.Controls.D);
-
-                animationsLogic.StartPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "right"); // kell a left?
+                display.PlyrMoveAnimation(playerLogic.plyr.LeftOrientation, "start");
             }
             if (Keyboard.IsKeyDown(Key.E))
             {
@@ -208,7 +202,7 @@
                 {
                     playerLogic.plyr.Jetpack.Fuel--;
                     playerLogic.Control(PlayerLogic.Controls.Space);
-                    animationsLogic.StartJetpackAnimation();
+                    display.JetpackAnimation("start");
                 }
             }
             if (Keyboard.IsKeyDown(Key.NumPad1))
@@ -230,7 +224,7 @@
                     label_slotOne.Visibility = Visibility.Hidden;
                     progressbar_hit.Visibility = Visibility.Visible;
                     progressbar_hit.Maximum = 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed);
-                    animationsLogic.StartFightAnimations();
+                    display.FightAnimations("start");
                     canPlayerAttack = false;
                 }
             }
@@ -242,7 +236,7 @@
                     label_slotTwo.Visibility = Visibility.Hidden;
                     progressbar_shoot.Visibility = Visibility.Visible;
                     progressbar_shoot.Maximum = 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed);
-                    animationsLogic.StartBowShootAnimations();
+                    display.BowShootAnimation("start");
                     canPlayerShoot = false;
                 }
                 
@@ -277,12 +271,12 @@
             {
                 if (playerLogic.plyr.Jetpack.Fuel > 0)
                 {
-                    animationsLogic.StopJetpackAnimation();
+                    display.JetpackAnimation("stop");
                 }
             }
             if (Keyboard.IsKeyUp(Key.A) || Keyboard.IsKeyUp(Key.D))
             {
-                animationsLogic.StopPlayerMoveAnimation(playerLogic.plyr.LeftOrientation, "left");
+                display.PlyrMoveAnimation(playerLogic.plyr.LeftOrientation, "stop");
             }
         }
 
@@ -296,7 +290,7 @@
             playerLogic.SetDifficulty("Easy"); //alapból Easy beállítása.
             mapLogic.SetupSizes(new System.Drawing.Size((int)display.ActualWidth, (int)display.ActualHeight));
             intersectLogic.SetSizes((int)display.ActualWidth, (int)display.ActualHeight); //It gives the current sizes!
-            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic, animationsLogic); //It passes through the logics!
+            display.SetupAllLogic(mapLogic, playerLogic, enemyLogic, itemLogic); //It passes through the logics!
             
             //Main Menu theme song!
             soundplayer.BackgroundMusicMenu("start");
