@@ -242,13 +242,13 @@
                     {
                         if (item.IsAttacking)
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, gruntBrushAttack);
-                            drawingContext.DrawRectangle(gruntBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle( item.DirectionIsLeft ? gruntBrushAttack.CurrentBrush : FlippedBrush(gruntBrushAttack.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         else
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, gruntBrush);
-                            drawingContext.DrawRectangle(gruntBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft ? gruntBrush.CurrentBrush : FlippedBrush(gruntBrush.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         
                     }
@@ -256,26 +256,26 @@
                     {
                         if (item.IsAttacking)
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, bruteBrushAttack);
-                            drawingContext.DrawRectangle(bruteBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft ? bruteBrushAttack.CurrentBrush : FlippedBrush(bruteBrushAttack.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         else
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, bruteBrush);
-                            drawingContext.DrawRectangle(bruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft ? bruteBrush.CurrentBrush : FlippedBrush(bruteBrush.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                     }
                     else if (item is Archer)
                     {
                         if (item.IsAttacking)
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, archerBrushAttack);
-                            drawingContext.DrawRectangle(archerBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft ? archerBrushAttack.CurrentBrush : FlippedBrush(archerBrushAttack.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         else
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, archerBrush);
-                            drawingContext.DrawRectangle(archerBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft ? archerBrush.CurrentBrush : FlippedBrush(archerBrush.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         
                     }
@@ -283,13 +283,13 @@
                     {
                         if (item.IsAttacking)
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrushAttack);
-                            drawingContext.DrawRectangle(heavyBruteBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft? heavyBruteBrushAttack.CurrentBrush : FlippedBrush(heavyBruteBrushAttack.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         else
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrush);
-                            drawingContext.DrawRectangle(heavyBruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            
+                            drawingContext.DrawRectangle(item.DirectionIsLeft ? heavyBruteBrush.CurrentBrush : FlippedBrush(heavyBruteBrush.CurrentBrush), null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
 
                         
@@ -301,25 +301,11 @@
                 
                 foreach (var arrow in playerLogic.Arrows)
                 {
-                    if (arrow.DirectionIsLeft)
-                    {
-                        drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
-                    }
-                    else
-                    {
-                        drawingContext.DrawRectangle(FlippedBrush((ImageBrush)arrowBrush), null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
-                    }
+                    drawingContext.DrawRectangle(arrow.DirectionIsLeft ? arrowBrush : FlippedBrush((ImageBrush)arrowBrush), null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
                 foreach (var arrow in enemyLogic.arrows)
                 {
-                    if (arrow.DirectionIsLeft)
-                    {
-                        drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
-                    }
-                    else
-                    {
-                        drawingContext.DrawRectangle(FlippedBrush((ImageBrush)arrowBrush), null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
-                    }
+                    drawingContext.DrawRectangle(arrow.DirectionIsLeft ? arrowBrush : FlippedBrush((ImageBrush)arrowBrush), null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
                 }
 
 
