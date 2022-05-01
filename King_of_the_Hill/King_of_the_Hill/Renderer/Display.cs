@@ -75,44 +75,46 @@
 
         public Display()
         {
-            backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd1.png"), UriKind.RelativeOrAbsolute)));
-            backgroundTileset1Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd2.png"), UriKind.RelativeOrAbsolute)));
-            backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
+            //backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd1.png"), UriKind.RelativeOrAbsolute)));
+            //backgroundTileset1Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd2.png"), UriKind.RelativeOrAbsolute)));
+            //backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
             
+            backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "Background9Layered.png"), UriKind.RelativeOrAbsolute)));
+
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
-            playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_idle.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushJetpack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_JetPack.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushBow = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_bowshoot.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushRun = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Run.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushSword = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushIdle = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_idle.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushFall = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player" ,"knight_idle.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushJetpack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_JetPack.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushBow = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_bowshoot.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushRun = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_Run.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushSword = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushIdle = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_idle.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushFall = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "Her.png"), UriKind.RelativeOrAbsolute))));
 
             //playerBrush = Brushes.Black;
-            arrowBrush = Brushes.Red;
+            arrowBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "weapon_arrow.png"), UriKind.RelativeOrAbsolute)));
 
             //TODO képeket berakni a Brush-okra.
             //Ideiglenes Brushok, ezeket majd törölni kell:
             groundBrush = Brushes.Green;
-            lavaBrush = Brushes.Red;
-            platformBrush = Brushes.LightBlue;
+            lavaBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "lava.png"), UriKind.RelativeOrAbsolute)));
+            platformBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "PlatformHuge.png"), UriKind.RelativeOrAbsolute)));
 
-            gruntBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
-            gruntBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
-            bruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
-            bruteBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
-            archerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
-            archerBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_bowshoot.png"), UriKind.RelativeOrAbsolute))));
-            heavyBruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
-            heavyBruteBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
+            gruntBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "grunt_idle.png"), UriKind.RelativeOrAbsolute))));
+            gruntBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "grunt_attack.png"), UriKind.RelativeOrAbsolute))));
+            bruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "brute_idle.png"), UriKind.RelativeOrAbsolute))));
+            bruteBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "brute_attack.png"), UriKind.RelativeOrAbsolute))));
+            archerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "archer_idle.png"), UriKind.RelativeOrAbsolute))));
+            archerBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "archer_attack.png"), UriKind.RelativeOrAbsolute))));
+            heavyBruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "heavyBrute_idle.png"), UriKind.RelativeOrAbsolute))));
+            heavyBruteBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Enemy", "heavyBrute_attack.png"), UriKind.RelativeOrAbsolute))));
 
-            armorBrush = Brushes.Aqua;
-            axeBrush = Brushes.Orange;
-            bowBrush = Brushes.Orange;
-            healPotionBrush = Brushes.Red;
+            armorBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "armor.png"), UriKind.RelativeOrAbsolute)));
+            axeBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "axe.png"), UriKind.RelativeOrAbsolute)));
+            bowBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "bow.png"), UriKind.RelativeOrAbsolute)));
+            healPotionBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "healpotion.png"), UriKind.RelativeOrAbsolute)));
             jetpackBrush = Brushes.Black;
-            longSwordBrush = Brushes.Orange;
-            swordBrush = Brushes.Orange;
+            longSwordBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "longsword.png"), UriKind.RelativeOrAbsolute)));
+            swordBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "sword.png"), UriKind.RelativeOrAbsolute)));
             charonBrush = Brushes.Gold;
 
             enemyhitcounter = 0;
@@ -175,10 +177,10 @@
             {
                 drawingContext.DrawRectangle(backgroundBrush, null,
                     new Rect(0, 0, ActualWidth, ActualHeight));
-                drawingContext.DrawRectangle(backgroundTileset1Brush, null,
-                    new Rect(0, 0, ActualWidth, ActualHeight));
-                drawingContext.DrawRectangle(backgroundTileset2Brush, null,
-                    new Rect(0, 0, ActualWidth, ActualHeight));
+                //drawingContext.DrawRectangle(backgroundTileset1Brush, null,
+                //    new Rect(0, 0, ActualWidth, ActualHeight));
+                //drawingContext.DrawRectangle(backgroundTileset2Brush, null,
+                //    new Rect(0, 0, ActualWidth, ActualHeight));
 
 
                 setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
@@ -240,8 +242,8 @@
                     {
                         if (item.IsAttacking)
                         {
-                            setupCharacterOrientation(item.DirectionIsLeft, playerBrushSword);
-                            drawingContext.DrawRectangle(playerBrushSword.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                            setupCharacterOrientation(item.DirectionIsLeft, gruntBrushAttack);
+                            drawingContext.DrawRectangle(gruntBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
                         }
                         else
                         {
@@ -299,11 +301,25 @@
                 
                 foreach (var arrow in playerLogic.Arrows)
                 {
-                    drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    if (arrow.DirectionIsLeft)
+                    {
+                        drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    }
+                    else
+                    {
+                        drawingContext.DrawRectangle(FlippedBrush((ImageBrush)arrowBrush), null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    }
                 }
                 foreach (var arrow in enemyLogic.arrows)
                 {
-                    drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    if (arrow.DirectionIsLeft)
+                    {
+                        drawingContext.DrawRectangle(arrowBrush, null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    }
+                    else
+                    {
+                        drawingContext.DrawRectangle(FlippedBrush((ImageBrush)arrowBrush), null, new Rect(arrow.PosX, arrow.PosY, arrow.Width, arrow.Height));
+                    }
                 }
 
 
@@ -499,5 +515,11 @@
             }
         }
 
+        private ImageBrush FlippedBrush(ImageBrush imgbrush)
+        {
+            var img = (BitmapSource)imgbrush.ImageSource;
+            var mirrorredImage = new TransformedBitmap(img, new ScaleTransform(-1, 1));
+            return new ImageBrush(mirrorredImage);
+        }
     }
 }

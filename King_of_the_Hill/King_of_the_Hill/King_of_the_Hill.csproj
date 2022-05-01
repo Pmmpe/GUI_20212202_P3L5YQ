@@ -11,8 +11,6 @@
     <None Remove="Sources\bckgrnd1.png" />
     <None Remove="Sources\bckgrnd2.png" />
     <None Remove="Sources\bckgrnd3.png" />
-    <None Remove="Sources\knight\knight 3 idle.png" />
-    <None Remove="Sources\knight\knight idle.gif" />
     <None Remove="Sources\knight_Attack.png" />
     <None Remove="Sources\knight_bowshoot.png" />
     <None Remove="Sources\knight_Idle.png" />
@@ -21,6 +19,29 @@
     <None Remove="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_Single_Big.png" />
     <None Remove="Sources\Mossy_FloatingPlatforms_small.png" />
+    <None Remove="Sources\Textures\Enemy\archer_attack.png" />
+    <None Remove="Sources\Textures\Enemy\archer_idle.png" />
+    <None Remove="Sources\Textures\Enemy\brute_attack.png" />
+    <None Remove="Sources\Textures\Enemy\brute_idle.png" />
+    <None Remove="Sources\Textures\Enemy\grunt_attack.png" />
+    <None Remove="Sources\Textures\Enemy\grunt_idle.png" />
+    <None Remove="Sources\Textures\Enemy\grunt_idle2.png" />
+    <None Remove="Sources\Textures\Enemy\heavyBrute_attack.png" />
+    <None Remove="Sources\Textures\Enemy\heavyBrute_idle.png" />
+    <None Remove="Sources\Textures\Items\armor.png" />
+    <None Remove="Sources\Textures\Items\axe.png" />
+    <None Remove="Sources\Textures\Items\bow.png" />
+    <None Remove="Sources\Textures\Items\healpotion.png" />
+    <None Remove="Sources\Textures\Items\longsword.png" />
+    <None Remove="Sources\Textures\Items\sword.png" />
+    <None Remove="Sources\Textures\Items\weapon_arrow.png" />
+    <None Remove="Sources\Textures\Map\Background9Layered.png" />
+    <None Remove="Sources\Textures\Map\lava.png" />
+    <None Remove="Sources\Textures\Map\PlatformHuge.png" />
+    <None Remove="Sources\Textures\Map\PlatformLong.png" />
+    <None Remove="Sources\Textures\Map\ThornHalfGate.png" />
+    <None Remove="Sources\Textures\Map\ThornVertical.png" />
+    <None Remove="Sources\Textures\Map\ThrornGateSmall.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -33,22 +54,85 @@
     <Content Include="Sources\bckgrnd3.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\knight\knight 3 idle.png">
+    <Content Include="Sources\Textures\Enemy\archer_attack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\knight\knight idle.gif">
+    <Content Include="Sources\Textures\Enemy\archer_idle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\knight_Attack.png">
+    <Content Include="Sources\Textures\Enemy\brute_attack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\knight_Idle.png">
+    <Content Include="Sources\Textures\Enemy\brute_idle.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\knight_JetPack.png">
+    <Content Include="Sources\Textures\Enemy\grunt_attack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="Sources\knight_Run.png">
+    <Content Include="Sources\Textures\Enemy\grunt_idle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Enemy\grunt_idle2.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Enemy\heavyBrute_attack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Enemy\heavyBrute_idle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\armor.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\axe.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\bow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\healpotion.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\longsword.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\sword.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\weapon_arrow.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\Background9Layered.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\lava.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\PlatformHuge.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\PlatformLong.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\ThornHalfGate.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\ThornVertical.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\ThrornGateSmall.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Player\knight_Attack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Player\knight_Idle.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Player\knight_JetPack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Player\knight_Run.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Mossy_FloatingPlatforms_Medium_n_Small.png">
@@ -63,7 +147,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Sources\knight_bowshoot.png">
+    <Content Include="Sources\Textures\Player\knight_bowshoot.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
@@ -73,7 +157,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <None Update="Sources\Her.png">
+    <None Update="Sources\Textures\Player\Her.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="Sources\Sounds\braqoon__arrow-damage.wav">
