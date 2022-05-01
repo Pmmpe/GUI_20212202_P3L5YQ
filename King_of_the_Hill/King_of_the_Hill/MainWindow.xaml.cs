@@ -89,7 +89,8 @@
                 {
                     var enemy = intersectLogic.PlayerIntersectWithThat();
                     playerLogic.HitPlayer(enemy);
-                    display.EnemyHit(enemy);
+                    enemy.IsAttacking = true;
+                    //display.EnemyHit(enemy);
                     canEnemyAttackCounter = 0;
                 }
                 canEnemyAttackCounter++;
@@ -97,7 +98,10 @@
             else
             {
                 canEnemyAttackCounter = 0;
-                
+                for (int i = 0; i < enemyLogic.enemies.Count; i++) 
+                {
+                    enemyLogic.enemies[i].IsAttacking = false;
+                }
             }
 
             if (!canPlayerAttack)

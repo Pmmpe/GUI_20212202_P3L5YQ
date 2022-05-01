@@ -42,9 +42,13 @@
 
         //enemies 50x50px
         CharacterBrush archerBrush;
+        CharacterBrush archerBrushAttack;
         CharacterBrush bruteBrush;
+        CharacterBrush bruteBrushAttack;
         CharacterBrush gruntBrush;
+        CharacterBrush gruntBrushAttack;
         CharacterBrush heavyBruteBrush;
+        CharacterBrush heavyBruteBrushAttack;
 
         //items 25x25px
         Brush armorBrush;
@@ -94,9 +98,13 @@
             platformBrush = Brushes.LightBlue;
 
             gruntBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            gruntBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
             bruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            bruteBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
             archerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            archerBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_bowshoot.png"), UriKind.RelativeOrAbsolute))));
             heavyBruteBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))));
+            heavyBruteBrushAttack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
 
             armorBrush = Brushes.Aqua;
             axeBrush = Brushes.Orange;
@@ -111,24 +119,43 @@
 
         }
 
-        internal void EnemyHit(Npc npc)
-        {
-            if (enemyhitcounter == 0)
-            {
-                //animation start
-                enemyhitcounter++;
-            }
-            else if (enemyhitcounter < 25)
-            {
-                enemyhitcounter++;
+        //internal void EnemyHit(Npc npc)
+        //{
+        //    if (enemyhitcounter == 0)
+        //    {
+        //        //    if (npc is Grunt)
+        //        //    {
 
-            }
-            else if(enemyhitcounter == 25)
-            {
-                enemyhitcounter = 0;
-                //stop
-            }
-        }
+        //        //    }
+        //        //    else if (npc is Brute)
+        //        //    {
+
+        //        //    }
+        //        //    else if (npc is Archer)
+        //        //    {
+
+        //        //    }
+        //        //    else if (npc is HeavyBrute)
+        //        //    {
+
+        //        //    }
+
+        //        //animation start
+
+        //        enemyhitcounter++;
+        //    }
+        //    else if (enemyhitcounter < 25)
+        //    {
+        //        enemyhitcounter++;
+
+        //    }
+        //    else if(enemyhitcounter == 25)
+        //    {
+        //        enemyhitcounter = 0;
+        //        npc.IsAttacking = false;
+        //        //stop
+        //    }
+        //}
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic, AnimationsLogic animationsLogic)
         {
@@ -234,23 +261,59 @@
                 {
                     if (item is Grunt)
                     {
-                        setupCharacterOrientation(item.DirectionIsLeft,gruntBrush);
-                        drawingContext.DrawRectangle(gruntBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.IsAttacking)
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, playerBrushSword);
+                            drawingContext.DrawRectangle(playerBrushSword.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, gruntBrush);
+                            drawingContext.DrawRectangle(gruntBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        
                     }
                     else if (item is Brute)
                     {
-                        setupCharacterOrientation(item.DirectionIsLeft, bruteBrush);
-                        drawingContext.DrawRectangle(bruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.IsAttacking)
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, bruteBrushAttack);
+                            drawingContext.DrawRectangle(bruteBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, bruteBrush);
+                            drawingContext.DrawRectangle(bruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
                     }
                     else if (item is Archer)
                     {
-                        setupCharacterOrientation(item.DirectionIsLeft, archerBrush);
-                        drawingContext.DrawRectangle(archerBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.IsAttacking)
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, archerBrushAttack);
+                            drawingContext.DrawRectangle(archerBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, archerBrush);
+                            drawingContext.DrawRectangle(archerBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        
                     }
                     else if (item is HeavyBrute)
                     {
-                        setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrush);
-                        drawingContext.DrawRectangle(heavyBruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        if (item.IsAttacking)
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrushAttack);
+                            drawingContext.DrawRectangle(heavyBruteBrushAttack.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+                        else
+                        {
+                            setupCharacterOrientation(item.DirectionIsLeft, heavyBruteBrush);
+                            drawingContext.DrawRectangle(heavyBruteBrush.CurrentBrush, null, new Rect(item.PosX, item.PosY, item.Width, item.Height));
+                        }
+
+                        
                     }
                 }
 

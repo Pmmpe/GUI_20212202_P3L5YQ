@@ -4,11 +4,13 @@
     public class Npc : Character
     {
         public bool DirectionIsLeft { get; set; } // true - bal, false - jobb
+        public bool IsAttacking { get; set; }
         public double Damage { get; }
 
         public Npc(double Health, double Armour, double PosX, double PosY, double Width, double Height, double damage) : base(PosX, PosY, Width, Height, Health, Armour)
         {
             DirectionIsLeft = true;
+            IsAttacking = false;
             Damage = damage;
         }
         
