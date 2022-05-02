@@ -95,7 +95,8 @@
 
             //TODO képeket berakni a Brush-okra.
             //Ideiglenes Brushok, ezeket majd törölni kell:
-            groundBrush = Brushes.Green;
+            //groundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "ground.png"), UriKind.RelativeOrAbsolute)));
+            groundBrush = Brushes.DarkGreen;
             lavaBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "lava.png"), UriKind.RelativeOrAbsolute)));
             platformBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "PlatformHuge.png"), UriKind.RelativeOrAbsolute)));
 
@@ -112,10 +113,10 @@
             axeBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "axe.png"), UriKind.RelativeOrAbsolute)));
             bowBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "bow.png"), UriKind.RelativeOrAbsolute)));
             healPotionBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "healpotion.png"), UriKind.RelativeOrAbsolute)));
-            jetpackBrush = Brushes.Black;
+            jetpackBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "jetpack.png"), UriKind.RelativeOrAbsolute)));
             longSwordBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "longsword.png"), UriKind.RelativeOrAbsolute)));
             swordBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "sword.png"), UriKind.RelativeOrAbsolute)));
-            charonBrush = Brushes.Gold;
+            charonBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "charon.png"), UriKind.RelativeOrAbsolute)));
 
             enemyhitcounter = 0;
 

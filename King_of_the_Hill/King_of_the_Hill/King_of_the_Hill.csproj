@@ -31,11 +31,14 @@
     <None Remove="Sources\Textures\Items\armor.png" />
     <None Remove="Sources\Textures\Items\axe.png" />
     <None Remove="Sources\Textures\Items\bow.png" />
+    <None Remove="Sources\Textures\Items\charon.png" />
     <None Remove="Sources\Textures\Items\healpotion.png" />
+    <None Remove="Sources\Textures\Items\jetpack.png" />
     <None Remove="Sources\Textures\Items\longsword.png" />
     <None Remove="Sources\Textures\Items\sword.png" />
     <None Remove="Sources\Textures\Items\weapon_arrow.png" />
     <None Remove="Sources\Textures\Map\Background9Layered.png" />
+    <None Remove="Sources\Textures\Map\ground.png" />
     <None Remove="Sources\Textures\Map\lava.png" />
     <None Remove="Sources\Textures\Map\PlatformHuge.png" />
     <None Remove="Sources\Textures\Map\PlatformLong.png" />
@@ -90,7 +93,13 @@
     <Content Include="Sources\Textures\Items\bow.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sources\Textures\Items\charon.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sources\Textures\Items\healpotion.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Items\jetpack.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Textures\Items\longsword.png">
@@ -103,6 +112,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Textures\Map\Background9Layered.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Map\ground.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Textures\Map\lava.png">
