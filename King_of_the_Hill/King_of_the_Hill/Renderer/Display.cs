@@ -5,14 +5,10 @@
     using King_of_the_Hill.Model.MapItem;
     using King_of_the_Hill.Model.NPC_Types;
     using System;
-    using System.Collections.Generic;
     using System.IO;
     using System.Windows;
     using System.Windows.Media;
-    using System.Windows.Media.Animation;
     using System.Windows.Media.Imaging;
-    using System.Windows.Threading;
-    using WpfAnimatedGif;
 
     
     public class Display : FrameworkElement

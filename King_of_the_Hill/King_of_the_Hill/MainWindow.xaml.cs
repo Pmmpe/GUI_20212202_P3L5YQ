@@ -1,14 +1,9 @@
 ﻿namespace King_of_the_Hill
 {
     using King_of_the_Hill.Logic;
-    using King_of_the_Hill.Model;
-    using King_of_the_Hill.Model.GameItems;
     using System;
-    using System.Collections.Generic;
     using System.Windows;
-    using System.Windows.Controls;
     using System.Windows.Input;
-    using System.Windows.Media;
     using System.Windows.Threading;
 
     /// <summary>
@@ -104,7 +99,7 @@
             {
                 canPlayerAttackCounter++;
                 progressbar_hit.Value++;
-                if (canPlayerAttackCounter == 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed))
+                if (canPlayerAttackCounter > 25 * (playerLogic.plyr.PrimaryWeapon == null ? 1 : playerLogic.plyr.PrimaryWeapon.AttackSpeed))
                 {
                     canPlayerAttackCounter = 0;
                     canPlayerAttack = true;
@@ -119,7 +114,7 @@
             {
                 canPlayerShootCounter++;
                 progressbar_shoot.Value++;
-                if (canPlayerShootCounter == 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed))
+                if (canPlayerShootCounter > 25 * (playerLogic.plyr.Bow == null ? 1 : playerLogic.plyr.Bow.AttackSpeed))
                 {
                     canPlayerShootCounter = 0;
                     canPlayerShoot = true;
