@@ -87,7 +87,6 @@
                     var enemy = intersectLogic.PlayerIntersectWithThat();
                     playerLogic.HitPlayer(enemy);
                     enemy.IsAttacking = true;
-                    //display.EnemyHit(enemy);
                     canEnemyAttackCounter = 0;
                 }
                 canEnemyAttackCounter++;

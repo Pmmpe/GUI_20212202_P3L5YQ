@@ -75,13 +75,8 @@
 
         public Display()
         {
-            //backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd1.png"), UriKind.RelativeOrAbsolute)));
-            //backgroundTileset1Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd2.png"), UriKind.RelativeOrAbsolute)));
-            //backgroundTileset2Brush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "bckgrnd3.png"), UriKind.RelativeOrAbsolute)));
-            
             backgroundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "Background9Layered.png"), UriKind.RelativeOrAbsolute)));
 
-            //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
             playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player" ,"knight_idle.png"), UriKind.RelativeOrAbsolute))));
             playerBrushJetpack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_JetPack.png"), UriKind.RelativeOrAbsolute))));
             playerBrushBow = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_bowshoot2.png"), UriKind.RelativeOrAbsolute))));
@@ -89,14 +84,8 @@
             playerBrushSword = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
             playerBrushIdle = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_idle.png"), UriKind.RelativeOrAbsolute))));
             playerBrushFall = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "Her.png"), UriKind.RelativeOrAbsolute))));
-
-            //playerBrush = Brushes.Black;
             arrowBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "weapon_arrow.png"), UriKind.RelativeOrAbsolute)));
-
-            //TODO képeket berakni a Brush-okra.
-            //Ideiglenes Brushok, ezeket majd törölni kell:
             groundBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "ground.png"), UriKind.RelativeOrAbsolute)));
-            //groundBrush = Brushes.DarkGreen;
             lavaBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "lava.png"), UriKind.RelativeOrAbsolute)));
             platformBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Map", "PlatformHuge.png"), UriKind.RelativeOrAbsolute)));
 
@@ -117,48 +106,7 @@
             longSwordBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "longsword.png"), UriKind.RelativeOrAbsolute)));
             swordBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "sword.png"), UriKind.RelativeOrAbsolute)));
             charonBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Items", "charon.png"), UriKind.RelativeOrAbsolute)));
-
-            enemyhitcounter = 0;
-
         }
-
-        //internal void EnemyHit(Npc npc)
-        //{
-        //    if (enemyhitcounter == 0)
-        //    {
-        //        //    if (npc is Grunt)
-        //        //    {
-
-        //        //    }
-        //        //    else if (npc is Brute)
-        //        //    {
-
-        //        //    }
-        //        //    else if (npc is Archer)
-        //        //    {
-
-        //        //    }
-        //        //    else if (npc is HeavyBrute)
-        //        //    {
-
-        //        //    }
-
-        //        //animation start
-
-        //        enemyhitcounter++;
-        //    }
-        //    else if (enemyhitcounter < 25)
-        //    {
-        //        enemyhitcounter++;
-
-        //    }
-        //    else if(enemyhitcounter == 25)
-        //    {
-        //        enemyhitcounter = 0;
-        //        npc.IsAttacking = false;
-        //        //stop
-        //    }
-        //}
 
         public void SetupAllLogic(MapLogic mapLogic, PlayerLogic playerLogic, EnemyLogic enemyLogic, ItemLogic itemLogic)
         {
@@ -166,8 +114,6 @@
             this.playerLogic = playerLogic;
             this.enemyLogic = enemyLogic;
             this.itemLogic = itemLogic;
-
-            
         }
 
        
@@ -178,11 +124,6 @@
             {
                 drawingContext.DrawRectangle(backgroundBrush, null,
                     new Rect(0, 0, ActualWidth, ActualHeight));
-                //drawingContext.DrawRectangle(backgroundTileset1Brush, null,
-                //    new Rect(0, 0, ActualWidth, ActualHeight));
-                //drawingContext.DrawRectangle(backgroundTileset2Brush, null,
-                //    new Rect(0, 0, ActualWidth, ActualHeight));
-
 
                 setupCharacterOrientation(playerLogic.plyr.LeftOrientation, playerBrush);
                 foreach (var item in mapLogic.Grounds)
@@ -297,8 +238,16 @@
                     }
                 }
 
+
+                if (playerBrush == playerBrushSword) //hotfix
+                {
+                    drawingContext.DrawRectangle(playerBrush.CurrentBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY - 35, playerLogic.plyr.Width*1.5, playerLogic.plyr.Height*1.5));
+                }
+                else
+                {
+                    drawingContext.DrawRectangle(playerBrush.CurrentBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
+                }
                 
-                drawingContext.DrawRectangle(playerBrush.CurrentBrush, null, new Rect(playerLogic.plyr.PosX, playerLogic.plyr.PosY, playerLogic.plyr.Width, playerLogic.plyr.Height));
                 
                 foreach (var arrow in playerLogic.Arrows)
                 {
@@ -313,10 +262,8 @@
             }
         }
 
-        private void setupCharacterOrientation(bool directionIsLeft, CharacterBrush characterBrush)
+        private void setupCharacterOrientation(bool directionIsLeft, CharacterBrush characterBrush) //just player
         {
-            //alapbol minden kép balra néz. --> .Flipped = false
-            //ha a karakter nem balra néz + a kép .Flipped = false => flip
             if (directionIsLeft)
             {
                 MoveLeftAnimation(characterBrush);
@@ -334,12 +281,10 @@
         {
             if (action == "start")
             {
-                //playerBrush.CurrentBrush = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight_Run.png"), UriKind.RelativeOrAbsolute)));
                 playerBrush = playerBrushRun;
             }
             if (action == "stop")
             {
-                //playerBrush.CurrentBrush = playerBrush.DefaultBrush;
                 playerBrush = playerBrushIdle;
             }
         }
@@ -350,7 +295,6 @@
             {
                 playerBrush = playerBrushFall;
             }
-            //todo?
         }
 
         public void FightAnimations(string action)
@@ -363,62 +307,6 @@
             {
                 playerBrush = playerBrushIdle;
             }
-
-
-            #region obsolete
-            //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
-            //anim.Duration = TimeSpan.FromSeconds(3);
-            //anim.FillBehavior = FillBehavior.Stop;
-            //ImageSource[] images = new ImageSource[]
-            //{
-            //      new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute)),
-            //      new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
-            //};
-            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
-            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
-            //playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
-
-
-
-            //// Set the target of the animation
-            //Storyboard.SetTarget(anim, playerBrush);
-            //Storyboard.SetTargetProperty(anim, new PropertyPath("ImageSourceProperty"));
-
-            //// Kick the animation off
-            //sb.Children.Add(anim);
-            //sb.Begin();
-
-            //var animation = new BrushAnimation
-            //{
-            //    From = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Her.png"), UriKind.RelativeOrAbsolute))),
-            //    To = new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))),
-            //    Duration = new Duration(TimeSpan.FromSeconds(5))
-            //};
-            //playerBrush.BeginAnimation(,);
-
-
-            //animation
-            //var dispatcherTimerInstance = new DispatcherTimer();
-            //dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
-            //dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 5);
-            //dispatcherTimerInstance.Start();
-            //dispatcherTimers.Add(dispatcherTimerInstance);
-
-            //var animation = new BrushAnimation
-            //{
-            //    From = Brushes.Red,
-            //    To = new LinearGradientBrush(Colors.Green, Colors.Yellow, 45),
-            //    Duration = new Duration(TimeSpan.FromSeconds(5)),
-            //};
-            //animation.Completed += new EventHandler(animation_Completed);
-            //Storyboard.SetTarget(animation, border);
-            //Storyboard.SetTargetProperty(animation, new PropertyPath("Background"));
-
-            //var sb = new Storyboard();
-            //sb.Children.Add(animation);
-            //sb.Begin();
-
-            #endregion
 
         }
 
@@ -434,16 +322,7 @@
             }
         }
 
-        //public void IdleAnimation() //imageBrush nem tud animált gif-et megjeleníteni úgy tűnik
-        //{
-        //    var image = new BitmapImage();
-        //    image.BeginInit();
-        //    image.UriSource = new Uri(Path.Combine("Sources", "knight", "knight idle.gif"), UriKind.RelativeOrAbsolute);
-        //    image.EndInit();
-        //    System.Windows.Controls.Image img = new System.Windows.Controls.Image();
-        //    img.Source = (playerBrush.CurrentBrush).ImageSource;
-        //    ImageBehavior.SetAnimatedSource(img,image);
-        //}
+        
 
         public void JetpackAnimation(string action) //just player
         {
@@ -456,27 +335,7 @@
                 playerBrush = playerBrushIdle;
             }
 
-            #region obsolete
-            //var img = new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute));
-            //playerBrush = new ImageBrush(new TransformedBitmap(img, new ScaleTransform(-1,1)));
-            //var dispatcherTimerInstance = new DispatcherTimer();
-            //dispatcherTimerInstance.Tick += RevertBackToDefPlayerBrush;
-            //dispatcherTimerInstance.Interval = new TimeSpan(0, 0, 2);
-            //dispatcherTimerInstance.Start();
-            //dispatcherTimers.Add(dispatcherTimerInstance);
-
-            //ObjectAnimationUsingKeyFrames anim = new ObjectAnimationUsingKeyFrames();
-            //anim.Duration = TimeSpan.FromSeconds(10);
-            //anim.FillBehavior = FillBehavior.Stop;
-            //ImageSource[] images = new ImageSource[]
-            //{
-            //      (playerBrush as ImageBrush).ImageSource,
-            //      new BitmapImage(new Uri(Path.Combine("Sources", "knight", "knight 3 idle.png"), UriKind.RelativeOrAbsolute))
-            //};
-            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[0]));
-            //anim.KeyFrames.Add(new DiscreteObjectKeyFrame(images[1]));
-            //playerBrush.BeginAnimation(ImageBrush.ImageSourceProperty, anim);
-            #endregion
+           
         }
 
         private void MoveLeftAnimation(CharacterBrush characterBrush)
