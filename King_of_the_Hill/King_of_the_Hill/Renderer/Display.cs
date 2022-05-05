@@ -84,7 +84,7 @@
             //playert cserélni kell, mert nem jó a kép, megbeszéltük ugye.
             playerBrush = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player" ,"knight_idle.png"), UriKind.RelativeOrAbsolute))));
             playerBrushJetpack = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_JetPack.png"), UriKind.RelativeOrAbsolute))));
-            playerBrushBow = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_bowshoot.png"), UriKind.RelativeOrAbsolute))));
+            playerBrushBow = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_bowshoot2.png"), UriKind.RelativeOrAbsolute))));
             playerBrushRun = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_Run.png"), UriKind.RelativeOrAbsolute))));
             playerBrushSword = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_Attack.png"), UriKind.RelativeOrAbsolute))));
             playerBrushIdle = new CharacterBrush(new ImageBrush(new BitmapImage(new Uri(Path.Combine("Sources", "Textures", "Player", "knight_idle.png"), UriKind.RelativeOrAbsolute))));

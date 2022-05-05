@@ -46,6 +46,8 @@
     <None Remove="Sources\Textures\Map\ThornHalfGate.png" />
     <None Remove="Sources\Textures\Map\ThornVertical.png" />
     <None Remove="Sources\Textures\Map\ThrornGateSmall.png" />
+    <None Remove="Sources\Textures\Player\Hero.png" />
+    <None Remove="Sources\Textures\Player\knight_bowshoot2.png" />
   </ItemGroup>
 
   <ItemGroup>
@@ -139,7 +141,13 @@
     <Content Include="Sources\Textures\Map\ThrornGateSmall.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="Sources\Textures\Player\Hero.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="Sources\Textures\Player\knight_Attack.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Sources\Textures\Player\knight_bowshoot2.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Sources\Textures\Player\knight_Idle.png">
